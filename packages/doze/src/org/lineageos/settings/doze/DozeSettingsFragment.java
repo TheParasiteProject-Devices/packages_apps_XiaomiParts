@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2015 The CyanogenMod Project
- *               2017-2018 The LineageOS Project
+ *               2017-2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
 
     private MainSwitchPreference mSwitchBar;
 
+    private SwitchPreference mAlwaysOnDisplayPreference;
     private SwitchPreference mWakeOnGesturePreference;
     private SwitchPreference mPickUpPreference;
     private SwitchPreference mRaiseToWakePreference;
@@ -59,6 +60,9 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         mSwitchBar.addOnSwitchChangeListener(this);
         mSwitchBar.setChecked(dozeEnabled);
 
+        mAlwaysOnDisplayPreference = (SwitchPreference) findPreference(DozeUtils.ALWAYS_ON_DISPLAY);
+        mAlwaysOnDisplayPreference.setEnabled(dozeEnabled);
+        mAlwaysOnDisplayPreference.setOnPreferenceChangeListener(this);
 
         mWakeOnGesturePreference = (SwitchPreference) findPreference(DozeUtils.WAKE_ON_GESTURE_KEY);
         mWakeOnGesturePreference.setEnabled(dozeEnabled);
@@ -88,6 +92,13 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         if (!DozeUtils.getProxCheckBeforePulse(getActivity())) {
             getPreferenceScreen().removePreference(proximitySensorCategory);
         }
+
+        // Hide AOD if not supported and set all its dependents otherwise
+        if (!DozeUtils.alwaysOnDisplayAvailable(getActivity())) {
+            getPreferenceScreen().removePreference(mAlwaysOnDisplayPreference);
+        } else {
+            proximitySensorCategory.setDependency(DozeUtils.ALWAYS_ON_DISPLAY);
+        }
     }
 
     @Override
@@ -95,9 +106,11 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         DozeUtils.enableGesture(getActivity(), preference.getKey(), (Boolean) newValue);
         DozeUtils.checkDozeService(getActivity());
 
-        if (DozeUtils.GESTURE_RAISE_TO_WAKE_KEY.equals(preference.getKey())) {
+        if (DozeUtils.ALWAYS_ON_DISPLAY.equals(preference.getKey())) {
+            DozeUtils.enableAlwaysOn(getActivity(), (Boolean) newValue);
+        } else if (DozeUtils.GESTURE_RAISE_TO_WAKE_KEY.equals(preference.getKey())) {
             DozeUtils.setPickUp(findPreference(DozeUtils.GESTURE_PICK_UP_KEY), (Boolean) newValue);
-        }
+        } 
 
         return true;
     }
@@ -108,6 +121,12 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         DozeUtils.checkDozeService(getActivity());
 
         mSwitchBar.setChecked(isChecked);
+
+        if (!isChecked) {
+            DozeUtils.enableAlwaysOn(getActivity(), false);
+            mAlwaysOnDisplayPreference.setChecked(false);
+        }
+        mAlwaysOnDisplayPreference.setEnabled(isChecked);
 
         mWakeOnGesturePreference.setEnabled(isChecked);
         mPickUpPreference.setEnabled(isChecked);
