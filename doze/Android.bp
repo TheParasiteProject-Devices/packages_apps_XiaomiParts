@@ -1,5 +1,5 @@
 android_app {
-    name: "XiaomiDoze",
+    name: "Doze",
 
     srcs: ["src/**/*.java"],
 
