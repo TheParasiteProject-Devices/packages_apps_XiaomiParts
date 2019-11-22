@@ -13,6 +13,10 @@
 # limitations under the License.
 
 on boot
+    # FPS Info permissions
+    chown system graphics /sys/class/drm/sde-crtc-0/measured_fps
+    chmod 0666 /sys/class/drm/sde-crtc-0/measured_fps
+
     chown system system /sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable
     chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable
 
