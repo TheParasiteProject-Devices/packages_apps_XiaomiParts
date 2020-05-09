@@ -26,6 +26,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 
 import androidx.preference.PreferenceManager;
+import org.lineageos.settings.thermal.ThermalUtils;
 
 import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.dirac.DiracUtils;
@@ -40,5 +41,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         DisplayUtils.setDcDimmingStatus(sharedPreferences.getBoolean(Constants.KEY_DC_DIMMING, false));
         DisplayUtils.updateRefreshRateSettings(context);
         DiracUtils.initialize(context);
+        ThermalUtils.startService(context);
     }
 }
