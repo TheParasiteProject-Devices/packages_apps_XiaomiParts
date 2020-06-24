@@ -52,7 +52,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
          </activity>
-         
+
+        <activity
+            android:name=".speaker.ClearSpeakerActivity" 
+            android:label="@string/clear_speaker_title"
+            android:exported="true"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
          <activity
             android:name=".thermal.ThermalActivity"
             android:label="@string/thermal_title"

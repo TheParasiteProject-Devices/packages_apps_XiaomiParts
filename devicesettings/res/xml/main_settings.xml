@@ -75,6 +75,15 @@
                 android:targetPackage="org.lineageos.settings.device" />
         </Preference>
 
+        <Preference
+            android:title="@string/clear_speaker_title"
+            android:summary="@string/clear_speaker_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.device.speaker.ClearSpeakerActivity"
+                android:targetPackage="org.lineageos.settings.device" />
+        </Preference>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
