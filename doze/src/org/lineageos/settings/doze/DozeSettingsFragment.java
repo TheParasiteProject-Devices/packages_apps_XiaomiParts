@@ -93,6 +93,11 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         DozeUtils.enableGesture(getActivity(), preference.getKey(), (Boolean) newValue);
         DozeUtils.checkDozeService(getActivity());
+
+        if (DozeUtils.GESTURE_RAISE_TO_WAKE_KEY.equals(preference.getKey())) {
+            DozeUtils.setPickUp(getActivity(), (Boolean) newValue);
+        }
+
         return true;
     }
 

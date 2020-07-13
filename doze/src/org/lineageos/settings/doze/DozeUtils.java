@@ -20,6 +20,7 @@ package org.lineageos.settings.doze;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.hardware.Sensor;
@@ -116,6 +117,12 @@ public final class DozeUtils {
 
     protected static boolean isPickUpEnabled(Context context) {
         return isGestureEnabled(context, GESTURE_PICK_UP_KEY);
+    }
+
+    protected static void setPickUp(Context context, boolean value) {
+        SharedPreferences.Editor e = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        e.putBoolean(GESTURE_PICK_UP_KEY, value);
+        e.commit();
     }
 
     protected static boolean isRaiseToWakeEnabled(Context context) {
