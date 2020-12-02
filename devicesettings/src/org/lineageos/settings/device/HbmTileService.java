@@ -18,18 +18,23 @@ package org.lineageos.settings.device;
 
 import static org.lineageos.settings.device.Constants.KEY_HBM;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import androidx.preference.PreferenceManager;
 
+import java.lang.IllegalArgumentException;
+
 import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.utils.DisplayUtils;
 
 public class HbmTileService extends TileService {
 
+    private Intent mHbmIntent;
     private SharedPreferences sharedPrefs;
     private Context context;
     private Tile tile;
@@ -40,27 +45,56 @@ public class HbmTileService extends TileService {
         context = getApplicationContext();
     }
 
-    private void updateTile(boolean enabled) {
-        final Tile tile = getQsTile();
-        tile.setState(enabled ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
-        tile.updateTile();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onTileAdded() {
+        super.onTileAdded();
+    }
+
+    @Override
+    public void onTileRemoved() {
+        tryStopService();
+        super.onTileRemoved();
     }
 
     @Override
     public void onStartListening() {
-        tile = getQsTile();
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        updateTile(sharedPrefs.getBoolean(KEY_HBM, false));
+        updateState();
         super.onStartListening();
     }
 
     @Override
+    public void onStopListening() {
+        super.onStopListening();
+    }
+
+    @Override
     public void onClick() {
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final boolean enabled = !(sharedPrefs.getBoolean(KEY_HBM, false));
-        DisplayUtils.setHBMStatus(enabled);
-        sharedPrefs.edit().putBoolean(KEY_HBM, enabled).commit();
-        updateTile(enabled);
+        boolean enabled = DisplayUtils.isHBMEnabled(this);
+        // NOTE: reverse logic, enabled reflects the state before press
+        DisplayUtils.setHBMStatus(!enabled);
+        if (!enabled == true) {
+            mHbmIntent = new Intent(this, HbmService.class);
+            this.startService(mHbmIntent);
+        }
+        updateState();
         super.onClick();
+    }
+
+    private void updateState() {
+        boolean enabled = DisplayUtils.isHBMEnabled(this);
+        if (enabled == false) tryStopService();
+        getQsTile().setState(enabled ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+        getQsTile().updateTile();
+    }
+
+    private void tryStopService() {
+        if (mHbmIntent == null) return;
+        this.stopService(mHbmIntent);
+        mHbmIntent = null;
     }
 }

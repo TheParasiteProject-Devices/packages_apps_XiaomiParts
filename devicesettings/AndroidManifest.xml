@@ -162,6 +162,11 @@
             </intent-filter>
         </activity>
 
+        <service 
+            android:name=".HbmService"
+            android:exported="false">
+        </service>
+
         <service
             android:name=".fpsinfo.FPSInfoService"
             android:exported="false">

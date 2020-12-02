@@ -20,6 +20,11 @@ public class DisplayUtils {
         FileUtils.writeLine(Constants.HBM_NODE, enabled ? "1" : "0");
     }
 
+    public static boolean isHBMEnabled(Context context) {
+        String hbmNodeValue = FileUtils.readOneLine(Constants.HBM_NODE);
+        return (hbmNodeValue.equals("0") ? false : true);
+    }
+
     public static void updateRefreshRateSettings(final Context context) {
         Handler.getMain().post(() -> {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
