@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
+    <uses-permission android:name="android.permission.INJECT_EVENTS"/>
 
     <application
         android:label="@string/device_settings_title"
@@ -49,6 +50,17 @@
             android:theme="@style/Theme.SubSettingsBase"
             android:exported="true"
             android:label="@string/kcal_settings_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".audioamplification.AudioAmplificationActivity"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="true"
+            android:label="@string/audio_amplification_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />

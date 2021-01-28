@@ -1,2 +1,5 @@
 # KProfiles
 type vendor_sysfs_kprofiles, sysfs_type, fs_type;
+
+# Sound Control
+type sysfs_gain, sysfs_type, fs_type;

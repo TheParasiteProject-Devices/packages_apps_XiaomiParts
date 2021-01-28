@@ -35,6 +35,13 @@
 
     <string name="sound_title">Sound</string>
 
+    <!-- Audio amplification -->
+    <string name="audio_amplification_title">Audio Amplification</string>
+    <string name="audio_amplification_summary">Configure audio gain to amplifying sound</string>
+    <string name="headphone_gain">Headphone gain</string>
+    <string name="microphone_gain">Microphone gain</string>
+    <string name="speaker_gain">Speaker gain</string>
+
     <!-- Dolby -->
     <string name="dolby_title">Dolby Atmos</string>
     <string name="dolby_summary">Configure the audio output based on media content</string>
@@ -178,4 +185,10 @@
     <string name="color_profile_cold">Cold</string>
     <string name="color_profile_warm">Warm</string>
     <string name="color_profile_saturated">Saturated</string>
+
+    <!-- Custom seekbar -->
+    <string name="custom_seekbar_value">Value: <xliff:g id="v">%s</xliff:g></string>
+    <string name="custom_seekbar_default_value">Default</string>
+    <string name="custom_seekbar_default_value_to_set">Default value: <xliff:g id="v">%s</xliff:g>\nLong press to set</string>
+    <string name="custom_seekbar_default_value_is_set">Default value is set</string>
 </resources>

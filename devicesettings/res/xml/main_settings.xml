@@ -124,6 +124,16 @@
         android:title="@string/sound_title">
 
         <Preference
+            android:icon="@drawable/ic_audio_amplification"
+            android:title="@string/audio_amplification_title"
+            android:summary="@string/audio_amplification_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.device.audioamplification.AudioAmplificationActivity"
+                android:targetPackage="org.lineageos.settings.device" />
+        </Preference>
+
+        <Preference
             android:key="audio_dolby_atmos"
             android:icon="@drawable/ic_dolby"
             android:title="@string/dolby_title"

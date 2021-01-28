@@ -7,6 +7,11 @@
 # Haptic
 /sys/devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel             u:object_r:sysfs_vibrator:s0
 
+# XiaomiParts (Sound-Control nodes)
+/sys/kernel/sound_control/headphone_gain                u:object_r:sysfs_gain:s0
+/sys/kernel/sound_control/mic_gain                      u:object_r:sysfs_gain:s0
+/sys/kernel/sound_control/speaker_gain                  u:object_r:sysfs_gain:s0
+
 # Kcal
 /sys/devices/platform/kcal_ctrl.0/kcal_enable                        u:object_r:sysfs_dm:s0
 /sys/devices/platform/kcal_ctrl.0/kcal                               u:object_r:sysfs_dm:s0
