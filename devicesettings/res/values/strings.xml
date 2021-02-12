@@ -15,7 +15,7 @@
     <string name="device_settings_title">Device Settings</string>
     <string name="device_settings_summary">Customize specific aspects of the device</string>
 
-    <string name="refresh_rate_title">Refresh rate</string>
+    <string name="refresh_rate_title">Refresh Rate</string>
     <string name="refresh_rate_summary">Change your device\'s display refresh rate for a better experience</string>
     <string name="enable_high_refresh_rate_title">High refresh rate</string>
     <string name="enable_high_refresh_rate_summary">Enable high refresh rate for a smoother experience</string>
