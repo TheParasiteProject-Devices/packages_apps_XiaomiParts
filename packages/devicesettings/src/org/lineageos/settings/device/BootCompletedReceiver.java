@@ -39,6 +39,7 @@ import org.lineageos.settings.device.dirac.DiracUtils;
 import org.lineageos.settings.device.utils.DisplayUtils;
 import org.lineageos.settings.device.utils.FileUtils;
 import org.lineageos.settings.device.utils.KcalUtils;
+import org.lineageos.settings.device.utils.PowerUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = false;
@@ -51,6 +52,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         DisplayUtils.enableHBMService(context);
         DisplayUtils.setDcDimmingStatus(sharedPreferences.getBoolean(Constants.KEY_DC_DIMMING, false));
+        PowerUtils.setUsbFastChgStatus(sharedPreferences.getBoolean(Constants.KEY_USB_FASTCHARGE, false));
         DisplayUtils.updateRefreshRateSettings(context);
         if (KcalUtils.isKcalSupported()) {
             KcalUtils.writeCurrentSettings(sharedPreferences);

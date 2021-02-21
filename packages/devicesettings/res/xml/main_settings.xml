@@ -69,6 +69,13 @@
         android:key="power_category"
         android:title="@string/power_title">
 
+        <SwitchPreference
+            android:key="pref_usb_charge"
+            android:defaultValue="true"
+            android:title="@string/usb_fastcharge_title"
+            android:summary="@string/usb_fastcharge_summary"
+            android:icon="@drawable/ic_usb_fastcharge" />
+
         <Preference
             android:icon="@drawable/ic_flashlight"
             android:title="@string/flashlight_title"

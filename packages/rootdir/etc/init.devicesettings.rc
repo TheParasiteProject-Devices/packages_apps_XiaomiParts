@@ -48,6 +48,10 @@ on boot
     chown system system /sys/class/leds/led:torch_0/max_brightness
     chmod 0660 /sys/class/leds/led:torch_0/max_brightness
 
+    # USB Fastcharge permissions
+    chown system system /sys/kernel/fast_charge/force_fast_charge
+    chmod 0660 /sys/kernel/fast_charge/force_fast_charge
+
 on property:sys.boot_completed=1
 # Audio gain permissions
     chown system system /sys/kernel/sound_control/headphone_gain

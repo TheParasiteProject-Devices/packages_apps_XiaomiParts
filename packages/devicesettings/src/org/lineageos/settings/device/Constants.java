@@ -103,4 +103,8 @@ public class Constants {
     public static final String KEY_AUTO_HBM_THRESHOLD = "pref_auto_hbm_threshold";
     public static final String HBM_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/hbm";
     public static final String BACKLIGHT_NODE = "/sys/class/backlight/panel0-backlight/brightness";
+    
+    /* USB fastcharge */
+    public static final String KEY_USB_FASTCHARGE = "pref_usb_charge";
+    public static final String USB_FASTCHARGE_NODE = "/sys/kernel/fast_charge/force_fast_charge";
 }

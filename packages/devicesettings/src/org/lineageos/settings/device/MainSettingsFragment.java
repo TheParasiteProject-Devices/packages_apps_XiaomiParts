@@ -28,12 +28,14 @@ import androidx.preference.SwitchPreference;
 import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.utils.DisplayUtils;
+import org.lineageos.settings.device.utils.PowerUtils;
 
 public class MainSettingsFragment extends PreferenceFragment {
 
     private Preference mPrefRefreshRateInfo;
     private ListPreference mPrefRefreshRateConfig;
     private SwitchPreference mPrefDcDimming;
+    private SwitchPreference mPrefUsbFastChg;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class MainSettingsFragment extends PreferenceFragment {
         mPrefRefreshRateInfo = (Preference) findPreference(Constants.KEY_REFRESH_RATE_INFO);
         mPrefDcDimming = (SwitchPreference) findPreference(Constants.KEY_DC_DIMMING);
         mPrefDcDimming.setOnPreferenceChangeListener(PrefListener);
+        mPrefUsbFastChg = (SwitchPreference) findPreference(Constants.KEY_USB_FASTCHARGE);
+        mPrefUsbFastChg.setOnPreferenceChangeListener(PrefListener);
         updateSummary();
     }
 
@@ -62,6 +66,8 @@ public class MainSettingsFragment extends PreferenceFragment {
                     setHzConfig();
                 } else if (Constants.KEY_DC_DIMMING.equals(key)) {
                     DisplayUtils.setDcDimmingStatus((boolean) value);
+                } else if (Constants.KEY_USB_FASTCHARGE.equals(key)) {
+                    PowerUtils.setUsbFastChgStatus((boolean) value);
                 }
 
                 return true;

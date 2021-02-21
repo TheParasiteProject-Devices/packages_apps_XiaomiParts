@@ -6,4 +6,5 @@ allow devicesettings_app {
     vendor_sysfs_graphics
     vendor_sysfs_kgsl
     vendor_sysfs_kprofiles
+    vendor_sysfs_usbcharge
 }:{ file lnk_file } rw_file_perms;

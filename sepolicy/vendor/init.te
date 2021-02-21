@@ -11,3 +11,6 @@ allow init sysfs_vibrator:file rw_file_perms;
 allow init vendor_sysfs_kprofiles:file { setattr };
 
 allow init sysfs_gain:file { setattr };
+
+# USB Fastcharge
+allow init vendor_sysfs_usbcharge:file { write open };
