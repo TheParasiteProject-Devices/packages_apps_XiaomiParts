@@ -135,4 +135,11 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string-array name="color_profiles_names">
+        <item>@string/color_profile_default</item>
+        <item>@string/color_profile_cold</item>
+        <item>@string/color_profile_warm</item>
+        <item>@string/color_profile_saturated</item>
+    </string-array>
 </resources>
