@@ -76,6 +76,7 @@
         </Preference>
 
         <Preference
+            android:icon="@drawable/ic_clear_speaker"
             android:title="@string/clear_speaker_title"
             android:summary="@string/clear_speaker_summary">
             <intent
