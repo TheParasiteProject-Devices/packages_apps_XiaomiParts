@@ -26,8 +26,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Switch;
 
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
 
 import com.android.settingslib.widget.MainSwitchPreference;
@@ -38,7 +38,7 @@ import org.lineageos.settings.device.R;
 import java.io.IOException;
 
 public class ClearSpeakerFragment extends PreferenceFragment implements
-        Preference.OnPreferenceChangeListener, OnMainSwitchChangeListener {
+        OnMainSwitchChangeListener {
 
     private static final String TAG = ClearSpeakerFragment.class.getSimpleName();
 
@@ -61,20 +61,13 @@ public class ClearSpeakerFragment extends PreferenceFragment implements
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mClearSpeakerPref) {
-            boolean value = (Boolean) newValue;
-            if (value) {
-                if (startPlaying()) {
-                    mHandler.removeCallbacksAndMessages(null);
-                    mHandler.postDelayed(() -> {
-                        stopPlaying();
-                    }, 30000);
-                    return true;
-                }
-            }
+    public void onSwitchChanged(Switch switchView, boolean isChecked) {
+        if (isChecked && startPlaying()) {
+            mHandler.removeCallbacksAndMessages(null);
+            mHandler.postDelayed(() -> {
+                stopPlaying();
+            }, 30000);
         }
-        return false;
     }
 
     @Override
