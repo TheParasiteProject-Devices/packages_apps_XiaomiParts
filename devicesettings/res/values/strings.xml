@@ -94,4 +94,7 @@
     <string name="thermal_dialer">Dialer</string>
     <string name="thermal_gaming">Gaming</string>
     <string name="thermal_streaming">Streaming</string>
+
+	<string name="ambient_display_xiaomi">XiaomiDoze</string>
+    <string name="advanced_doze_summary">Ambient display</string>
 </resources>
