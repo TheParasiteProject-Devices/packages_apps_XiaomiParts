@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.thermal;
+package org.lineageos.settings.device.thermal;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;

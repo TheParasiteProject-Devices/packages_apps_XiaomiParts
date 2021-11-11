@@ -46,6 +46,22 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="power_category"
+        android:title="@string/power_title">
+
+        <Preference
+            android:icon="@drawable/ic_thermal"
+            android:title="@string/thermal_title"
+            android:summary="@string/thermal_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.device.thermal.ThermalActivity"
+                android:targetPackage="org.lineageos.settings.device" />
+        </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="sound_category"
         android:title="@string/sound_title">
 

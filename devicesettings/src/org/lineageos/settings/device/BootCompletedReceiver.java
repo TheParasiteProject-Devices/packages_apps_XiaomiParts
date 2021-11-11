@@ -26,7 +26,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 
 import androidx.preference.PreferenceManager;
-import org.lineageos.settings.thermal.ThermalUtils;
+import org.lineageos.settings.device.thermal.ThermalUtils;
 
 import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.dirac.DiracUtils;
