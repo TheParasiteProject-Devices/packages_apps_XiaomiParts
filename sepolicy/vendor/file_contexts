@@ -1,6 +1,9 @@
 # Dc Dimming
 /sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable u:object_r:sysfs_dm:s0
 
+# High Brighness Mode
+/sys/devices/platform/soc/soc:qcom,dsi-display/hbm u:object_r:sysfs_dm:s0
+
 # Haptic
 /sys/devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel             u:object_r:sysfs_vibrator:s0
 

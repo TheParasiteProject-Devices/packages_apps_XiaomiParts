@@ -28,6 +28,10 @@
     <string name="dc_dimming_title">DC Dimming</string>
     <string name="dc_dimming_summary">Enable DC Dimming to avoid screen flickering on low brightness levels</string>
 
+    <!-- HBM settings -->
+    <string name="hbm_title">High Brightness Mode</string>
+    <string name="hbm_summary">Enable High Brightness Mode to improve visibility in direct sunlight</string>
+
     <string name="sound_title">Sound</string>
 
     <!-- Dolby -->
