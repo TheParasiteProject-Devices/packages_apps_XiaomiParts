@@ -16,8 +16,9 @@
 
 package org.lineageos.settings.device.haptic;
 
-import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +36,6 @@ public class HapticLevelFragment extends PreferenceFragment implements OnPrefere
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.haptic_settings);
-
-        final ActionBar actionBar = getActivity().getActionBar();
-        actionBar.setTitle(R.string.haptic_title);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         final SeekBarPreference mHapticLevel = (SeekBarPreference) findPreference(HapticUtils.PREF_LEVEL);
         if (FileUtils.fileExists(HapticUtils.PATH_LEVEL)) {

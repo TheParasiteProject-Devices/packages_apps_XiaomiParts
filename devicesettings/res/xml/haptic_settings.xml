@@ -14,7 +14,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/haptic_title">
 
     <org.lineageos.settings.device.widget.SeekBarPreference
         android:key="haptic_level_pref"

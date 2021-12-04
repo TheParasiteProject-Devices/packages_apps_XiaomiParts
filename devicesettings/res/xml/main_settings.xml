@@ -117,6 +117,16 @@
                 android:targetPackage="org.lineageos.settings.device" />
         </Preference>
 
+        <Preference
+            android:icon="@drawable/ic_phone_vibrate"
+            android:title="@string/haptic_title"
+            android:summary="@string/haptic_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.device.haptic.HapticLevelActivity"
+                android:targetPackage="org.lineageos.settings.device" />
+        </Preference>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
