@@ -29,4 +29,9 @@
     <!-- Haptic Feedback Levels -->
    <integer name="haptic_level_default">80</integer>
    <integer name="haptic_level_max">100</integer>
+
+     <!-- Refresh Rate -->
+     <integer-array name="refresh_rate_tile_blocklist">
+          <item>0</item>
+     </integer-array>
 </resources>
