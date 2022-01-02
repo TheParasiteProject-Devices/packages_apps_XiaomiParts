@@ -17,8 +17,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Device specific settings -->
-  <string name="device_settings_app_name">Дополнительные настройки</string>
+  <!-- Doze Service -->
+  <string name="doze_service_app_name">Doze Service</string>
   <!-- Ambient Display -->
   <string name="ambient_display_title">Индикация событий</string>
   <!-- Proximity sensor -->

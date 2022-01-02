@@ -27,7 +27,7 @@
     <protected-broadcast android:name="com.android.systemui.doze.pulse" />
 
     <application
-        android:label="@string/device_settings_app_name"
+        android:label="@string/doze_service_app_name"
         android:persistent="true">
 
         <receiver android:name=".BootCompletedReceiver"

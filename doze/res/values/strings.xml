@@ -16,12 +16,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Device specific settings -->
-    <string name="device_settings_app_name">Advanced settings</string>
+    <!-- Doze Service -->
+    <string name="doze_service_app_name">Doze Service</string>
 
     <!-- Ambient Display -->
-    <string name="ambient_display_title">Ambient display</string>
-    <string name="ambient_enable">Use ambient display</string>
+    <string name="ambient_display_title">Ambient Display</string>
+    <string name="ambient_enable">Use Ambient Display</string>
 
     <!-- Pickup sensor -->
     <string name="pickup_sensor_title">Pickup sensor</string>
