@@ -62,9 +62,9 @@
         <Preference
             android:key="device_doze"
             android:persistent="false"
-            android:summary="@string/advanced_doze_summary"
-            android:title="@string/ambient_display_xiaomi"
-            android:icon="@drawable/ic_xiaomidoze">
+            android:icon="@drawable/ic_ambient_display"
+            android:title="@string/ambient_display_title"
+            android:summary="@string/ambient_display_summary">
             <intent
                 android:action="android.intent.action.MAIN"
                 android:targetClass="org.lineageos.settings.doze.DozeSettingsActivity"
