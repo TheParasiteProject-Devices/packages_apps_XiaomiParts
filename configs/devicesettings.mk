@@ -4,3 +4,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	init.devicesettings.rc
+
+PRODUCT_PACKAGES += \
+	privapp-permissions-devicesettings.xml

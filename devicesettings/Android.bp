@@ -24,3 +24,9 @@ android_app {
     ],
 }
 
+prebuilt_etc {
+    name: "privapp-permissions-devicesettings.xml",
+    sub_dir: "permissions",
+    src: "privapp-permissions-devicesettings.xml",
+    filename_from_src: true,
+}
