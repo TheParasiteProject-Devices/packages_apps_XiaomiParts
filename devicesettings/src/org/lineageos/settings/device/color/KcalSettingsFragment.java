@@ -16,6 +16,7 @@
 
 package org.lineageos.settings.device.color;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -23,7 +24,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
@@ -50,7 +50,10 @@ public class KcalSettingsFragment extends PreferenceFragment implements
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.kcal_settings);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        final ActionBar actionBar = getActivity().getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mKcalSwitchPreference = (SwitchPreference) findPreference("kcal_enable");
@@ -74,15 +77,6 @@ public class KcalSettingsFragment extends PreferenceFragment implements
             KcalUtils.writeConfigToNode(KcalUtils.KCAL_ENABLE_NODE, 0, (Boolean) newValue ? 1 : 0);
         }
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            getActivity().onBackPressed();
-            return true;
-        }
-        return false;
     }
 
     // Configure the switches, preferences and sliders
