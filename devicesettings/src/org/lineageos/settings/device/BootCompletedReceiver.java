@@ -28,6 +28,7 @@ import android.os.Handler;
 
 import androidx.preference.PreferenceManager;
 import org.lineageos.settings.device.thermal.ThermalUtils;
+import org.lineageos.settings.device.refreshrate.RefreshUtils;
 
 import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.dirac.DiracUtils;
@@ -43,5 +44,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         DisplayUtils.updateRefreshRateSettings(context);
         DiracUtils.initialize(context);
         ThermalUtils.startService(context);
+        RefreshUtils.startService(context);
     }
 }

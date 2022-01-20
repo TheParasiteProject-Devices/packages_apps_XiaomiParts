@@ -31,6 +31,16 @@
             android:key="pref_refresh_rate_info"
             android:icon="@drawable/ic_info"/>
 
+        <Preference
+            android:icon="@drawable/ic_refresh_rate"
+            android:title="@string/refresh_title"
+            android:summary="@string/refresh_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.device.refreshrate.RefreshActivity"
+                android:targetPackage="org.lineageos.settings.device" />
+        </Preference>
+
     </PreferenceCategory>
 
     <PreferenceCategory
