@@ -16,7 +16,7 @@
 on property:sys.performance.level=0
     chmod 644 /sys/class/thermal/thermal_message/sconfig
     write /sys/class/thermal/thermal_message/sconfig 0
-    write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 1
+    write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 0
     write /sys/class/kgsl/kgsl-3d0/force_bus_on 0
     write /sys/class/kgsl/kgsl-3d0/force_clk_on 0
     write /sys/class/kgsl/kgsl-3d0/force_no_nap 0
@@ -24,28 +24,23 @@ on property:sys.performance.level=0
     write /sys/class/kgsl/kgsl-3d0/idle_timer 64
     write /sys/class/kgsl/kgsl-3d0/throttling 1
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 6
-    write /dev/cpuset/top-app/uclamp.max 50
-    write /dev/cpuset/top-app/uclamp.min 35
-    write /dev/cpuset/top-app/uclamp.latency_sensitive 1
-    write /dev/cpuset/foreground/uclamp.max 50
-    write /dev/cpuset/foreground/uclamp.min 10
-    write /dev/cpuset/foreground/uclamp.latency_sensitive 1
-    write /dev/cpuset/background/uclamp.max 50
-    write /dev/cpuset/background/uclamp.min 20
-    write /dev/cpuset/background/uclamp.latency_sensitive 0
-    write /dev/cpuset/system-background/uclamp.max 40
-    write /dev/cpuset/system-background/uclamp.min 10
-    write /dev/cpuset/system-background/uclamp.latency_sensitive 0
-    write /dev/cpuset/camera-daemon/uclamp.max 40
-    write /dev/cpuset/camera-daemon/uclamp.min 0
-    write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /sys/module/lpm_levels/parameters/lpm_ipi_prediction 1
+    write /sys/module/lpm_levels/parameters/lpm_prediction 1
+    write /sys/class/kgsl/kgsl-3d0/min_pwrlevel 5
     write /dev/cpuset/foreground/cpus 2-7
+    write /dev/cpuset/background/cpus 4-5
+    write /dev/cpuset/top-app/cpus 0-5
+    write /proc/sys/kernel/sched_upmigrate 71
+    write /proc/sys/kernel/sched_downmigrate 65
+    write /proc/sys/kernel/sched_group_downmigrate 85
+    write /proc/sys/kernel/sched_group_upmigrate 100
+    write /proc/sys/kernel/sched_min_task_util_for_boost 51
+    write /proc/sys/kernel/sched_min_task_util_for_colocation 35
 
 on property:sys.performance.level=1
     chmod 644 /sys/class/thermal/thermal_message/sconfig
     write /sys/class/thermal/thermal_message/sconfig 12
-    write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 1
+    write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 0
     write /sys/class/kgsl/kgsl-3d0/force_bus_on 1
     write /sys/class/kgsl/kgsl-3d0/force_clk_on 1
     write /sys/class/kgsl/kgsl-3d0/force_no_nap 1
@@ -53,81 +48,66 @@ on property:sys.performance.level=1
     write /sys/class/kgsl/kgsl-3d0/idle_timer 64
     write /sys/class/kgsl/kgsl-3d0/throttling 1
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 5
-    write /dev/cpuset/top-app/uclamp.max 60
-    write /dev/cpuset/top-app/uclamp.min 35
-    write /dev/cpuset/top-app/uclamp.latency_sensitive 1
-    write /dev/cpuset/foreground/uclamp.max 60
-    write /dev/cpuset/foreground/uclamp.min 10
-    write /dev/cpuset/foreground/uclamp.latency_sensitive 1
-    write /dev/cpuset/background/uclamp.max 60
-    write /dev/cpuset/background/uclamp.min 20
-    write /dev/cpuset/background/uclamp.latency_sensitive 0
-    write /dev/cpuset/system-background/uclamp.max 40
-    write /dev/cpuset/system-background/uclamp.min 10
-    write /dev/cpuset/system-background/uclamp.latency_sensitive 0
-    write /dev/cpuset/camera-daemon/uclamp.max 40
-    write /dev/cpuset/camera-daemon/uclamp.min 0
-    write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /sys/module/lpm_levels/parameters/lpm_ipi_prediction 1
+    write /sys/module/lpm_levels/parameters/lpm_prediction 1
+    write /sys/class/kgsl/kgsl-3d0/min_pwrlevel 5
     write /dev/cpuset/foreground/cpus 2-7
+    write /dev/cpuset/background/cpus 4-5
+    write /dev/cpuset/top-app/cpus 0-6
+    write /proc/sys/kernel/sched_upmigrate 85
+    write /proc/sys/kernel/sched_downmigrate 65
+    write /proc/sys/kernel/sched_group_downmigrate 85
+    write /proc/sys/kernel/sched_group_upmigrate 100
+    write /proc/sys/kernel/sched_min_task_util_for_boost 51
+    write /proc/sys/kernel/sched_min_task_util_for_colocation 35
 
 on property:sys.performance.level=2
     chmod 644 /sys/class/thermal/thermal_message/sconfig
     write /sys/class/thermal/thermal_message/sconfig 14
     write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 1
-    write /sys/class/kgsl/kgsl-3d0/force_bus_on 1
-    write /sys/class/kgsl/kgsl-3d0/force_clk_on 1
-    write /sys/class/kgsl/kgsl-3d0/force_no_nap 1
-    write /sys/class/kgsl/kgsl-3d0/force_rail_on 1
+    write /sys/class/kgsl/kgsl-3d0/force_bus_on 0
+    write /sys/class/kgsl/kgsl-3d0/force_clk_on 0
+    write /sys/class/kgsl/kgsl-3d0/force_no_nap 0
+    write /sys/class/kgsl/kgsl-3d0/force_rail_on 0
     write /sys/class/kgsl/kgsl-3d0/idle_timer 72
     write /sys/class/kgsl/kgsl-3d0/throttling 0
-    write /sys/module/lpm_levels/parameters/sleep_disabled 1
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 4
-    write /dev/cpuset/top-app/uclamp.max 80
-    write /dev/cpuset/top-app/uclamp.min 35
-    write /dev/cpuset/top-app/uclamp.latency_sensitive 1
-    write /dev/cpuset/foreground/uclamp.max 80
-    write /dev/cpuset/foreground/uclamp.min 10
-    write /dev/cpuset/foreground/uclamp.latency_sensitive 1
-    write /dev/cpuset/background/uclamp.max 80
-    write /dev/cpuset/background/uclamp.min 20
-    write /dev/cpuset/background/uclamp.latency_sensitive 0
-    write /dev/cpuset/system-background/uclamp.max 40
-    write /dev/cpuset/system-background/uclamp.min 10
-    write /dev/cpuset/system-background/uclamp.latency_sensitive 0
-    write /dev/cpuset/camera-daemon/uclamp.max 40
-    write /dev/cpuset/camera-daemon/uclamp.min 0
-    write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+    write /sys/module/lpm_levels/parameters/lpm_ipi_prediction 1
+    write /sys/module/lpm_levels/parameters/lpm_prediction 1
+    write /sys/class/kgsl/kgsl-3d0/min_pwrlevel 4
     write /dev/cpuset/foreground/cpus 0-5
+    write /dev/cpuset/background/cpus 4-5
+    write /dev/cpuset/top-app/cpus 0-7
+    write /proc/sys/kernel/sched_upmigrate 75
+    write /proc/sys/kernel/sched_downmigrate 65
+    write /proc/sys/kernel/sched_group_downmigrate 85
+    write /proc/sys/kernel/sched_group_upmigrate 100
+    write /proc/sys/kernel/sched_min_task_util_for_boost 51
+    write /proc/sys/kernel/sched_min_task_util_for_colocation 35
 
 on property:sys.performance.level=3
     chmod 644 /sys/class/thermal/thermal_message/sconfig
     write /sys/class/thermal/thermal_message/sconfig 14
-    write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 1
-    write /sys/class/kgsl/kgsl-3d0/force_bus_on 1
-    write /sys/class/kgsl/kgsl-3d0/force_clk_on 1
-    write /sys/class/kgsl/kgsl-3d0/force_no_nap 1
-    write /sys/class/kgsl/kgsl-3d0/force_rail_on 1
+    write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 2
+    write /sys/class/kgsl/kgsl-3d0/force_bus_on 0
+    write /sys/class/kgsl/kgsl-3d0/force_clk_on 0
+    write /sys/class/kgsl/kgsl-3d0/force_no_nap 0
+    write /sys/class/kgsl/kgsl-3d0/force_rail_on 0
     write /sys/class/kgsl/kgsl-3d0/idle_timer 80
     write /sys/class/kgsl/kgsl-3d0/throttling 0
-    write /sys/module/lpm_levels/parameters/sleep_disabled 1
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 3
-    write /dev/cpuset/top-app/uclamp.max 100
-    write /dev/cpuset/top-app/uclamp.min 35
-    write /dev/cpuset/top-app/uclamp.latency_sensitive 1
-    write /dev/cpuset/foreground/uclamp.max 100
-    write /dev/cpuset/foreground/uclamp.min 10
-    write /dev/cpuset/foreground/uclamp.latency_sensitive 1
-    write /dev/cpuset/background/uclamp.max 100
-    write /dev/cpuset/background/uclamp.min 20
-    write /dev/cpuset/background/uclamp.latency_sensitive 0
-    write /dev/cpuset/system-background/uclamp.max 40
-    write /dev/cpuset/system-background/uclamp.min 10
-    write /dev/cpuset/system-background/uclamp.latency_sensitive 0
-    write /dev/cpuset/camera-daemon/uclamp.max 40
-    write /dev/cpuset/camera-daemon/uclamp.min 0
-    write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
-    write /dev/cpuset/foreground/cpus 0-6
+    write /sys/module/lpm_levels/parameters/sleep_disabled 0
+    write /sys/module/lpm_levels/parameters/lpm_ipi_prediction 1
+    write /sys/module/lpm_levels/parameters/lpm_prediction 1
+    write /sys/class/kgsl/kgsl-3d0/min_pwrlevel 3
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/background/cpus 5-7
+    write /dev/cpuset/top-app/cpus 0-7
+    write /proc/sys/kernel/sched_upmigrate 71
+    write /proc/sys/kernel/sched_downmigrate 65
+    write /proc/sys/kernel/sched_group_downmigrate 71
+    write /proc/sys/kernel/sched_group_upmigrate 85
+    write /proc/sys/kernel/sched_min_task_util_for_boost 45
+    write /proc/sys/kernel/sched_min_task_util_for_colocation 30
 
 on property:sys.performance.level=4
     chmod 644 /sys/class/thermal/thermal_message/sconfig
@@ -140,22 +120,18 @@ on property:sys.performance.level=4
     write /sys/class/kgsl/kgsl-3d0/idle_timer 120
     write /sys/class/kgsl/kgsl-3d0/throttling 0
     write /sys/module/lpm_levels/parameters/sleep_disabled 1
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 2
-    write /dev/cpuset/top-app/uclamp.max max
-    write /dev/cpuset/top-app/uclamp.min 40
-    write /dev/cpuset/top-app/uclamp.latency_sensitive 1
-    write /dev/cpuset/foreground/uclamp.max max
-    write /dev/cpuset/foreground/uclamp.min 10
-    write /dev/cpuset/foreground/uclamp.latency_sensitive 1
-    write /dev/cpuset/background/uclamp.max max
-    write /dev/cpuset/background/uclamp.min 10
-    write /dev/cpuset/background/uclamp.latency_sensitive 0
-    write /dev/cpuset/system-background/uclamp.max 40
-    write /dev/cpuset/system-background/uclamp.min 10
-    write /dev/cpuset/system-background/uclamp.latency_sensitive 0
-    write /dev/cpuset/camera-daemon/uclamp.max 40
-    write /dev/cpuset/camera-daemon/uclamp.min 0
-    write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /sys/module/lpm_levels/parameters/lpm_ipi_prediction 0
+    write /sys/module/lpm_levels/parameters/lpm_prediction 0
+    write /sys/class/kgsl/kgsl-3d0/min_pwrlevel 2
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/background/cpus 6-7
+    write /dev/cpuset/top-app/cpus 0-7
+    write /proc/sys/kernel/sched_upmigrate 80
+    write /proc/sys/kernel/sched_downmigrate 50
+    write /proc/sys/kernel/sched_group_downmigrate 60
+    write /proc/sys/kernel/sched_group_upmigrate 80
+    write /proc/sys/kernel/sched_min_task_util_for_boost 40
+    write /proc/sys/kernel/sched_min_task_util_for_colocation 25
 
 on property:sys.performance.level=5
     chmod 644 /sys/class/thermal/thermal_message/sconfig
@@ -168,23 +144,18 @@ on property:sys.performance.level=5
     write /sys/class/kgsl/kgsl-3d0/idle_timer 250
     write /sys/class/kgsl/kgsl-3d0/throttling 0
     write /sys/module/lpm_levels/parameters/sleep_disabled 1
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 1
-    write /dev/cpuset/top-app/uclamp.max max
-    write /dev/cpuset/top-app/uclamp.min 60
-    write /dev/cpuset/top-app/uclamp.latency_sensitive 1
-    write /dev/cpuset/foreground/uclamp.max max
-    write /dev/cpuset/foreground/uclamp.min 10
-    write /dev/cpuset/foreground/uclamp.latency_sensitive 1
-    write /dev/cpuset/background/uclamp.max max
-    write /dev/cpuset/background/uclamp.min 10
-    write /dev/cpuset/background/uclamp.latency_sensitive 0
-    write /dev/cpuset/system-background/uclamp.max 40
-    write /dev/cpuset/system-background/uclamp.min 10
-    write /dev/cpuset/system-background/uclamp.latency_sensitive 0
-    write /dev/cpuset/camera-daemon/uclamp.max 40
-    write /dev/cpuset/camera-daemon/uclamp.min 0
-    write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
-    write /dev/cpuset/foreground/cpus 0-6
+    write /sys/module/lpm_levels/parameters/lpm_ipi_prediction 0
+    write /sys/module/lpm_levels/parameters/lpm_prediction 0
+    write /sys/class/kgsl/kgsl-3d0/min_pwrlevel 1
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/background/cpus 6-7
+    write /dev/cpuset/top-app/cpus 0-7
+    write /proc/sys/kernel/sched_upmigrate 60
+    write /proc/sys/kernel/sched_downmigrate 25
+    write /proc/sys/kernel/sched_group_downmigrate 35
+    write /proc/sys/kernel/sched_group_upmigrate 70
+    write /proc/sys/kernel/sched_min_task_util_for_boost 35
+    write /proc/sys/kernel/sched_min_task_util_for_colocation 20
 
 on property:sys.performance.level=6
     chmod 644 /sys/class/thermal/thermal_message/sconfig
@@ -197,20 +168,15 @@ on property:sys.performance.level=6
     write /sys/class/kgsl/kgsl-3d0/idle_timer 99999
     write /sys/class/kgsl/kgsl-3d0/throttling 0
     write /sys/module/lpm_levels/parameters/sleep_disabled 1
-    write /sys/class/kgsl/kgsl-3d0/default_pwrlevel 0
-    write /dev/cpuset/top-app/uclamp.max max
-    write /dev/cpuset/top-app/uclamp.min 85
-    write /dev/cpuset/top-app/uclamp.latency_sensitive 1
-    write /dev/cpuset/foreground/uclamp.max max
-    write /dev/cpuset/foreground/uclamp.min 20
-    write /dev/cpuset/foreground/uclamp.latency_sensitive 1
-    write /dev/cpuset/background/uclamp.max max
-    write /dev/cpuset/background/uclamp.min 20
-    write /dev/cpuset/background/uclamp.latency_sensitive 0
-    write /dev/cpuset/system-background/uclamp.max 50
-    write /dev/cpuset/system-background/uclamp.min 10
-    write /dev/cpuset/system-background/uclamp.latency_sensitive 0
-    write /dev/cpuset/camera-daemon/uclamp.max 50
-    write /dev/cpuset/camera-daemon/uclamp.min 0
-    write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /sys/module/lpm_levels/parameters/lpm_ipi_prediction 0
+    write /sys/module/lpm_levels/parameters/lpm_prediction 0
+    write /sys/class/kgsl/kgsl-3d0/min_pwrlevel 0
     write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/background/cpus 6-7
+    write /dev/cpuset/top-app/cpus 0-7
+    write /proc/sys/kernel/sched_upmigrate 60
+    write /proc/sys/kernel/sched_downmigrate 15
+    write /proc/sys/kernel/sched_group_downmigrate 25
+    write /proc/sys/kernel/sched_group_upmigrate 50
+    write /proc/sys/kernel/sched_min_task_util_for_boost 0
+    write /proc/sys/kernel/sched_min_task_util_for_colocation 0
