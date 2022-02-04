@@ -40,6 +40,7 @@ on property:sys.performance.level=0
     write /dev/cpuset/camera-daemon/uclamp.max 40
     write /dev/cpuset/camera-daemon/uclamp.min 0
     write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /dev/cpuset/foreground/cpus 2-7
 
 on property:sys.performance.level=1
     chmod 644 /sys/class/thermal/thermal_message/sconfig
@@ -68,6 +69,7 @@ on property:sys.performance.level=1
     write /dev/cpuset/camera-daemon/uclamp.max 40
     write /dev/cpuset/camera-daemon/uclamp.min 0
     write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /dev/cpuset/foreground/cpus 2-7
 
 on property:sys.performance.level=2
     chmod 644 /sys/class/thermal/thermal_message/sconfig
@@ -96,6 +98,7 @@ on property:sys.performance.level=2
     write /dev/cpuset/camera-daemon/uclamp.max 40
     write /dev/cpuset/camera-daemon/uclamp.min 0
     write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /dev/cpuset/foreground/cpus 0-5
 
 on property:sys.performance.level=3
     chmod 644 /sys/class/thermal/thermal_message/sconfig
@@ -124,6 +127,7 @@ on property:sys.performance.level=3
     write /dev/cpuset/camera-daemon/uclamp.max 40
     write /dev/cpuset/camera-daemon/uclamp.min 0
     write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /dev/cpuset/foreground/cpus 0-6
 
 on property:sys.performance.level=4
     chmod 644 /sys/class/thermal/thermal_message/sconfig
@@ -180,6 +184,7 @@ on property:sys.performance.level=5
     write /dev/cpuset/camera-daemon/uclamp.max 40
     write /dev/cpuset/camera-daemon/uclamp.min 0
     write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /dev/cpuset/foreground/cpus 0-6
 
 on property:sys.performance.level=6
     chmod 644 /sys/class/thermal/thermal_message/sconfig
@@ -208,3 +213,4 @@ on property:sys.performance.level=6
     write /dev/cpuset/camera-daemon/uclamp.max 50
     write /dev/cpuset/camera-daemon/uclamp.min 0
     write /dev/cpuset/camera-daemon/uclamp.latency_sensitive 0
+    write /dev/cpuset/foreground/cpus 0-7
