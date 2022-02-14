@@ -37,6 +37,13 @@
         android:title="@string/dirac_preset_title"
         android:summary="%s" />
 
+    <ListPreference
+        android:key="dirac_scenario_pref"
+        android:entries="@array/dirac_scenario_pref_entries"
+        android:entryValues="@array/dirac_scenario_pref_values"
+        android:defaultValue="0"
+        android:title="@string/dirac_scenario_title"
+        android:summary="%s" />
 
     <PreferenceCategory
         android:key="dirac_hifi"
