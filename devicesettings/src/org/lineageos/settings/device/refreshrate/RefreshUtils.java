@@ -107,9 +107,8 @@ public final class RefreshUtils {
                 break;
         }
 
-        finalString = modes[0] + ":" + modes[1] + ":" + modes[2] + ":" + modes[3] + ":" +
-                modes[4];
-
+        finalString = modes[0] + ":" + modes[1] + ":" + modes[2] + ":" + modes[3];
+		
         writeValue(finalString);
     }
 
