@@ -1,1 +1,2 @@
 user=system seinfo=platform name=org.lineageos.settings.device domain=devicesettings_app type=system_app_data_file
+user=system seinfo=platform name=org.lineageos.settings.doze domain=devicesettings_app type=system_app_data_file
