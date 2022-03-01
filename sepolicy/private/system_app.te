@@ -1,2 +1,0 @@
-# XiaomiParts
-allow system_app proc_nvt_feature:file rw_file_perms;
