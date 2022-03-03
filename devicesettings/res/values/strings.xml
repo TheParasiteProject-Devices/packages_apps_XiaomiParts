@@ -27,6 +27,10 @@
 
     <string name="sound_title">Sound</string>
 
+    <!-- Dolby -->
+    <string name="dolby_title">Dolby Atmos</string>
+    <string name="dolby_summary">Configure the audio output based on media content</string>
+
     <string name="dirac_enable">Use Mi Sound Enhancer</string>
     <string name="dirac_title">Mi Sound Enhancer</string>
     <string name="dirac_summary">Configure sound presets, headset types and more</string>
