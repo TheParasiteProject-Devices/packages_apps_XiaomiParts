@@ -22,14 +22,17 @@ import android.view.MenuItem;
 
 import org.lineageos.settings.device.R;
 
-public class KcalSettingsActivity extends Activity {
+import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
+
+public class KcalSettingsActivity extends CollapsingToolbarBaseActivity {
 
     private static final String TAG = "kcal_settings";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kcal);
+        setContentView(R.layout.preview_kcal);
         getFragmentManager().beginTransaction().replace(R.id.fragment_kcal, new KcalSettingsFragment(), TAG).commit();
     }
 

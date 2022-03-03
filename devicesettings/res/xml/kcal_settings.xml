@@ -11,8 +11,15 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
+<PreferenceScreen
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--PreferenceCategory
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"-->
     <SwitchPreference
         android:key="kcal_enable"
         android:defaultValue="true"
@@ -40,22 +47,25 @@
             android:key="red_slider"
             android:defaultValue="256"
             android:dependency="kcal_enable"
-            android:max="256"
-            android:title="@string/red_slider_title" />
+            android:layout_height="10dp"
+            android:icon="@drawable/ic_seek_red"
+            android:max="256" />
 
         <org.lineageos.settings.device.color.model.KcalSeekBarPreference
             android:key="green_slider"
             android:defaultValue="256"
             android:dependency="kcal_enable"
-            android:max="256"
-            android:title="@string/green_slider_title" />
+            android:layout_height="10dp"
+            android:icon="@drawable/ic_seek_green"
+            android:max="256" />
 
         <org.lineageos.settings.device.color.model.KcalSeekBarPreference
             android:key="blue_slider"
             android:defaultValue="256"
             android:dependency="kcal_enable"
-            android:max="256"
-            android:title="@string/blue_slider_title" />
+            android:layout_height="10dp"
+            android:icon="@drawable/ic_seek_blue"
+            android:max="256" />
 
     </PreferenceCategory>
 
@@ -67,6 +77,7 @@
             android:key="saturation_slider"
             android:defaultValue="255"
             android:dependency="kcal_enable"
+            android:layout_height="10dp"
             android:max="383"
             android:title="@string/saturation_slider_title" />
 
@@ -74,9 +85,9 @@
             android:key="contrast_slider"
             android:defaultValue="255"
             android:dependency="kcal_enable"
+            android:layout_height="10dp"
             android:max="383"
             android:title="@string/contrast_slider_title" />
 
-    </PreferenceCategory>
-
+        </PreferenceCategory>
 </PreferenceScreen>
