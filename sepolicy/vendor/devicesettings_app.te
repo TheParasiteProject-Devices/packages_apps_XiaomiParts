@@ -1,0 +1,2 @@
+allow devicesettings_app sysfs_dm:file write;
+allow devicesettings_app vendor_sysfs_graphics:dir search;
