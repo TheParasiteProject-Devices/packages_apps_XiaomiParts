@@ -13,8 +13,8 @@
 # limitations under the License.
 
 on boot
-    chown system system /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/disp_param
-    chmod 0660 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/disp_param
+    chown system system /sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable
+    chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable
 
 on property:sys.perf_profile=1
     write /dev/stune/top-app/schedtune.boost 10

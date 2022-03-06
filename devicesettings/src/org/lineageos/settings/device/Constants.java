@@ -8,11 +8,7 @@ public class Constants {
     public static final float[] REFRESH_RATES = {60.0f, 120.0f};
     public static final float DEFAULT_REFRESH_RATE = REFRESH_RATES[1];
 
-    public static final String DISPPARAM_NODE = "/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/disp_param";
-    public static final String BRIGHTNESS_NODE = "/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/backlight/panel0-backlight/brightness";
-
-    public static final String DISPPARAM_DC_ON = "0x40000";
-    public static final String DISPPARAM_DC_OFF = "0x50000";
+    public static final String DC_DIMMING_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable";
 
     public static final String DEFAULT_REFRESH_RATE_CONFIG = "120-120";
 }
