@@ -25,6 +25,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 import org.lineageos.settings.device.thermal.ThermalUtils;
@@ -35,14 +36,23 @@ import org.lineageos.settings.device.dirac.DiracUtils;
 import org.lineageos.settings.device.utils.DisplayUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
+    private static final boolean DEBUG = false;
+    private static final String TAG = "DeviceSettings";
 
     @Override
     public void onReceive(final Context context, Intent intent) {
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         DisplayUtils.setDcDimmingStatus(sharedPreferences.getBoolean(Constants.KEY_DC_DIMMING, false));
         DisplayUtils.updateRefreshRateSettings(context);
-        DiracUtils.initialize(context);
+        if (DEBUG)
+            Log.d(TAG, "Received boot completed intent");
+        try {
+            DiracUtils.getInstance(context);
+        } catch (Exception e) {
+            Log.d(TAG, "Dirac is not present in system");
+        }
         ThermalUtils.startService(context);
         RefreshUtils.startService(context);
     }

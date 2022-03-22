@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.util.Log;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -40,6 +41,7 @@ import org.lineageos.settings.device.R;
 public class DiracSettingsFragment extends PreferenceFragment implements
         OnPreferenceChangeListener, OnMainSwitchChangeListener {
 
+    private static final String TAG = "DiracSettingsFragment";
     private static final String PREF_HEADSET = "dirac_headset_pref";
     private static final String PREF_HIFI = "dirac_hifi_pref";
     private static final String PREF_PRESET = "dirac_preset_pref";
@@ -52,14 +54,21 @@ public class DiracSettingsFragment extends PreferenceFragment implements
     private SwitchPreference mHifi;
     private MainSwitchPreference mSwitch;
 
+    private DiracUtils mDiracUtils;
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.dirac_settings);
         final ActionBar actionBar = getActivity().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        DiracUtils.initialize(getActivity());
-        boolean enhancerEnabled = DiracUtils.isDiracEnabled();
+        try {
+            mDiracUtils = DiracUtils.getInstance(getActivity());
+        } catch (Exception e) {
+            Log.d(TAG, "Dirac is not present in system");
+        }
+
+        boolean enhancerEnabled = mDiracUtils != null ? mDiracUtils.isDiracEnabled() : false;
 
         mHeadsetType = (ListPreference) findPreference(PREF_HEADSET);
         mHeadsetType.setOnPreferenceChangeListener(this);
@@ -73,7 +82,7 @@ public class DiracSettingsFragment extends PreferenceFragment implements
         mSwitch = (MainSwitchPreference) findPreference(PREF_ENABLE);
         mSwitch.addOnSwitchChangeListener(this);
 
-        boolean hifiEnable = DiracUtils.getHifiMode();
+        boolean hifiEnable = mDiracUtils.getHifiMode();
         mHeadsetType.setEnabled(!hifiEnable && enhancerEnabled);
         mPreset.setEnabled(!hifiEnable && enhancerEnabled);
     }
@@ -91,24 +100,25 @@ public class DiracSettingsFragment extends PreferenceFragment implements
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mSwitch.setChecked(DiracUtils.isDiracEnabled());
+        mSwitch.setChecked(mDiracUtils.isDiracEnabled());
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (mDiracUtils == null) return false;
         switch (preference.getKey()) {
             case PREF_HEADSET:
-                DiracUtils.setHeadsetType(Integer.parseInt(newValue.toString()));
+                mDiracUtils.setHeadsetType(Integer.parseInt(newValue.toString()));
                 return true;
             case PREF_HIFI:
-                DiracUtils.setHifiMode((Boolean) newValue ? 1 : 0);
-                if (DiracUtils.isDiracEnabled()) {
+                mDiracUtils.setHifiMode((Boolean) newValue ? 1 : 0);
+                if (mDiracUtils.isDiracEnabled()) {
                     mHeadsetType.setEnabled(!(Boolean) newValue);
                     mPreset.setEnabled(!(Boolean) newValue);
                 }
                 return true;
             case PREF_PRESET:
-                DiracUtils.setLevel((String) newValue);
+                mDiracUtils.setLevel((String) newValue);
                 return true;
             default:
                 return false;
@@ -128,9 +138,11 @@ public class DiracSettingsFragment extends PreferenceFragment implements
     public void onSwitchChanged(Switch switchView, boolean isChecked) {
         mSwitch.setChecked(isChecked);
 
-        DiracUtils.setMusic(isChecked);
+        if (mDiracUtils == null) return;
 
-        if (!DiracUtils.getHifiMode()) {
+        mDiracUtils.setMusic(isChecked);
+
+        if (!mDiracUtils.getHifiMode()) {
             mHeadsetType.setEnabled(isChecked);
             mPreset.setEnabled(isChecked);
         }
