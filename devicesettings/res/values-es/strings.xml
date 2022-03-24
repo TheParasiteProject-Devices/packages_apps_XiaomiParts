@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="device_settings_title">Ajustes específicos del dispositivo</string>
-    <string name="device_settings_summary">Personaliza los aspectos específicos del dispositivo</string>
+    <string name="device_settings_title">Ajustes del dispositivo</string>
+    <string name="device_settings_summary">Personaliza aspectos específicos del dispositivo</string>
 
     <string name="refresh_rate_title">Tasa de refresco</string>
     <string name="refresh_rate_summary">Cambia la tasa de refresco de tu dispositivo para una mejor experiencia</string>

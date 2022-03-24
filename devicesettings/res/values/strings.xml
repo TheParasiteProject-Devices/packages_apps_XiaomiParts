@@ -12,8 +12,8 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="device_settings_title">Device specific settings</string>
-    <string name="device_settings_summary">Customise the device specific aspects</string>
+    <string name="device_settings_title">Device Settings</string>
+    <string name="device_settings_summary">Customize specific aspects of the device</string>
 
     <string name="refresh_rate_title">Refresh rate</string>
     <string name="refresh_rate_summary">Change your device\'s display refresh rate for a better experience</string>
