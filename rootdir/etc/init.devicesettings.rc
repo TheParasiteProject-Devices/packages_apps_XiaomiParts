@@ -17,8 +17,8 @@ on boot
     chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable
 
     # Allow system to adjust haptic level directly
-    chown system system /sys/devices/platform/soc/884000.i2c/i2c-3/3-005a/ulevel
-    chmod 0664 /sys/devices/platform/soc/884000.i2c/i2c-3/3-005a/ulevel
+    chown system system /sys/devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel
+    chmod 0664 /sys/devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel
 
 on property:sys.perf_profile=1
     write /dev/stune/top-app/schedtune.boost 10

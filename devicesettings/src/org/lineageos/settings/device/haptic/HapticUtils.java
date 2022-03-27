@@ -28,7 +28,7 @@ import org.lineageos.settings.device.utils.FileUtils;
 public final class HapticUtils {
 
     final static String PREF_LEVEL = "haptic_level_pref";
-    final static String PATH_LEVEL = "/sys/devices/platform/soc/884000.i2c/i2c-3/3-005a/ulevel";
+    final static String PATH_LEVEL = "/sys/devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel";
 
     final static int MIN_LEVEL = 1;
     final static int MAX_LEVEL = 128;
