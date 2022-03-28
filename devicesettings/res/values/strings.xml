@@ -140,7 +140,6 @@
     <string name="refresh_summary">Set a specific refresh rate for each applications</string>
     <string name="refresh_default">Default</string>
     <string name="refresh_medium">Medium (60Hz)</string>
-    <string name="refresh_high">High (90Hz)</string>
     <string name="refresh_extreme">Extreme (120Hz)</string>
 
     <string name="kcal_settings_title">Display colors</string>
