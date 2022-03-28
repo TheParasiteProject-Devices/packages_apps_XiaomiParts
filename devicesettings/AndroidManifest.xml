@@ -106,7 +106,8 @@
 
          <service
             android:name=".thermal.ThermalService"
-            android:permission="ThermalService">
+            android:permission="ThermalService"
+            android:exported="false">
          </service>
 
         <activity
@@ -122,7 +123,8 @@
 
         <service
             android:name=".refreshrate.RefreshService"
-            android:permission="RefreshService">
+            android:permission="RefreshService"
+            android:exported="false">
         </service>
 
         <activity
@@ -153,6 +155,7 @@
 
         <service
             android:name=".fpsinfo.FPSTileService"
+            android:exported="true"
             android:icon="@drawable/ic_fps"
             android:label="@string/fps_info_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -164,6 +167,7 @@
 
         <service
             android:name=".RefreshRateTileService"
+            android:exported="true"
             android:icon="@drawable/ic_qs_refresh_rate"
             android:label="@string/refresh_rate_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
