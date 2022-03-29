@@ -20,6 +20,17 @@ on boot
     chown system system /sys/devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel
     chmod 0664 /sys/devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel
 
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_enable
+    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_enable
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal
+    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_sat
+    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_sat
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_val
+    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_val
+    chown system system /sys/devices/platform/kcal_ctrl.0/kcal_cont
+    chmod 0660 /sys/devices/platform/kcal_ctrl.0/kcal_cont
+
 on property:sys.perf_profile=1
     write /dev/stune/top-app/schedtune.boost 10
     write /sys/class/kgsl/kgsl-3d0/devfreq/adrenoboost 2

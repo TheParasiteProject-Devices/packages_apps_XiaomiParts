@@ -35,6 +35,8 @@ import org.lineageos.settings.device.refreshrate.RefreshUtils;
 import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.dirac.DiracUtils;
 import org.lineageos.settings.device.utils.DisplayUtils;
+import org.lineageos.settings.device.utils.FileUtils;
+import org.lineageos.settings.device.utils.KcalUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = false;
@@ -47,6 +49,9 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
         DisplayUtils.setDcDimmingStatus(sharedPreferences.getBoolean(Constants.KEY_DC_DIMMING, false));
         DisplayUtils.updateRefreshRateSettings(context);
+        if (KcalUtils.isKcalSupported()) {
+            KcalUtils.writeCurrentSettings(sharedPreferences);
+        }
         if (DEBUG)
             Log.d(TAG, "Received boot completed intent");
         try {
