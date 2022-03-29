@@ -99,6 +99,11 @@
             </intent-filter>
          </activity>
 
+        <activity
+            android:name=".thermal.TouchSettingsActivity"
+            android:theme="@style/Theme.SubSettingsBase"
+            android:exported="true" />
+
          <service
             android:name=".thermal.ThermalService"
             android:permission="ThermalService">
