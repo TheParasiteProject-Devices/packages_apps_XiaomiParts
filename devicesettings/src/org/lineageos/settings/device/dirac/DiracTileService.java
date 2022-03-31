@@ -9,33 +9,33 @@ import org.lineageos.settings.device.R;
 public class DiracTileService extends TileService {
 
     private DiracUtils mDiracUtils;
-    private Context mContext;
 
     @Override
     public void onStartListening() {
-        mContext = getApplicationContext();
-        mDiracUtils = DiracUtils.getInstance(mContext);
+        mDiracUtils = DiracUtils.getInstance(getApplicationContext());
 
-        updateTileContent(mDiracUtils.isDiracEnabled());
+        Tile tile = getQsTile();
+        if (mDiracUtils.isDiracEnabled()) {
+            tile.setState(Tile.STATE_ACTIVE);
+        } else {
+            tile.setState(Tile.STATE_INACTIVE);
+        }
+
+        tile.updateTile();
         super.onStartListening();
     }
 
     @Override
     public void onClick() {
-        boolean isEnabled = mDiracUtils.isDiracEnabled();
-        mDiracUtils.setMusic(!isEnabled);
-        updateTileContent(!isEnabled);
-        super.onClick();
-    }
-
-    private void updateTileContent(boolean isActive) {
         Tile tile = getQsTile();
-        String on = mContext.getResources().getString(R.string.dirac_tile_on);
-        String off = mContext.getResources().getString(R.string.dirac_tile_off);
-
-        tile.setState(isActive ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
-        tile.setContentDescription(isActive ? on : off);
-        tile.setSubtitle(isActive ? on : off);
+        if (mDiracUtils.isDiracEnabled()) {
+            mDiracUtils.setMusic(false);
+            tile.setState(Tile.STATE_INACTIVE);
+        } else {
+            mDiracUtils.setMusic(true);
+            tile.setState(Tile.STATE_ACTIVE);
+        }
         tile.updateTile();
+        super.onClick();
     }
 }
