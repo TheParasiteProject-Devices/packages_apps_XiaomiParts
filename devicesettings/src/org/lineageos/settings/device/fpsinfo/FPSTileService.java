@@ -33,7 +33,6 @@ public class FPSTileService extends TileService {
 
   @Override
   public void onStartListening() {
-      super.onStartListening();
       ActivityManager manager =
               (ActivityManager) getSystemService(this.ACTIVITY_SERVICE);
       for (ActivityManager.RunningServiceInfo service :
@@ -44,6 +43,7 @@ public class FPSTileService extends TileService {
           }
       }
       updateTile();
+      super.onStartListening();
   }
 
   @Override
@@ -55,6 +55,7 @@ public class FPSTileService extends TileService {
           this.stopService(fpsinfo);
       isShowing = !isShowing;
       updateTile();
+      super.onClick();
   }
 
   private void updateTile() {
