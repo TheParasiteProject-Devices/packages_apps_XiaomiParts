@@ -209,15 +209,15 @@ public final class ThermalUtils {
         }
 
         String[] value = values.split(",");
-        String gameMode = value[Constants.TOUCH_GAME_MODE];
         String touchResponse = value[Constants.TOUCH_RESPONSE];
         String touchSensitivity = value[Constants.TOUCH_SENSITIVITY];
         String touchResistant = value[Constants.TOUCH_RESISTANT];
+        String perfLevel = value[Constants.TOUCH_PERF_LEVEL];
 
         FileUtils.writeLine(Constants.FILE_TOUCH_TOLERANCE, touchSensitivity);
         FileUtils.writeLine(Constants.FILE_TOUCH_UP_THRESHOLD, touchResponse);
         FileUtils.writeLine(Constants.FILE_TOUCH_EDGE_FILTER, touchResistant);
-        SystemProperties.set(Constants.PROP_TOUCH_GAME_MODE, gameMode);
+        SystemProperties.set(Constants.PROP_TOUCH_PERF_LEVEL, perfLevel);
 
         mTouchModeChanged = true;
     }
@@ -230,7 +230,7 @@ public final class ThermalUtils {
         FileUtils.writeLine(Constants.FILE_TOUCH_TOLERANCE, Constants.DEFAULT_TOUCH_TOLERANCE);
         FileUtils.writeLine(Constants.FILE_TOUCH_UP_THRESHOLD, Constants.DEFAULT_TOUCH_UP_THRESHOLD);
         FileUtils.writeLine(Constants.FILE_TOUCH_EDGE_FILTER, Constants.DEFAULT_TOUCH_EDGE_FILTER);
-        SystemProperties.set(Constants.PROP_TOUCH_GAME_MODE, "0");
+        SystemProperties.set(Constants.PROP_TOUCH_PERF_LEVEL, "0");
 
         mTouchModeChanged = false;
     }

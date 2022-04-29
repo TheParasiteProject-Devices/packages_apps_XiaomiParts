@@ -17,6 +17,9 @@
 
 <resources>
     <!-- Gaming Profiles -->
+    <integer name="touch_perf_level_default">4</integer>
+    <integer name="touch_perf_level_max">6</integer>
+
     <integer name="touch_response_default">3</integer>
     <integer name="touch_response_max">3</integer>
 

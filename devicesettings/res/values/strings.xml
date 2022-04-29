@@ -123,6 +123,8 @@
 
     <string name="touch_game_mode_title">Enable game mode</string>
     <string name="touch_game_mode_summary">Activate manual touchscreen feature controls and increase CPU and GPU performance</string>
+    <string name="touch_perf_level_title">Performance Level</string>
+    <string name="touch_perf_level_summary">Control CPU and GPU performance level</string>
     <string name="touch_response_title">Touch response</string>
     <string name="touch_response_summary">Control touch response</string>
     <string name="touch_sensitivity_title">Touch sensitivity</string>

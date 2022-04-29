@@ -23,6 +23,14 @@
         android:title="@string/touch_game_mode_title" />
 
     <org.lineageos.settings.device.widget.SeekBarPreference
+        android:key="touch_perf_level"
+        android:title="@string/touch_perf_level_title"
+        android:summary="@string/touch_perf_level_summary"
+        android:layout="@layout/preference_slider"
+        android:defaultValue="@integer/touch_perf_level_default"
+        android:max="@integer/touch_perf_level_max" />
+
+    <org.lineageos.settings.device.widget.SeekBarPreference
         android:key="touch_response"
         android:title="@string/touch_response_title"
         android:summary="@string/touch_response_summary"
