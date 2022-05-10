@@ -1,5 +1,5 @@
 # Dc Dimming
-/sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable u:object_r:sysfs_dm:s0
+/sys/devices/platform/soc/soc:qcom,dsi-display/anti_flicker u:object_r:sysfs_dm:s0
 
 # High Brighness Mode
 /sys/devices/platform/soc/soc:qcom,dsi-display/hbm u:object_r:sysfs_dm:s0

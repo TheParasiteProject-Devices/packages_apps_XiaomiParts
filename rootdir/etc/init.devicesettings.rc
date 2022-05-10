@@ -17,8 +17,8 @@ on boot
     chown system graphics /sys/class/drm/sde-crtc-0/measured_fps
     chmod 0666 /sys/class/drm/sde-crtc-0/measured_fps
 
-    chown system system /sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable
-    chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable
+    chown system system /sys/devices/platform/soc/soc:qcom,dsi-display/anti_flicker
+    chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display/anti_flicker
 
     chown system system /sys/devices/platform/soc/soc:qcom,dsi-display/hbm
     chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display/hbm

@@ -8,7 +8,7 @@ public class Constants {
     public static final float[] REFRESH_RATES = {60.0f, 120.0f};
     public static final float DEFAULT_REFRESH_RATE = REFRESH_RATES[1];
 
-    public static final String DC_DIMMING_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/ea_enable";
+    public static final String DC_DIMMING_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/anti_flicker";
 
     public static final String KEY_HBM = "pref_hbm";
     public static final String HBM_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/hbm";
