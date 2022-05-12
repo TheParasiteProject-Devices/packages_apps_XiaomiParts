@@ -16,7 +16,6 @@
 
 package org.lineageos.settings.device;
 
-import static org.lineageos.settings.device.Constants.HBM_NODE;
 import static org.lineageos.settings.device.Constants.KEY_HBM;
 
 import android.content.Context;
@@ -27,7 +26,7 @@ import android.service.quicksettings.TileService;
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.device.R;
-import org.lineageos.settings.device.utils.FileUtils;
+import org.lineageos.settings.device.utils.DisplayUtils;
 
 public class HbmTileService extends TileService {
 
@@ -59,7 +58,7 @@ public class HbmTileService extends TileService {
     public void onClick() {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         final boolean enabled = !(sharedPrefs.getBoolean(KEY_HBM, false));
-        FileUtils.writeLine(Constants.HBM_NODE, enabled ? "1" : "0");
+        DisplayUtils.setHBMStatus(enabled);
         sharedPrefs.edit().putBoolean(KEY_HBM, enabled).commit();
         updateTile(enabled);
         super.onClick();
