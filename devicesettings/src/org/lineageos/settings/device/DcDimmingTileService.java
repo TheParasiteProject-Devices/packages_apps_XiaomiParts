@@ -16,7 +16,6 @@
 
 package org.lineageos.settings.device;
 
-import static org.lineageos.settings.device.Constants.DC_DIMMING_NODE;
 import static org.lineageos.settings.device.Constants.KEY_DC_DIMMING;
 
 import android.content.Context;
@@ -27,7 +26,7 @@ import android.service.quicksettings.TileService;
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.device.R;
-import org.lineageos.settings.device.utils.FileUtils;
+import org.lineageos.settings.device.utils.DisplayUtils;
 
 public class DcDimmingTileService extends TileService {
 
@@ -59,7 +58,7 @@ public class DcDimmingTileService extends TileService {
     public void onClick() {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         final boolean enabled = !(sharedPrefs.getBoolean(KEY_DC_DIMMING, false));
-        FileUtils.writeLine(Constants.DC_DIMMING_NODE, enabled ? "1" : "0");
+        DisplayUtils.setDcDimmingStatus(enabled);
         sharedPrefs.edit().putBoolean(KEY_DC_DIMMING, enabled).commit();
         updateTile(enabled);
         super.onClick();
