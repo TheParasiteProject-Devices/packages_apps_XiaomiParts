@@ -29,6 +29,7 @@ import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 import org.lineageos.settings.device.haptic.HapticUtils;
+import org.lineageos.settings.device.kprofiles.KProfilesUtils;
 import org.lineageos.settings.device.thermal.ThermalUtils;
 import org.lineageos.settings.device.refreshrate.RefreshUtils;
 
@@ -63,5 +64,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         HapticUtils.restoreLevel(context);
         ThermalUtils.startService(context);
         RefreshUtils.startService(context);
+        KProfilesUtils.restoreKProfiles(context);
     }
 }

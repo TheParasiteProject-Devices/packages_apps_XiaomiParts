@@ -14,4 +14,9 @@ public class Constants {
     public static final String HBM_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/hbm";
 
     public static final String DEFAULT_REFRESH_RATE_CONFIG = "120-120";
+
+    public static final String KEY_KPROFILES_AUTO = "pref_kprofiles_auto";
+    public static final String KPROFILES_AUTO_NODE = "/sys/module/kprofiles/parameters/auto_kprofiles";
+    public static final String KEY_KPROFILES_MODES= "pref_kprofiles_modes";
+    public static final String KPROFILES_MODES_NODE = "/sys/module/kprofiles/parameters/mode";
 }

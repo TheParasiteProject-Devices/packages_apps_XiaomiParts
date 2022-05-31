@@ -76,6 +76,16 @@
         android:title="@string/power_title">
 
         <Preference
+            android:icon="@drawable/ic_kprofiles"
+            android:title="@string/kprofiles_title"
+            android:summary="@string/kprofiles_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.device.kprofiles.KProfilesSettingsActivity"
+                android:targetPackage="org.lineageos.settings.device" />
+        </Preference>
+
+        <Preference
             android:icon="@drawable/ic_thermal"
             android:title="@string/thermal_title"
             android:summary="@string/thermal_summary">

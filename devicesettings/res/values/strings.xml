@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2018 The LineageOS Project
+     Copyright (C) 2022 CannedShroud
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
@@ -135,6 +136,17 @@
     <string name="touch_sensitivity_summary">Control touch sensitivity for repeated taps</string>
     <string name="touch_resistant_title">Touch-resistant area</string>
     <string name="touch_resistant_summary">Reduce touch sensitivity near the edges to avoid triggering touch controls</string>
+
+    <string name="kprofiles_title">KProfiles</string>
+    <string name="kprofiles_summary">Managing Kernelspace profiles to achieve balancing in terms of battery backup and performance</string>
+    <string name="kprofiles_auto_title">Use Auto KProfiles</string>
+    <string name="kprofiles_auto_summary">Automatically switch to battery mode when device screen turns off and back to default profile when screen turns on</string>
+    <string name="kprofiles_modes_title">KProfiles Modes</string>
+    <string name="kprofiles_modes_none">None</string>
+    <string name="kprofiles_modes_battery">Battery</string>
+    <string name="kprofiles_modes_balanced">Balanced</string>
+    <string name="kprofiles_modes_performance">Performance</string>
+    <string name="kprofiles_not_supported">Kernel did not support this feature</string>
 
 	<string name="ambient_display_title">Ambient Display</string>
     <string name="ambient_display_summary">Enable Ambient Display and doze wake-up gestures</string>
