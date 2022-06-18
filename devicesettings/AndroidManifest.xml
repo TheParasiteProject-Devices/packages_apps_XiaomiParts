@@ -152,6 +152,18 @@
             android:exported="false">
         </service>
 
+        <!-- Jitter Test Activity -->
+        <activity
+            android:name=".uibench.JitterTestActivity"
+            android:exported="true"
+            android:label="@string/jitter_test_title"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".haptic.HapticLevelActivity"
             android:label="@string/haptic_title"

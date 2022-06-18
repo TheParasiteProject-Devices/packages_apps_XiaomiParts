@@ -96,6 +96,16 @@
         </Preference>
 
         <Preference
+            android:icon="@drawable/ic_jitter"
+            android:title="@string/jitter_test_title"
+            android:summary="@string/jitter_test_summary">
+            <intent 
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.device.uibench.JitterTestActivity"
+                android:targetPackage="org.lineageos.settings.device" />
+        </Preference>
+
+        <Preference
             android:key="device_doze"
             android:persistent="false"
             android:icon="@drawable/ic_ambient_display"

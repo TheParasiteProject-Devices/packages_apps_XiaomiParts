@@ -148,6 +148,10 @@
     <string name="kprofiles_modes_performance">Performance</string>
     <string name="kprofiles_not_supported">Kernel did not support this feature</string>
 
+    <!-- UiBench -->
+    <string name="jitter_test_title">Jitter Test</string>
+    <string name="jitter_test_summary">Calculate rendering jitter</string>
+
 	<string name="ambient_display_title">Ambient Display</string>
     <string name="ambient_display_summary">Enable Ambient Display and doze wake-up gestures</string>
 
