@@ -21,4 +21,11 @@ public class KProfilesUtils {
         String kProfileMode = sharedPreferences.getString(Constants.KEY_KPROFILES_MODES, "0");
         FileUtils.writeLine(Constants.KPROFILES_MODES_NODE, kProfileMode);
     }
+
+    public static String getCurrentKProfilesMode(final Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        String kProfileMode = sharedPreferences.getString(Constants.KEY_KPROFILES_MODES, "0");
+        return kProfileMode;
+    }
 }

@@ -102,6 +102,17 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".kprofiles.KProfilesModesTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_kprofiles"
+            android:label="@string/kprofiles_modes_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
          <activity
             android:name=".thermal.ThermalActivity"
             android:label="@string/thermal_title"
