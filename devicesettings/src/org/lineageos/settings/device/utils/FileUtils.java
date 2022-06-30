@@ -94,6 +94,66 @@ public final class FileUtils {
   }
 
   /**
+   * Writes the given value into the given file
+   *
+   * @return true on success, false on failure
+   */
+  public static boolean writeLine(String fileName, int value) {
+    BufferedWriter writer = null;
+
+    try {
+      writer = new BufferedWriter(new FileWriter(fileName));
+      writer.write(Integer.toString(value));
+    } catch (FileNotFoundException e) {
+      Log.w(TAG, "No such file " + fileName + " for writing", e);
+      return false;
+    } catch (IOException e) {
+      Log.e(TAG, "Could not write to file " + fileName, e);
+      return false;
+    } finally {
+      try {
+        if (writer != null) {
+          writer.close();
+        }
+      } catch (IOException e) {
+        // Ignored, not much we can do anyway
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Writes the given value into the given file
+   *
+   * @return true on success, false on failure
+   */
+  public static boolean writeLine(String fileName, double value) {
+    BufferedWriter writer = null;
+
+    try {
+      writer = new BufferedWriter(new FileWriter(fileName));
+      writer.write(Long.toString(Math.round(value)));
+    } catch (FileNotFoundException e) {
+      Log.w(TAG, "No such file " + fileName + " for writing", e);
+      return false;
+    } catch (IOException e) {
+      Log.e(TAG, "Could not write to file " + fileName, e);
+      return false;
+    } finally {
+      try {
+        if (writer != null) {
+          writer.close();
+        }
+      } catch (IOException e) {
+        // Ignored, not much we can do anyway
+      }
+    }
+
+    return true;
+  }
+
+  /**
    * Checks whether the given file exists
    *
    * @return true if exists, false if not
