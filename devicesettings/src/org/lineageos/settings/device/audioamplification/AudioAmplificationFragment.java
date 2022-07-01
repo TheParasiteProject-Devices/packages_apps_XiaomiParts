@@ -39,7 +39,7 @@ public class AudioAmplificationFragment extends PreferenceFragment implements
 
     private CustomSeekBarPreference mHeadphoneGain;
     private CustomSeekBarPreference mMicrophoneGain;
-    private CustomSeekBarPreference mSpeakerGain;
+//    private CustomSeekBarPreference mSpeakerGain;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -51,8 +51,8 @@ public class AudioAmplificationFragment extends PreferenceFragment implements
         mMicrophoneGain = (CustomSeekBarPreference) findPreference(Constants.KEY_MICROPHONE_GAIN);
         mMicrophoneGain.setOnPreferenceChangeListener(this);
 
-        mSpeakerGain = (CustomSeekBarPreference) findPreference(Constants.KEY_SPEAKER_GAIN);
-        mSpeakerGain.setOnPreferenceChangeListener(this);
+//        mSpeakerGain = (CustomSeekBarPreference) findPreference(Constants.KEY_SPEAKER_GAIN);
+//        mSpeakerGain.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -73,9 +73,9 @@ public class AudioAmplificationFragment extends PreferenceFragment implements
             case Constants.KEY_MICROPHONE_GAIN:
                 FileUtils.writeLine(Constants.MICROPHONE_GAIN_NODE, (int) value);
                 break;
-            case Constants.KEY_SPEAKER_GAIN:
-                FileUtils.writeLine(Constants.SPEAKER_GAIN_NODE, (int) value);
-                break;
+//            case Constants.KEY_SPEAKER_GAIN:
+//                FileUtils.writeLine(Constants.SPEAKER_GAIN_NODE, (int) value);
+//                break;
             default:
                 break;
         }
