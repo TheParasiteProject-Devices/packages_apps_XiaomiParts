@@ -41,5 +41,5 @@
      </integer-array>
 
      <!-- KProfiles Levels -->
-     <integer name="kprofiles_default">2</integer>
+     <integer name="kprofiles_default">0</integer>
 </resources>
