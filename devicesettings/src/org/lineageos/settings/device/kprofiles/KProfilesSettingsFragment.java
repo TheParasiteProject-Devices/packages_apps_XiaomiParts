@@ -19,6 +19,7 @@ package org.lineageos.settings.device.kprofiles;
 import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,12 +38,14 @@ import static org.lineageos.settings.device.Constants.KEY_KPROFILES_AUTO;
 import static org.lineageos.settings.device.Constants.KPROFILES_AUTO_NODE;
 import static org.lineageos.settings.device.Constants.KEY_KPROFILES_MODES;
 import static org.lineageos.settings.device.Constants.KPROFILES_MODES_NODE;
+import static org.lineageos.settings.device.Constants.KPROFILES_MODES_INFO;
 
 public class KProfilesSettingsFragment extends PreferenceFragment implements
         OnPreferenceChangeListener {
 
     private SwitchPreference kProfilesAutoPreference;
     private ListPreference kProfilesModesPreference;
+    private Preference kProfilesModesInfo;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -62,10 +65,12 @@ public class KProfilesSettingsFragment extends PreferenceFragment implements
         if (FileUtils.fileExists(KPROFILES_MODES_NODE)) {
             kProfilesModesPreference.setEnabled(true);
             kProfilesModesPreference.setOnPreferenceChangeListener(this);
+            updateTitle();
         } else {
             kProfilesModesPreference.setSummary(R.string.kprofiles_not_supported);
             kProfilesModesPreference.setEnabled(false);
         }
+        kProfilesModesInfo = (Preference) findPreference(KPROFILES_MODES_INFO);
     }
 
     @Override
@@ -92,6 +97,7 @@ public class KProfilesSettingsFragment extends PreferenceFragment implements
         } else if (KEY_KPROFILES_MODES.equals(preference.getKey())) {
             try {
                 FileUtils.writeLine(KPROFILES_MODES_NODE, (String) newValue);
+                updateTitle();
             } catch(Exception e) { }
         }
         return true;
@@ -104,5 +110,33 @@ public class KProfilesSettingsFragment extends PreferenceFragment implements
             return true;
         }
         return false;
+    }
+
+    private String modesDesc() {
+        String mode = KProfilesUtils.getCurrentKProfilesMode(getContext());
+        String descrpition = null;
+        switch (mode) {
+            case "0":
+                descrpition = getString(R.string.kprofiles_modes_none_description);
+                break;
+            case "1":
+                descrpition = getString(R.string.kprofiles_modes_battery_description);
+                break;
+            case "2":
+                descrpition = getString(R.string.kprofiles_modes_balanced_description);
+                break;
+            case "3":
+                descrpition = getString(R.string.kprofiles_modes_performance_description);
+                break;
+        }
+        return descrpition;
+    }
+
+    private void updateTitle() {
+        Handler.getMain().post(() -> {
+            kProfilesModesInfo.setTitle(
+                String.format(getString(R.string.kprofiles_modes_description),
+                    modesDesc()));
+        });
     }
 }

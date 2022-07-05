@@ -154,6 +154,11 @@
     <string name="kprofiles_modes_balanced">Balanced</string>
     <string name="kprofiles_modes_performance">Performance</string>
     <string name="kprofiles_not_supported">Kernel did not support this feature</string>
+    <string name="kprofiles_modes_description"><xliff:g id="description">%s</xliff:g></string>
+    <string name="kprofiles_modes_none_description">Regulate and manage in-kernel activities in a profile-oriented manner to achieve balance in terms of battery backup and performance accordingly</string>
+    <string name="kprofiles_modes_battery_description">Battery Mode:\nSkip all userspace and/or in-kernel boosts, reduces gpu scaling frequency</string>
+    <string name="kprofiles_modes_balanced_description">Balanced Mode:\nTips the balance between battery and performance modes</string>
+    <string name="kprofiles_modes_performance_description">Performance Mode:\nMaximize all boosts, increases gpu scaling frequency to its max</string>
 
     <!-- UiBench -->
     <string name="jitter_test_title">Jitter Test</string>
