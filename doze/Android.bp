@@ -21,3 +21,10 @@ android_app {
         "SettingsLibDefaults",
     ],
 }
+
+prebuilt_etc {
+    name: "privapp-permissions-doze.xml",
+    sub_dir: "permissions",
+    src: "privapp-permissions-doze.xml",
+    filename_from_src: true,
+}
