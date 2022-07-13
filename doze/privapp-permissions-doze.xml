@@ -13,6 +13,8 @@
 
 <permissions>
     <privapp-permissions package="org.lineageos.settings.doze">
+        <permission name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+        <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
         <permission name="lineageos.permission.HARDWARE_ABSTRACTION_ACCESS" />
     </privapp-permissions>
 </permissions>
