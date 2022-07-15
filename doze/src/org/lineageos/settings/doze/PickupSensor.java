@@ -56,7 +56,7 @@ public class PickupSensor implements SensorEventListener {
         mContext = context;
         mSensorManager = mContext.getSystemService(SensorManager.class);
         mSensor = DozeUtils.getSensor(mSensorManager, "xiaomi.sensor.pickup");
-        mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY, false);
+        mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         mWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         mExecutorService = Executors.newSingleThreadExecutor();
