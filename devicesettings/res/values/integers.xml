@@ -33,6 +33,11 @@
    <integer name="haptic_level_default">80</integer>
    <integer name="haptic_level_max">100</integer>
 
+     <!-- Flashlight Brightness Levels -->
+     <integer name="flashlight_brightness_default">100</integer>
+     <!-- max(200) - min(10) -->
+     <integer name="flashlight_brightness_max">190</integer>
+
      <!-- Refresh Rate -->
      <integer-array name="refresh_rate_tile_blocklist">
           <item>30</item>

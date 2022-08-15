@@ -188,6 +188,17 @@
         </activity>
 
         <activity
+            android:name=".flashlight.FlashlightBrightnessActivity"
+            android:label="@string/flashlight_title"
+            android:exported="true"
+            android:theme="@style/Theme.SubSettingsBase">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".TileEntryActivity"
             android:label="@string/device_settings_title"
             android:exported="true"

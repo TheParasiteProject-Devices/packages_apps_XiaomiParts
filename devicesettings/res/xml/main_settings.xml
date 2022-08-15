@@ -76,6 +76,16 @@
         android:title="@string/power_title">
 
         <Preference
+            android:icon="@drawable/ic_flashlight"
+            android:title="@string/flashlight_title"
+            android:summary="@string/flashlight_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.device.flashlight.FlashlightBrightnessActivity"
+                android:targetPackage="org.lineageos.settings.device" />
+        </Preference>
+
+        <Preference
             android:icon="@drawable/ic_kprofiles"
             android:title="@string/kprofiles_title"
             android:summary="@string/kprofiles_summary">

@@ -5,6 +5,9 @@ genfscon sysfs /module/kprofiles/parameters/kp_mode           u:object_r:vendor_
 # FPS Info
 genfscon sysfs /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps  u:object_r:vendor_sysfs_graphics:s0
 
+# Flashlight Brightness
+genfscon sysfs /class/leds/led:torch_0/max_brightness u:object_r:sysfs_leds:s0
+
 # Haptic
 genfscon sysfs /devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel                  u:object_r:sysfs_vibrator:s0
 

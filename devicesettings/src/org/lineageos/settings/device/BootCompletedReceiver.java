@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import androidx.preference.PreferenceManager;
+import org.lineageos.settings.device.flashlight.FlashlightUtils;
 import org.lineageos.settings.device.haptic.HapticUtils;
 import org.lineageos.settings.device.kprofiles.KProfilesUtils;
 import org.lineageos.settings.device.thermal.ThermalUtils;
@@ -63,6 +64,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
             Log.d(TAG, "Dirac is not present in system");
         }
         HapticUtils.restoreLevel(context);
+        FlashlightUtils.restoreBrightness(context);
         ThermalUtils.startService(context);
         RefreshUtils.startService(context);
         KProfilesUtils.restoreKProfiles(context);
