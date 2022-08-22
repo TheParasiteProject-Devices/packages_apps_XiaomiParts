@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="org.lineageos.settings.device"
     android:versionCode="3"
     android:versionName="3.0"
@@ -17,6 +18,11 @@
     <application
         android:label="@string/device_settings_title"
         android:persistent="true">
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:replace="android:authorities"/>
 
         <receiver android:name="org.lineageos.settings.device.BootCompletedReceiver" android:exported="true">
             <intent-filter android:priority="1000">
