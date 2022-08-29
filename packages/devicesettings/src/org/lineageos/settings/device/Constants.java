@@ -96,4 +96,11 @@ public class Constants {
     public static final String KCAL_RGB_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal";
     public static final String KCAL_SATURATION_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal_sat";
     public static final String KCAL_CONTRAST_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal_cont";
+
+    /* Hight Brightness Mode */
+    public static final String KEY_HBM_SWITCH = "pref_hbm";
+    public static final String KEY_AUTO_HBM_SWITCH = "pref_auto_hbm";
+    public static final String KEY_AUTO_HBM_THRESHOLD = "pref_auto_hbm_threshold";
+    public static final String HBM_NODE = "/sys/class/drm/card0/card0-DSI-1/disp_param";
+    public static final String BACKLIGHT_NODE = "/sys/class/backlight/panel0-backlight/brightness";
 }

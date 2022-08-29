@@ -44,6 +44,16 @@
             android:icon="@drawable/ic_dc_dimming"/>
 
         <Preference
+            android:icon="@drawable/ic_hbm"
+            android:title="@string/hbm_settings_title"
+            android:summary="@string/hbm_settings_summary">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetClass="org.lineageos.settings.device.hbm.HBMActivity"
+                android:targetPackage="org.lineageos.settings.device" />
+        </Preference>
+
+        <Preference
             android:icon="@drawable/ic_kcal"
             android:title="@string/kcal_settings_title"
             android:summary="@string/kcal_settings_summary">
