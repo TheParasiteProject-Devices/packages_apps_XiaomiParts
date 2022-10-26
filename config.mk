@@ -1,19 +1,17 @@
-PARTS_PATH := packages/apps/Parts
-
 PRODUCT_SOONG_NAMESPACES += \
-    $(PARTS_PATH)
+    packages/apps/Parts/packages
 
 # Inherit from DeviceSettings config
-$(call inherit-product, $(PARTS_PATH)/configs/devicesettings.mk)
+$(call inherit-product, packages/apps/Parts/configs/devicesettings.mk)
 
 # Inherit from DeviceDoze config
-$(call inherit-product, $(PARTS_PATH)/configs/devicedoze.mk)
+$(call inherit-product, packages/apps/Parts/configs/devicedoze.mk)
 
 # Overlays
 PRODUCT_PACKAGES += \
     SettingsOverlayParts
 
 # Sepolicy
-SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(PARTS_PATH)/sepolicy/private
-SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(PARTS_PATH)/sepolicy/public
-BOARD_VENDOR_SEPOLICY_DIRS += $(PARTS_PATH)/sepolicy/vendor
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += packages/apps/Parts/sepolicy/private
+SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += packages/apps/Parts/sepolicy/public
+BOARD_VENDOR_SEPOLICY_DIRS += packages/apps/Parts/sepolicy/vendor
