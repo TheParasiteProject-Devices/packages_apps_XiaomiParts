@@ -1,0 +1,6 @@
+prebuilt_etc {
+    name: "init.devicesettings.rc",
+    src: "init.devicesettings.rc",
+    sub_dir: "init",
+    soc_specific: true
+}

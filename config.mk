@@ -1,6 +1,15 @@
-PRODUCT_SOONG_NAMESPACES += \
-    packages/apps/Parts
+PARTS_PATH := packages/apps/Parts
 
-# Device Settings
-PRODUCT_PACKAGES += \
-    DeviceSettings
+PRODUCT_SOONG_NAMESPACES += \
+    $(PARTS_PATH)
+
+# Inherit from DeviceSettings config
+$(call inherit-product, $(PARTS_PATH)/configs/devicesettings.mk)
+
+# Inherit from DeviceDoze config
+$(call inherit-product, $(PARTS_PATH)/configs/devicedoze.mk)
+
+# Sepolicy
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(PARTS_PATH)/sepolicy/private
+SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(PARTS_PATH)/sepolicy/public
+BOARD_VENDOR_SEPOLICY_DIRS += $(PARTS_PATH)/sepolicy/vendor
