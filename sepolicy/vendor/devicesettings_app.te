@@ -1,2 +1,9 @@
-allow devicesettings_app sysfs_dm:file write;
 allow devicesettings_app vendor_sysfs_graphics:dir search;
+allow devicesettings_app {
+    sysfs_dm
+    sysfs_gain
+    sysfs_kgsl
+    sysfs_thermal
+    vendor_sysfs_graphics
+    vendor_sysfs_kprofiles
+}:{ file lnk_file } rw_file_perms;
