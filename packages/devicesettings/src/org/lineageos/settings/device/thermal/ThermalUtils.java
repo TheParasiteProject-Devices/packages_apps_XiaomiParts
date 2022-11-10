@@ -30,6 +30,8 @@ import androidx.preference.PreferenceManager;
 
 import org.lineageos.settings.device.utils.FileUtils;
 
+import vendor.xiaomi.hardware.touchfeature.V1_0.ITouchFeature;
+
 public final class ThermalUtils {
 
     private static final String THERMAL_CONTROL = "thermal_control";
@@ -68,6 +70,7 @@ public final class ThermalUtils {
     private boolean mTouchModeChanged;
 
     private Display mDisplay;
+    private ITouchFeature mTouchFeature = null;
     private SharedPreferences mSharedPrefs;
 
     protected ThermalUtils(Context context) {
@@ -75,6 +78,12 @@ public final class ThermalUtils {
 
         WindowManager mWindowManager = context.getSystemService(WindowManager.class);
         mDisplay = mWindowManager.getDefaultDisplay();
+
+        try {
+            mTouchFeature = ITouchFeature.getService();
+        } catch (RemoteException e) {
+            // Do nothing
+        }
     }
 
     public static void startService(Context context) {
@@ -209,14 +218,20 @@ public final class ThermalUtils {
         }
 
         String[] value = values.split(",");
-        String touchResponse = value[Constants.TOUCH_RESPONSE];
-        String touchSensitivity = value[Constants.TOUCH_SENSITIVITY];
-        String touchResistant = value[Constants.TOUCH_RESISTANT];
+        int gameMode = Integer.parseInt(value[Constants.TOUCH_GAME_MODE]);
         String perfLevel = value[Constants.TOUCH_PERF_LEVEL];
+        int touchResponse = Integer.parseInt(value[Constants.TOUCH_RESPONSE]);
+        int touchSensitivity = Integer.parseInt(value[Constants.TOUCH_SENSITIVITY]);
+        int touchResistant = Integer.parseInt(value[Constants.TOUCH_RESISTANT]);
 
-        FileUtils.writeLine(Constants.FILE_TOUCH_TOLERANCE, touchSensitivity);
-        FileUtils.writeLine(Constants.FILE_TOUCH_UP_THRESHOLD, touchResponse);
-        FileUtils.writeLine(Constants.FILE_TOUCH_EDGE_FILTER, touchResistant);
+        try {
+            mTouchFeature.setTouchMode(Constants.MODE_TOUCH_GAME_MODE, gameMode);
+            mTouchFeature.setTouchMode(Constants.MODE_TOUCH_UP_THRESHOLD, touchResponse);
+            mTouchFeature.setTouchMode(Constants.MODE_TOUCH_TOLERANCE, touchSensitivity);
+            mTouchFeature.setTouchMode(Constants.MODE_TOUCH_EDGE_FILTER, touchResistant);
+        } catch (RemoteException e) {
+            // Do nothing
+        }
         SystemProperties.set(Constants.PROP_TOUCH_PERF_LEVEL, perfLevel);
 
         mTouchModeChanged = true;
@@ -227,9 +242,14 @@ public final class ThermalUtils {
             return;
         }
 
-        FileUtils.writeLine(Constants.FILE_TOUCH_TOLERANCE, Constants.DEFAULT_TOUCH_TOLERANCE);
-        FileUtils.writeLine(Constants.FILE_TOUCH_UP_THRESHOLD, Constants.DEFAULT_TOUCH_UP_THRESHOLD);
-        FileUtils.writeLine(Constants.FILE_TOUCH_EDGE_FILTER, Constants.DEFAULT_TOUCH_EDGE_FILTER);
+        try {
+            mTouchFeature.resetTouchMode(Constants.MODE_TOUCH_GAME_MODE);
+            mTouchFeature.resetTouchMode(Constants.MODE_TOUCH_UP_THRESHOLD);
+            mTouchFeature.resetTouchMode(Constants.MODE_TOUCH_TOLERANCE);
+            mTouchFeature.resetTouchMode(Constants.MODE_TOUCH_EDGE_FILTER);
+        } catch (RemoteException e) {
+            // Do nothing
+        }
         SystemProperties.set(Constants.PROP_TOUCH_PERF_LEVEL, "0");
 
         mTouchModeChanged = false;

@@ -112,7 +112,7 @@ public class TouchSettingsFragment extends PreferenceFragment
     public String getTouchValues() {
         String values = mSharedPrefs.getString(packageName, null);
         if (values == null || values.isEmpty()) {
-            values = "0,4,3,0,2";
+            values = "0,0,0,0,0";
         }
         writeTouchValues(values);
         return values;

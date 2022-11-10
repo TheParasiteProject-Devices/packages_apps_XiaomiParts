@@ -1,3 +1,7 @@
+soong_namespace {
+    imports: ["hardware/xiaomi"],
+}
+
 android_app {
     name: "DeviceSettings",
 
@@ -11,6 +15,7 @@ android_app {
         "androidx.core_core",
         "androidx.preference_preference",
         "SettingsLib",
+        "vendor.xiaomi.hardware.touchfeature-V1.0-java",
     ],
 
     optimize: {

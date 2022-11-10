@@ -8,3 +8,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	privapp-permissions-devicesettings.xml
+
+PRODUCT_SOONG_NAMESPACES += \
+    packages/apps/Parts/packages/devicesettings
