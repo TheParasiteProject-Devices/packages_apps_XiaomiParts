@@ -14,6 +14,7 @@ import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.os.PowerManager;
 import androidx.preference.PreferenceManager;
+import android.provider.Settings;
 
 import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.utils.FileUtils;
@@ -52,6 +53,7 @@ public class AutoHBMService extends Service {
         if (enable) {
             FileUtils.writeLine(Constants.HBM_NODE, "0x10000");
             FileUtils.writeLine(Constants.BACKLIGHT_NODE, "2047");
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
         } else {
             FileUtils.writeLine(Constants.HBM_NODE, "0xF0000");
         }

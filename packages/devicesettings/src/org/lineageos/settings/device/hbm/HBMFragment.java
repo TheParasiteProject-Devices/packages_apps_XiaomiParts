@@ -49,7 +49,7 @@ public class HBMFragment extends PreferenceFragment
 
         // HBM
         mHBMModeSwitch = (TwoStatePreference) findPreference(Constants.KEY_HBM_SWITCH);
-        mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch());
+        mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch(getContext()));
 
         // AutoHBM
         mAutoHBMSwitch = (TwoStatePreference) findPreference(Constants.KEY_AUTO_HBM_SWITCH);

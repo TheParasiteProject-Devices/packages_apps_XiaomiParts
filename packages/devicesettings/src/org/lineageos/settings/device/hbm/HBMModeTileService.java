@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import androidx.preference.PreferenceManager;
+import android.provider.Settings;
 
 import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.utils.FileUtils;
@@ -55,6 +56,7 @@ public class HBMModeTileService extends TileService {
         FileUtils.writeLine(Constants.HBM_NODE, enabled ? "0x10000" : "0xF0000");
         if (enabled) {
             FileUtils.writeLine(getBACKLIGHT(), "2047");
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
         }
         sharedPrefs.edit().putBoolean(Constants.KEY_HBM_SWITCH, enabled).commit();
         updateUI(enabled);

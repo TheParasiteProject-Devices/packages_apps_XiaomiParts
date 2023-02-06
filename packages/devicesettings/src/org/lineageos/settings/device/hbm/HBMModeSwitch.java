@@ -17,6 +17,7 @@
 */
 package org.lineageos.settings.device.hbm;
 
+import android.provider.Settings;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.Preference;
@@ -28,11 +29,16 @@ import org.lineageos.settings.device.utils.FileUtils;
 
 public class HBMModeSwitch implements OnPreferenceChangeListener {
 
+    private Context mContext;
+
+    public HBMModeSwitch(Context context) {
+        mContext = context;
+    }
+
     public static String getHBM() {
         if (FileUtils.isFileWritable(Constants.HBM_NODE)) {
             return Constants.HBM_NODE;
         }
-
         return null;
     }
 
@@ -40,7 +46,6 @@ public class HBMModeSwitch implements OnPreferenceChangeListener {
         if (FileUtils.isFileWritable(Constants.BACKLIGHT_NODE)) {
             return Constants.BACKLIGHT_NODE;
         }
-
         return null;
     }
 
@@ -50,6 +55,7 @@ public class HBMModeSwitch implements OnPreferenceChangeListener {
         FileUtils.writeLine(getHBM(), enabled ? "1" : "0");
         if (enabled) {
             FileUtils.writeLine(getBACKLIGHT(), "2047");
+            Settings.System.putInt(mContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
         }
         return true;
     }
