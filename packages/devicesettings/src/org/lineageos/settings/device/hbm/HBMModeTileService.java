@@ -18,8 +18,11 @@
 package org.lineageos.settings.device.hbm;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.BroadcastReceiver;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import androidx.preference.PreferenceManager;
@@ -30,10 +33,35 @@ import org.lineageos.settings.device.utils.FileUtils;
 
 public class HBMModeTileService extends TileService {
 
+    private BroadcastReceiver screenStateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+                sharedPrefs.edit().putBoolean(Constants.KEY_HBM_SWITCH, false).commit();
+                updateUI(false);
+            }
+        }
+    };
+
     private void updateUI(boolean enabled) {
         final Tile tile = getQsTile();
         tile.setState(enabled ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
         tile.updateTile();
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        registerReceiver(screenStateReceiver, filter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(screenStateReceiver);
     }
 
     @Override
@@ -55,7 +83,7 @@ public class HBMModeTileService extends TileService {
         final boolean enabled = !(sharedPrefs.getBoolean(Constants.KEY_HBM_SWITCH, false));
         FileUtils.writeLine(Constants.HBM_NODE, enabled ? "0x10000" : "0xF0000");
         if (enabled) {
-            FileUtils.writeLine(getBACKLIGHT(), "2047");
+            FileUtils.writeLine(Constants.BACKLIGHT_NODE, "2047");
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
         }
         sharedPrefs.edit().putBoolean(Constants.KEY_HBM_SWITCH, enabled).commit();
