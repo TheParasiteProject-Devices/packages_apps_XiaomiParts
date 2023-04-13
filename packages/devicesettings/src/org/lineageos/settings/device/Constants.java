@@ -71,12 +71,6 @@ public class Constants {
     public final static int HAPTIC_MIN_LEVEL = 1;
     public final static int HAPTIC_MAX_LEVEL = 128;
 
-    /* Refresh Rate Profiles */
-    public static final String KEY_REFRESH_CONTROL = "refresh_control";
-
-    public static final float REFRESH_STATE_MEDIUM = 60f;
-    public static final float REFRESH_STATE_EXTREME = 120f;
-
     /* Clear Speaker */
     public static final String KEY_CLEAR_SPEAKER = "clear_speaker_pref";
 

@@ -182,13 +182,6 @@
     <!-- Device Doze -->
 	<string name="ambient_display_title">Ambient Display</string>
     <string name="ambient_display_summary">Enable Ambient Display and doze wake-up gestures</string>
-    
-    <!-- Refresh Rate Profiles -->
-    <string name="refresh_title">Refresh Rate Profiles</string>
-    <string name="refresh_summary">Set a specific refresh rate for each applications</string>
-    <string name="refresh_default">Default</string>
-    <string name="refresh_medium">Medium (60Hz)</string>
-    <string name="refresh_extreme">Extreme (120Hz)</string>
 
     <!-- KCal -->
     <string name="kcal_settings_title">Display colors</string>

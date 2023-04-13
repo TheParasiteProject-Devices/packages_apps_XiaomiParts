@@ -32,7 +32,6 @@ import org.lineageos.settings.device.flashlight.FlashlightUtils;
 import org.lineageos.settings.device.haptic.HapticUtils;
 import org.lineageos.settings.device.kprofiles.KProfilesUtils;
 import org.lineageos.settings.device.thermal.ThermalUtils;
-import org.lineageos.settings.device.refreshrate.RefreshUtils;
 import org.lineageos.settings.device.audioamplification.AudioAmplificationUtils;
 
 import org.lineageos.settings.device.Constants;
@@ -66,7 +65,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         HapticUtils.restoreLevel(context);
         FlashlightUtils.restoreBrightness(context);
         ThermalUtils.startService(context);
-        RefreshUtils.startService(context);
         KProfilesUtils.restoreKProfiles(context);
         AudioAmplificationUtils.restoreAudioAmplification(context);
     }
