@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.settingslib.applications.ApplicationsState;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 
 import java.util.ArrayList;
@@ -196,11 +197,11 @@ public class RefreshSettingsFragment extends PreferenceFragment
 
     private int getStateDrawable(int state) {
         switch (state) {
-            case RefreshUtils.STATE_MEDIUM:
+            case Constants.REFRESH_STATE_MEDIUM:
                 return R.drawable.ic_refresh_60;
-            case RefreshUtils.STATE_EXTREME:
+            case Constants.REFRESH_STATE_EXTREME:
                 return R.drawable.ic_refresh_120;
-            case RefreshUtils.STATE_DEFAULT:
+            case Constants.DEFAULT_REFRESH_RATE:
             default:
                 return R.drawable.ic_refresh_default;
         }

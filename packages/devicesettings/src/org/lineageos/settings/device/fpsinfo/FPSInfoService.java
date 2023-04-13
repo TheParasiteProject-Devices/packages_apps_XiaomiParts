@@ -41,6 +41,7 @@ import android.view.WindowManager;
 import java.lang.Math;
 import java.lang.StringBuffer;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.utils.FileUtils;
 
 public class FPSInfoService extends Service {
@@ -48,8 +49,6 @@ public class FPSInfoService extends Service {
     private Thread mCurFPSThread;
     private final String TAG = "FPSInfoService";
     private String mFps = null;
-
-    private static final String MEASURED_FPS = "/sys/class/drm/card0/sde-crtc-0/measured_fps";
 
     private IDreamManager mDreamManager;
 
@@ -188,7 +187,7 @@ public class FPSInfoService extends Service {
                 while (!mInterrupt) {
                     sleep(1000);
                     StringBuffer sb=new StringBuffer();
-                    String fpsVal = FileUtils.readOneLine(MEASURED_FPS);
+                    String fpsVal = FileUtils.readOneLine(Constants.MEASURED_FPS_NODE);
                     mHandler.sendMessage(mHandler.obtainMessage(1, fpsVal));
                 }
             } catch (InterruptedException e) {

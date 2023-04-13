@@ -33,6 +33,7 @@ import androidx.preference.PreferenceFragment;
 import com.android.settingslib.widget.MainSwitchPreference;
 import com.android.settingslib.widget.OnMainSwitchChangeListener;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 
 import java.io.IOException;
@@ -41,8 +42,6 @@ public class ClearSpeakerFragment extends PreferenceFragment implements
         OnMainSwitchChangeListener {
 
     private static final String TAG = ClearSpeakerFragment.class.getSimpleName();
-
-    private static final String PREF_CLEAR_SPEAKER = "clear_speaker_pref";
 
     private AudioManager mAudioManager;
     private Handler mHandler;
@@ -53,7 +52,7 @@ public class ClearSpeakerFragment extends PreferenceFragment implements
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.clear_speaker_settings);
 
-        mClearSpeakerPref = (MainSwitchPreference) findPreference(PREF_CLEAR_SPEAKER);
+        mClearSpeakerPref = (MainSwitchPreference) findPreference(Constants.KEY_CLEAR_SPEAKER);
         mClearSpeakerPref.addOnSwitchChangeListener(this);
 
         mHandler = new Handler();

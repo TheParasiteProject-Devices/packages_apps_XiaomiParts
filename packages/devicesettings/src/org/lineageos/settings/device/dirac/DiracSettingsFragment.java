@@ -36,17 +36,13 @@ import androidx.preference.SwitchPreference;
 import com.android.settingslib.widget.MainSwitchPreference;
 import com.android.settingslib.widget.OnMainSwitchChangeListener;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 
 public class DiracSettingsFragment extends PreferenceFragment implements
         OnPreferenceChangeListener, OnMainSwitchChangeListener {
 
     private static final String TAG = "DiracSettingsFragment";
-    private static final String PREF_HEADSET = "dirac_headset_pref";
-    private static final String PREF_HIFI = "dirac_hifi_pref";
-    private static final String PREF_PRESET = "dirac_preset_pref";
-    private static final String PREF_SCENE = "dirac_scenario_pref";
-    private static final String PREF_ENABLE = "dirac_enable_pref";
 
     private TextView mTextView;
 
@@ -72,19 +68,19 @@ public class DiracSettingsFragment extends PreferenceFragment implements
 
         boolean enhancerEnabled = mDiracUtils != null ? mDiracUtils.isDiracEnabled() : false;
 
-        mHeadsetType = (ListPreference) findPreference(PREF_HEADSET);
+        mHeadsetType = (ListPreference) findPreference(Constants.KEY_DIRAC_HEADSET);
         mHeadsetType.setOnPreferenceChangeListener(this);
 
-        mPreset = (ListPreference) findPreference(PREF_PRESET);
+        mPreset = (ListPreference) findPreference(Constants.KEY_DIRAC_PRESET);
         mPreset.setOnPreferenceChangeListener(this);
 
-        mScenes = (ListPreference) findPreference(PREF_SCENE);
+        mScenes = (ListPreference) findPreference(Constants.KEY_DIRAC_SCENE);
         mScenes.setOnPreferenceChangeListener(this);
 
-        mHifi = (SwitchPreference) findPreference(PREF_HIFI);
+        mHifi = (SwitchPreference) findPreference(Constants.KEY_DIRAC_HIFI);
         mHifi.setOnPreferenceChangeListener(this);
 
-        mSwitch = (MainSwitchPreference) findPreference(PREF_ENABLE);
+        mSwitch = (MainSwitchPreference) findPreference(Constants.KEY_DIRAC_ENABLE);
         mSwitch.addOnSwitchChangeListener(this);
 
         boolean hifiEnable = mDiracUtils.getHifiMode();
@@ -113,10 +109,10 @@ public class DiracSettingsFragment extends PreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (mDiracUtils == null) return false;
         switch (preference.getKey()) {
-            case PREF_HEADSET:
+            case Constants.KEY_DIRAC_HEADSET:
                 mDiracUtils.setHeadsetType(Integer.parseInt(newValue.toString()));
                 return true;
-            case PREF_HIFI:
+            case Constants.KEY_DIRAC_HIFI:
                 mDiracUtils.setHifiMode((Boolean) newValue ? 1 : 0);
                 if (mDiracUtils.isDiracEnabled()) {
                     mHeadsetType.setEnabled(!(Boolean) newValue);
@@ -124,10 +120,10 @@ public class DiracSettingsFragment extends PreferenceFragment implements
                     mScenes.setEnabled(!(Boolean) newValue);
                 }
                 return true;
-            case PREF_PRESET:
+            case Constants.KEY_DIRAC_PRESET:
                 mDiracUtils.setLevel((String) newValue);
                 return true;
-            case PREF_SCENE:
+            case Constants.KEY_DIRAC_SCENE:
                 mDiracUtils.setScenario(Integer.parseInt(newValue.toString()));
                 return true;
             default:

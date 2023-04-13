@@ -32,6 +32,7 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreference;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.utils.FileUtils;
 import org.lineageos.settings.device.utils.KcalUtils;
@@ -71,7 +72,7 @@ public class KcalSettingsFragment extends PreferenceFragment implements
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference.getKey().equals("kcal_enable")) {
-            KcalUtils.writeConfigToNode(KcalUtils.KCAL_ENABLE_NODE, 0, (Boolean) newValue ? 1 : 0);
+            KcalUtils.writeConfigToNode(Constants.KCAL_ENABLE_NODE, 0, (Boolean) newValue ? 1 : 0);
         }
         return true;
     }

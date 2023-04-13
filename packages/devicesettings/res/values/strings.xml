@@ -16,6 +16,7 @@
     <string name="device_settings_title">Device Settings</string>
     <string name="device_settings_summary">Customize specific aspects of the device</string>
 
+    <!-- Refresh Rate -->
     <string name="refresh_rate_title">Refresh Rate</string>
     <string name="refresh_rate_summary">Change your device\'s display refresh rate for a better experience</string>
     <string name="enable_high_refresh_rate_title">High refresh rate</string>
@@ -26,6 +27,8 @@
     <string name="fps_info_title">FPS Counter</string>
 
     <string name="display_title">Display</string>
+
+    <!-- DC Dimming -->
     <string name="dc_dimming_title">DC Dimming</string>
     <string name="dc_dimming_summary">Enable DC Dimming to avoid screen flickering on low brightness levels</string>
 
@@ -45,7 +48,8 @@
     <!-- Dolby -->
     <string name="dolby_title">Dolby Atmos</string>
     <string name="dolby_summary">Configure the audio output based on media content</string>
-
+    
+    <!-- Mi Sound Enhancer -->
     <string name="dirac_enable">Use Mi Sound Enhancer</string>
     <string name="dirac_title">Mi Sound Enhancer</string>
     <string name="dirac_summary">Configure sound presets, headset types and more</string>
@@ -106,7 +110,8 @@
     <string name="dirac_hifi_enable_title">Enable Hi-Fi</string>
     <string name="dirac_hifi_title">Hi-Fi</string>
     <string name="dirac_hifi_summary">Decrease noise and Distortion and increase audio quality</string>
-
+    
+    <!-- Clear speaker -->
     <string name="clear_speaker_title">Clear speaker</string>
     <string name="clear_speaker_summary">Play a 30-second audio to clear the speaker</string>
     <string name="clear_speaker_description">Run this feature once or twice if you find that your speaker is lightly blocked by dust. Set media volume to maximum.\n\nIf the speaker is blocked heavily, run this feature 2-5 times while shaking your device with the speaker facing downwards.\n\nWARNING: Ensure that any headphones are unplugged.</string>
@@ -128,7 +133,8 @@
     <string name="flashlight_brightness_summary_incompatible">Kernel did not support this feature</string>
 
     <string name="power_title">Power</string>
-
+    
+    <!-- Thermal Profiles -->
     <string name="thermal_title">Thermal Profiles</string>
     <string name="thermal_summary">Adjust per-app thermal and touchscreen profiles</string>
     <string name="thermal_default">Default</string>
@@ -151,7 +157,8 @@
     <string name="touch_sensitivity_summary">Control touch sensitivity for repeated taps</string>
     <string name="touch_resistant_title">Touch-resistant area</string>
     <string name="touch_resistant_summary">Reduce touch sensitivity near the edges to avoid triggering touch controls</string>
-
+    
+    <!-- KProfiles -->
     <string name="kprofiles_title">KProfiles</string>
     <string name="kprofiles_summary">Managing Kernelspace profiles to achieve balancing in terms of battery backup and performance</string>
     <string name="kprofiles_auto_title">Use Auto KProfiles</string>
@@ -171,16 +178,19 @@
     <!-- UiBench -->
     <string name="jitter_test_title">Jitter Test</string>
     <string name="jitter_test_summary">Calculate rendering jitter</string>
-
+    
+    <!-- Device Doze -->
 	<string name="ambient_display_title">Ambient Display</string>
     <string name="ambient_display_summary">Enable Ambient Display and doze wake-up gestures</string>
-
+    
+    <!-- Refresh Rate Profiles -->
     <string name="refresh_title">Refresh Rate Profiles</string>
     <string name="refresh_summary">Set a specific refresh rate for each applications</string>
     <string name="refresh_default">Default</string>
     <string name="refresh_medium">Medium (60Hz)</string>
     <string name="refresh_extreme">Extreme (120Hz)</string>
 
+    <!-- KCal -->
     <string name="kcal_settings_title">Display colors</string>
     <string name="kcal_settings_summary">Adjust the color of your display</string>
     <string name="kcal_enable_title">Enable display color configuration</string>

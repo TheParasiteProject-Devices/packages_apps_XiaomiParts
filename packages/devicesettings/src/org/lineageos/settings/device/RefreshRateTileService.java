@@ -23,6 +23,7 @@ import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import android.view.Display;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 
 import java.util.ArrayList;
@@ -32,8 +33,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class RefreshRateTileService extends TileService {
-    private static final String KEY_MIN_REFRESH_RATE = "min_refresh_rate";
-    private static final String KEY_PEAK_REFRESH_RATE = "peak_refresh_rate";
 
     private Context context;
     private Tile tile;
@@ -70,8 +69,8 @@ public class RefreshRateTileService extends TileService {
     }
 
     private void syncFromSettings() {
-        activeRateMin = getSettingOf(KEY_MIN_REFRESH_RATE);
-        activeRateMax = getSettingOf(KEY_PEAK_REFRESH_RATE);
+        activeRateMin = getSettingOf(Constants.KEY_MIN_REFRESH_RATE);
+        activeRateMax = getSettingOf(Constants.KEY_PEAK_REFRESH_RATE);
     }
 
     private void cycleRefreshRate() {
@@ -81,10 +80,10 @@ public class RefreshRateTileService extends TileService {
 	    }
 	    activeRateMax = activeRateMin;
 	    float rate = availableRates.get(activeRateMin - 1);
-  	    Settings.System.putFloat(context.getContentResolver(), KEY_MIN_REFRESH_RATE, rate);
+  	    Settings.System.putFloat(context.getContentResolver(), Constants.KEY_MIN_REFRESH_RATE, rate);
         }
         float rate = availableRates.get(activeRateMax - 1);
-        Settings.System.putFloat(context.getContentResolver(), KEY_PEAK_REFRESH_RATE, rate);
+        Settings.System.putFloat(context.getContentResolver(), Constants.KEY_PEAK_REFRESH_RATE, rate);
     }
 
     private void updateTileView() {

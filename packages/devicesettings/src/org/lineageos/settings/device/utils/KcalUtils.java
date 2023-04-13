@@ -18,14 +18,10 @@ package org.lineageos.settings.device.utils;
 
 import android.content.SharedPreferences;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.utils.FileUtils;
 
 public final class KcalUtils {
-
-    public static final String KCAL_ENABLE_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal_enable";
-    public static final String KCAL_RGB_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal";
-    public static final String KCAL_SATURATION_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal_sat";
-    public static final String KCAL_CONTRAST_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal_cont";
 
     private static final String[] COLOR_PROFILE_SETTINGS = {"red", "green", "blue", "saturation", "contrast"};
 
@@ -56,9 +52,9 @@ public final class KcalUtils {
         }
 
          mNewNodeData = mNewNodeData
-            .replace("R", getNodeData(KCAL_RGB_NODE, 1))
-            .replace("G", getNodeData(KCAL_RGB_NODE, 2))
-            .replace("B", getNodeData(KCAL_RGB_NODE, 3));
+            .replace("R", getNodeData(Constants.KCAL_RGB_NODE, 1))
+            .replace("G", getNodeData(Constants.KCAL_RGB_NODE, 2))
+            .replace("B", getNodeData(Constants.KCAL_RGB_NODE, 3));
 
         FileUtils.writeLine(node, mNewNodeData);
     }
@@ -81,18 +77,18 @@ public final class KcalUtils {
     }
 
     public static void writeCurrentSettings(SharedPreferences sharedPrefs) {
-        FileUtils.writeLine(KcalUtils.KCAL_ENABLE_NODE,
+        FileUtils.writeLine(Constants.KCAL_ENABLE_NODE,
             sharedPrefs.getBoolean("kcal_enable", false) ? "1" : "0");
 
-        KcalUtils.writeConfigToNode(KcalUtils.KCAL_RGB_NODE, 1, sharedPrefs.getInt("red_slider", 256));
-        KcalUtils.writeConfigToNode(KcalUtils.KCAL_RGB_NODE, 2, sharedPrefs.getInt("green_slider", 256));
-        KcalUtils.writeConfigToNode(KcalUtils.KCAL_RGB_NODE, 3, sharedPrefs.getInt("blue_slider", 256));
-        KcalUtils.writeConfigToNode(KcalUtils.KCAL_SATURATION_NODE, 0, sharedPrefs.getInt("saturation_slider", 255));
-        KcalUtils.writeConfigToNode(KcalUtils.KCAL_CONTRAST_NODE, 0, sharedPrefs.getInt("contrast_slider", 255));
+        KcalUtils.writeConfigToNode(Constants.KCAL_RGB_NODE, 1, sharedPrefs.getInt("red_slider", 256));
+        KcalUtils.writeConfigToNode(Constants.KCAL_RGB_NODE, 2, sharedPrefs.getInt("green_slider", 256));
+        KcalUtils.writeConfigToNode(Constants.KCAL_RGB_NODE, 3, sharedPrefs.getInt("blue_slider", 256));
+        KcalUtils.writeConfigToNode(Constants.KCAL_SATURATION_NODE, 0, sharedPrefs.getInt("saturation_slider", 255));
+        KcalUtils.writeConfigToNode(Constants.KCAL_CONTRAST_NODE, 0, sharedPrefs.getInt("contrast_slider", 255));
     }
 
     public static boolean isKcalSupported() {
-        return FileUtils.fileExists(KCAL_ENABLE_NODE);
+        return FileUtils.fileExists(Constants.KCAL_ENABLE_NODE);
     }
 
     public static int getMin(String key) {

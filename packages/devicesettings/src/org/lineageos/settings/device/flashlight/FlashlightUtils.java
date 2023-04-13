@@ -23,25 +23,20 @@ import android.provider.Settings;
 
 import java.lang.Math;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.utils.FileUtils;
 
 public final class FlashlightUtils {
 
-    final static String PREF_BRIGHTNESS = "flashlight_brightness_pref";
-    final static String PATH_BRIGHTNESS = "/sys/class/leds/led:torch_0/max_brightness";
-
-    // Min(10), Max(200)
-    final static int MIN_BRIGHTNESS = 10;
-
     public static void applyBrightness(Context context, int value) {
-        if (FileUtils.fileExists(PATH_BRIGHTNESS)) {
-            int newValue = value+MIN_BRIGHTNESS;
-            FileUtils.writeLine(PATH_BRIGHTNESS, String.valueOf(value));
+        if (FileUtils.fileExists(Constants.FLASHLIGHT_BRIGHTNESS_NODE)) {
+            int newValue = value+Constants.FLASHLIGHT_MIN_BRIGHTNESS;
+            FileUtils.writeLine(Constants.FLASHLIGHT_BRIGHTNESS_NODE, String.valueOf(value));
         }
     }
 
     public static void restoreBrightness(Context context) {
         applyBrightness(context, Settings.Secure.getInt(
-            context.getContentResolver(), PREF_BRIGHTNESS, 100));
+            context.getContentResolver(), Constants.KEY_FLASHLIGHT_BRIGHTNESS, 100));
     }
 }

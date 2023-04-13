@@ -23,21 +23,16 @@ import android.provider.Settings;
 
 import java.lang.Math;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.utils.FileUtils;
 
 public final class HapticUtils {
 
-    final static String PREF_LEVEL = "haptic_level_pref";
-    final static String PATH_LEVEL = "/sys/devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel";
-
-    final static int MIN_LEVEL = 1;
-    final static int MAX_LEVEL = 128;
-
     public static void applyLevel(Context context, int value, boolean test) {
-        if (FileUtils.fileExists(PATH_LEVEL)) {
-            double level = value / 100.0 * (MAX_LEVEL - MIN_LEVEL) + MIN_LEVEL;
+        if (FileUtils.fileExists(Constants.HAPTIC_LEVEL_NODE)) {
+            double level = value / 100.0 * (Constants.HAPTIC_MAX_LEVEL - Constants.HAPTIC_MIN_LEVEL) + Constants.HAPTIC_MIN_LEVEL;
             int newValue = (int) Math.round(level);
-            FileUtils.writeLine(PATH_LEVEL, String.valueOf(newValue));
+            FileUtils.writeLine(Constants.HAPTIC_LEVEL_NODE, String.valueOf(newValue));
 
             if (test) {
                 Vibrator dev = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -50,6 +45,6 @@ public final class HapticUtils {
 
     public static void restoreLevel(Context context) {
         applyLevel(context, Settings.Secure.getInt(
-            context.getContentResolver(), PREF_LEVEL, 80), false);
+            context.getContentResolver(), Constants.KEY_HAPTIC_LEVEL, 80), false);
     }
 }

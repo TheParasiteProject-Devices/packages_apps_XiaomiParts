@@ -27,6 +27,7 @@ import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.PreferenceFragment;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.utils.FileUtils;
 import org.lineageos.settings.device.widget.SeekBarPreference;
@@ -37,8 +38,8 @@ public class FlashlightBrightnessFragment extends PreferenceFragment implements 
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.flashlight_settings);
 
-        final SeekBarPreference mFlashlightBrigtness = (SeekBarPreference) findPreference(FlashlightUtils.PREF_BRIGHTNESS);
-        if (FileUtils.fileExists(FlashlightUtils.PATH_BRIGHTNESS)) {
+        final SeekBarPreference mFlashlightBrigtness = (SeekBarPreference) findPreference(Constants.KEY_FLASHLIGHT_BRIGHTNESS);
+        if (FileUtils.fileExists(Constants.FLASHLIGHT_BRIGHTNESS_NODE)) {
             mFlashlightBrigtness.setEnabled(true);
             mFlashlightBrigtness.setOnPreferenceChangeListener(this);
         } else {
@@ -57,7 +58,7 @@ public class FlashlightBrightnessFragment extends PreferenceFragment implements 
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (FlashlightUtils.PREF_BRIGHTNESS.equals(preference.getKey())) {
+        if (Constants.KEY_FLASHLIGHT_BRIGHTNESS.equals(preference.getKey())) {
             FlashlightUtils.applyBrightness(getContext(), (int) newValue);
         }
 

@@ -27,6 +27,7 @@ import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 import androidx.preference.PreferenceFragment;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.utils.FileUtils;
 import org.lineageos.settings.device.widget.SeekBarPreference;
@@ -37,8 +38,8 @@ public class HapticLevelFragment extends PreferenceFragment implements OnPrefere
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.haptic_settings);
 
-        final SeekBarPreference mHapticLevel = (SeekBarPreference) findPreference(HapticUtils.PREF_LEVEL);
-        if (FileUtils.fileExists(HapticUtils.PATH_LEVEL)) {
+        final SeekBarPreference mHapticLevel = (SeekBarPreference) findPreference(Constants.KEY_HAPTIC_LEVEL);
+        if (FileUtils.fileExists(Constants.HAPTIC_LEVEL_NODE)) {
             mHapticLevel.setEnabled(true);
             mHapticLevel.setOnPreferenceChangeListener(this);
         } else {
@@ -57,7 +58,7 @@ public class HapticLevelFragment extends PreferenceFragment implements OnPrefere
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (HapticUtils.PREF_LEVEL.equals(preference.getKey())) {
+        if (Constants.KEY_HAPTIC_LEVEL.equals(preference.getKey())) {
             HapticUtils.applyLevel(getContext(), (int) newValue, true);
         }
 

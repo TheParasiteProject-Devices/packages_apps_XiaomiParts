@@ -28,6 +28,7 @@ import android.view.WindowManager;
 
 import androidx.preference.PreferenceManager;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.utils.FileUtils;
 
 import vendor.xiaomi.hardware.touchfeature.V1_0.ITouchFeature;
@@ -64,8 +65,6 @@ public final class ThermalUtils {
     private static final String THERMAL_NAVIGATION = "thermal.navigation=";
     private static final String THERMAL_STREAMING = "thermal.streaming=";
     private static final String THERMAL_VIDEO = "thermal.video=";
-
-    private static final String THERMAL_SCONFIG = "/sys/class/thermal/thermal_message/sconfig";
 
     private boolean mTouchModeChanged;
 
@@ -171,7 +170,7 @@ public final class ThermalUtils {
     }
 
     protected void setDefaultThermalProfile() {
-        FileUtils.writeLine(THERMAL_SCONFIG, THERMAL_STATE_DEFAULT);
+        FileUtils.writeLine(Constants.THERMAL_SCONFIG, THERMAL_STATE_DEFAULT);
     }
 
     protected void setThermalProfile(String packageName) {
@@ -200,7 +199,7 @@ public final class ThermalUtils {
                 state = THERMAL_STATE_VIDEO;
             }
         }
-        FileUtils.writeLine(THERMAL_SCONFIG, state);
+        FileUtils.writeLine(Constants.THERMAL_SCONFIG, state);
 
         if (state == THERMAL_STATE_BENCHMARK || state == THERMAL_STATE_GAMING) {
             updateTouchModes(packageName);

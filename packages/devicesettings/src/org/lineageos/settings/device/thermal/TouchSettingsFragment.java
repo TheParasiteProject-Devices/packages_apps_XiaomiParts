@@ -22,6 +22,7 @@ import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.widget.SeekBarPreference;
 
@@ -51,11 +52,11 @@ public class TouchSettingsFragment extends PreferenceFragment
 
         getActivity().setTitle(appName);
 
-        mGameMode = (SwitchPreference) findPreference(Constants.PREF_TOUCH_GAME_MODE);
-        mTouchPerfLevel = (SeekBarPreference) findPreference(Constants.PREF_TOUCH_PERF_LEVEL);
-        mTouchResistant = (SeekBarPreference) findPreference(Constants.PREF_TOUCH_RESISTANT);
-        mTouchResponse = (SeekBarPreference) findPreference(Constants.PREF_TOUCH_RESPONSE);
-        mTouchSensitivity = (SeekBarPreference) findPreference(Constants.PREF_TOUCH_SENSITIVITY);
+        mGameMode = (SwitchPreference) findPreference(Constants.KEY_TOUCH_GAME_MODE);
+        mTouchPerfLevel = (SeekBarPreference) findPreference(Constants.KEY_TOUCH_PERF_LEVEL);
+        mTouchResistant = (SeekBarPreference) findPreference(Constants.KEY_TOUCH_RESISTANT);
+        mTouchResponse = (SeekBarPreference) findPreference(Constants.KEY_TOUCH_RESPONSE);
+        mTouchSensitivity = (SeekBarPreference) findPreference(Constants.KEY_TOUCH_SENSITIVITY);
         updateDefaults();
     }
 
@@ -73,20 +74,20 @@ public class TouchSettingsFragment extends PreferenceFragment
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPrefs, String key) {
-        if (Constants.PREF_TOUCH_GAME_MODE.equals(key)) {
+        if (Constants.KEY_TOUCH_GAME_MODE.equals(key)) {
             updateTouchModes(sharedPrefs.getBoolean(key, false) ? 1 : 0,
                     Constants.TOUCH_GAME_MODE);
             mTouchPerfLevel.setEnabled(sharedPrefs.getBoolean(key, false));
             mTouchSensitivity.setEnabled(sharedPrefs.getBoolean(key, false));
             mTouchResponse.setEnabled(sharedPrefs.getBoolean(key, false));
             mTouchResistant.setEnabled(sharedPrefs.getBoolean(key, false));
-        } else if (Constants.PREF_TOUCH_PERF_LEVEL.equals(key)) {
+        } else if (Constants.KEY_TOUCH_PERF_LEVEL.equals(key)) {
             updateTouchModes(sharedPrefs.getInt(key, 0), Constants.TOUCH_PERF_LEVEL);
-        } else if (Constants.PREF_TOUCH_RESPONSE.equals(key)) {
+        } else if (Constants.KEY_TOUCH_RESPONSE.equals(key)) {
             updateTouchModes(sharedPrefs.getInt(key, 0), Constants.TOUCH_RESPONSE);
-        } else if (Constants.PREF_TOUCH_SENSITIVITY.equals(key)) {
+        } else if (Constants.KEY_TOUCH_SENSITIVITY.equals(key)) {
             updateTouchModes(sharedPrefs.getInt(key, 0), Constants.TOUCH_SENSITIVITY);
-        } else if (Constants.PREF_TOUCH_RESISTANT.equals(key)) {
+        } else if (Constants.KEY_TOUCH_RESISTANT.equals(key)) {
             updateTouchModes(sharedPrefs.getInt(key, 0), Constants.TOUCH_RESISTANT);
         }
     }

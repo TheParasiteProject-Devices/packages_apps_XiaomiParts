@@ -22,10 +22,10 @@ import android.os.Handler;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
+import org.lineageos.settings.device.Constants;
+
 // TODO: Add FPS drawables
 public class FPSTileService extends TileService {
-
-  private final String KEY_FPS_INFO = "fps_info";
 
   private boolean isShowing = false;
 

@@ -29,22 +29,14 @@ import org.lineageos.settings.device.Constants;
 
 public final class RefreshUtils {
 
-    private static final String REFRESH_CONTROL = "refresh_control";
-
     private static float defaultMaxRate;
     private static float defaultMinRate;
-    private static final String KEY_PEAK_REFRESH_RATE = "peak_refresh_rate";
-    private static final String KEY_MIN_REFRESH_RATE = "min_refresh_rate";
     private Context mContext;
     protected static boolean isAppInList = false;
 
     protected static final int STATE_DEFAULT = 0;
     protected static final int STATE_MEDIUM = 1;
     protected static final int STATE_EXTREME = 2;
-
-    private static final float REFRESH_STATE_DEFAULT = Constants.DEFAULT_REFRESH_RATE;
-    private static final float REFRESH_STATE_MEDIUM = 60f;
-    private static final float REFRESH_STATE_EXTREME = 120f;
 
     private static final String REFRESH_MEDIUM = "refresh.medium=";
     private static final String REFRESH_EXTREME = "refresh.extreme=";
@@ -62,17 +54,16 @@ public final class RefreshUtils {
     }
 
     private void writeValue(String profiles) {
-        mSharedPrefs.edit().putString(REFRESH_CONTROL, profiles).apply();
+        mSharedPrefs.edit().putString(Constants.KEY_REFRESH_CONTROL, profiles).apply();
     }
 
-   protected void getOldRate(){
-        defaultMaxRate = Settings.System.getFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, Constants.DEFAULT_REFRESH_RATE);
-        defaultMinRate = Settings.System.getFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, Constants.DEFAULT_REFRESH_RATE);
+    protected void getOldRate(){
+        defaultMaxRate = Settings.System.getFloat(mContext.getContentResolver(), Constants.KEY_PEAK_REFRESH_RATE, Constants.DEFAULT_REFRESH_RATE);
+        defaultMinRate = Settings.System.getFloat(mContext.getContentResolver(), Constants.KEY_MIN_REFRESH_RATE, Constants.DEFAULT_REFRESH_RATE);
     }
-
 
     private String getValue() {
-        String value = mSharedPrefs.getString(REFRESH_CONTROL, null);
+        String value = mSharedPrefs.getString(Constants.KEY_REFRESH_CONTROL, null);
 
         if (value == null || value.isEmpty()) {
             value = REFRESH_MEDIUM + ":" + REFRESH_EXTREME;
@@ -124,20 +115,20 @@ public final class RefreshUtils {
             modes = value.split(":");
 
             if (modes[0].contains(packageName + ",")) {
-                maxrate = REFRESH_STATE_MEDIUM;
+                maxrate = Constants.REFRESH_STATE_MEDIUM;
                 if ( minrate > maxrate){
                 minrate = maxrate;
                 }
                 isAppInList = true;
             } else if (modes[1].contains(packageName + ",")) {
-                maxrate = REFRESH_STATE_EXTREME;
+                maxrate = Constants.REFRESH_STATE_EXTREME;
                 if ( minrate > maxrate){
                 minrate = maxrate;
                 }
 		isAppInList = true;
            }
           }
-	Settings.System.putFloat(mContext.getContentResolver(), KEY_MIN_REFRESH_RATE, minrate);
-        Settings.System.putFloat(mContext.getContentResolver(), KEY_PEAK_REFRESH_RATE, maxrate);
+	    Settings.System.putFloat(mContext.getContentResolver(), Constants.KEY_MIN_REFRESH_RATE, minrate);
+        Settings.System.putFloat(mContext.getContentResolver(), Constants.KEY_PEAK_REFRESH_RATE, maxrate);
     }
 }
