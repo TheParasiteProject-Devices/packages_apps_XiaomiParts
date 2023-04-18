@@ -16,7 +16,6 @@
 
 package org.lineageos.settings.device;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -35,7 +34,6 @@ public class MainSettingsFragment extends PreferenceFragment {
     private Preference mPrefRefreshRateInfo;
     private ListPreference mPrefRefreshRateConfig;
     private SwitchPreference mPrefDcDimming;
-    private SwitchPreference mPrefHBM;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -51,15 +49,7 @@ public class MainSettingsFragment extends PreferenceFragment {
         mPrefRefreshRateInfo = (Preference) findPreference(Constants.KEY_REFRESH_RATE_INFO);
         mPrefDcDimming = (SwitchPreference) findPreference(Constants.KEY_DC_DIMMING);
         mPrefDcDimming.setOnPreferenceChangeListener(PrefListener);
-        mPrefHBM = (SwitchPreference) findPreference(Constants.KEY_HBM);
-        mPrefHBM.setOnPreferenceChangeListener(PrefListener);
         updateSummary();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPrefHBM.setChecked(DisplayUtils.isHBMEnabled(getContext()));
     }
 
     private Preference.OnPreferenceChangeListener PrefListener =
@@ -72,15 +62,6 @@ public class MainSettingsFragment extends PreferenceFragment {
                     setHzConfig();
                 } else if (Constants.KEY_DC_DIMMING.equals(key)) {
                     DisplayUtils.setDcDimmingStatus((boolean) value);
-                } else if (Constants.KEY_HBM.equals(key)) {
-                    DisplayUtils.setHBMStatus((boolean) value);
-                    Intent mHbmIntent = new Intent(getContext(), HbmService.class);
-                    if (DisplayUtils.isHBMEnabled(getContext()) == true) {
-                        getContext().startService(mHbmIntent);
-                    } else {
-                        getContext().stopService(mHbmIntent);
-                        mHbmIntent = null;
-                    }
                 }
 
                 return true;

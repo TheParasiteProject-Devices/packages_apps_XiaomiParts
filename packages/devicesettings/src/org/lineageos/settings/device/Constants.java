@@ -19,10 +19,6 @@ public class Constants {
     public static final String KEY_DC_DIMMING = "pref_dc_dimming";
     public static final String DC_DIMMING_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/anti_flicker";
 
-    /* HBM settings */
-    public static final String KEY_HBM = "pref_hbm";
-    public static final String HBM_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/hbm";
-    
     /* KProfiles */
     public static final String KEY_KPROFILES_AUTO = "pref_kprofiles_auto";
     public static final String KPROFILES_AUTO_NODE = "/sys/module/kprofiles/parameters/auto_kprofiles";
