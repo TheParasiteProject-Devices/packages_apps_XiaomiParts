@@ -81,7 +81,7 @@ public class HBMModeTileService extends TileService {
         super.onClick();
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         final boolean enabled = !(sharedPrefs.getBoolean(Constants.KEY_HBM_SWITCH, false));
-        FileUtils.writeLine(Constants.HBM_NODE, enabled ? "0x10000" : "0xF0000");
+        FileUtils.writeLine(Constants.HBM_NODE, enabled ? "1" : "0");
         if (enabled) {
             FileUtils.writeLine(Constants.BACKLIGHT_NODE, "2047");
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);

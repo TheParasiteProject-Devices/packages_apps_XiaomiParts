@@ -101,6 +101,6 @@ public class Constants {
     public static final String KEY_HBM_SWITCH = "pref_hbm";
     public static final String KEY_AUTO_HBM_SWITCH = "pref_auto_hbm";
     public static final String KEY_AUTO_HBM_THRESHOLD = "pref_auto_hbm_threshold";
-    public static final String HBM_NODE = "/sys/class/drm/card0/card0-DSI-1/disp_param";
+    public static final String HBM_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/hbm";
     public static final String BACKLIGHT_NODE = "/sys/class/backlight/panel0-backlight/brightness";
 }

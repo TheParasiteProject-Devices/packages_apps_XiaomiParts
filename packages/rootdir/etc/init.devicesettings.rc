@@ -26,8 +26,8 @@ on boot
     chown system system /sys/devices/platform/soc/soc:qcom,dsi-display/anti_flicker
     chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display/anti_flicker
 
-    chown system system /sys/class/drm/card0/card0-DSI-1/disp_param
-    chmod 0660 /sys/class/drm/card0/card0-DSI-1/disp_param
+    chown system system /sys/devices/platform/soc/soc:qcom,dsi-display/hbm
+    chmod 0660 /sys/devices/platform/soc/soc:qcom,dsi-display/hbm
 
     # Allow system to adjust haptic level directly
     chown system system /sys/devices/platform/soc/a8c000.i2c/i2c-2/2-005a/ulevel
