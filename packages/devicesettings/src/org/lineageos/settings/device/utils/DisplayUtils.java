@@ -42,6 +42,10 @@ public class DisplayUtils {
         }
     }
 
+    public static boolean isHBMCurrentlyEnabled() {
+        return FileUtils.getFileValueAsBoolean(Constants.HBM_NODE, false);
+    }
+
     public static void updateRefreshRateSettings(final Context context) {
         Handler.getMain().post(() -> {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);

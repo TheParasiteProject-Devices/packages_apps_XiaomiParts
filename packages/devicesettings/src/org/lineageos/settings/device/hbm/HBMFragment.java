@@ -62,6 +62,12 @@ public class HBMFragment extends PreferenceFragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mHBMModeSwitch.setChecked(DisplayUtils.isHBMCurrentlyEnabled());
+    }
+
+    @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mHBMModeSwitch)  {
             Boolean enabled = (Boolean) newValue;

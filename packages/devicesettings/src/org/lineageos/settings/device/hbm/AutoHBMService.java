@@ -17,6 +17,7 @@ import androidx.preference.PreferenceManager;
 import android.provider.Settings;
 
 import org.lineageos.settings.device.Constants;
+import org.lineageos.settings.device.utils.DisplayUtils;
 import org.lineageos.settings.device.utils.FileUtils;
 
 import java.util.concurrent.ExecutorService;
@@ -59,9 +60,6 @@ public class AutoHBMService extends Service {
         }
 
     }
-    private boolean isCurrentlyEnabled() {
-        return FileUtils.getFileValueAsBoolean(Constants.HBM_NODE, false);
-    }
 
     private static final int DELAY_MILLIS = 7000; // 7 seconds
 
@@ -74,7 +72,7 @@ public class AutoHBMService extends Service {
             boolean keyguardShowing = km.inKeyguardRestrictedInputMode();
             float threshold = Float.parseFloat(mSharedPrefs.getString(Constants.KEY_AUTO_HBM_THRESHOLD, "20000"));
             if (lux > threshold) {
-                if ((!mAutoHBMActive | !isCurrentlyEnabled()) && !keyguardShowing) {
+                if ((!mAutoHBMActive | !DisplayUtils.isHBMCurrentlyEnabled()) && !keyguardShowing) {
                     mAutoHBMActive = true;
                     enableHBM(true);
                 }
