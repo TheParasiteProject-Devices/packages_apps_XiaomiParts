@@ -63,13 +63,19 @@ public class HBMFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mAutoHBMSwitch) {
+        if (preference == mHBMModeSwitch)  {
+            Boolean enabled = (Boolean) newValue;
+            SharedPreferences.Editor prefChange = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+            prefChange.putBoolean(Constants.KEY_HBM_SWITCH, enabled).commit();
+            DisplayUtils.enableHBMService(getContext());
+            return true;
+        } else if (preference == mAutoHBMSwitch) {
             Boolean enabled = (Boolean) newValue;
             SharedPreferences.Editor prefChange = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
             prefChange.putBoolean(Constants.KEY_AUTO_HBM_SWITCH, enabled).commit();
             DisplayUtils.enableHBMService(getContext());
             return true;
-           }
+        }
 
         return false;
     }
