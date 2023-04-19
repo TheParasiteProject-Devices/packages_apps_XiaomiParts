@@ -4,9 +4,13 @@ import android.content.SharedPreferences;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.ContentResolver;
 import android.os.Handler;
 import android.os.UserHandle;
 import android.provider.Settings;
+import static android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE;
+import static android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL;
+import static android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
 
 import androidx.preference.PreferenceManager;
 
@@ -44,6 +48,12 @@ public class DisplayUtils {
 
     public static boolean isHBMCurrentlyEnabled() {
         return FileUtils.getFileValueAsBoolean(Constants.HBM_NODE, false);
+    }
+
+    public static boolean isAutoBrightnessEnabled(ContentResolver contentResolver) {
+        return Settings.System.getInt(contentResolver, 
+                    SCREEN_BRIGHTNESS_MODE , SCREEN_BRIGHTNESS_MODE_MANUAL) 
+                        == SCREEN_BRIGHTNESS_MODE_AUTOMATIC ? true : false;
     }
 
     public static void updateRefreshRateSettings(final Context context) {

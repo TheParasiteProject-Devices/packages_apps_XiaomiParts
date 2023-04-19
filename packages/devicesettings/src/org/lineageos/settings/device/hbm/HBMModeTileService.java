@@ -29,9 +29,12 @@ import androidx.preference.PreferenceManager;
 import android.provider.Settings;
 
 import org.lineageos.settings.device.Constants;
+import org.lineageos.settings.device.utils.DisplayUtils;
 import org.lineageos.settings.device.utils.FileUtils;
 
 public class HBMModeTileService extends TileService {
+    
+    private Context montext;
 
     private BroadcastReceiver screenStateReceiver = new BroadcastReceiver() {
         @Override
@@ -82,7 +85,7 @@ public class HBMModeTileService extends TileService {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         final boolean enabled = !(sharedPrefs.getBoolean(Constants.KEY_HBM_SWITCH, false));
         FileUtils.writeLine(Constants.HBM_NODE, enabled ? "1" : "0");
-        if (enabled) {
+        if (enabled && DisplayUtils.isAutoBrightnessEnabled(getContentResolver())) {
             FileUtils.writeLine(Constants.BACKLIGHT_NODE, "2047");
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
         }
