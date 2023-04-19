@@ -35,9 +35,9 @@
     <!-- HBM settings -->
     <string name="hbm_settings_title">High brightness mode</string>
     <string name="hbm_settings_summary">Configure high brightness mode to improve visibility in direct sunlight</string>
-    <string name="hbm_mode_title">HBM</string>
+    <string name="hbm_mode_title">High Brightness Mode</string>
     <string name="hbm_mode_summary">Enable peak luminance</string>
-    <string name="auto_hbm_title">Automatic HBM</string>
+    <string name="auto_hbm_title">Automatic High Brightness Mode</string>
     <string name="auto_hbm_summary">Enable peak luminance based on sunlight</string>
     <string name="auto_hbm_threshold_title"></string>
     <string name="auto_hbm_threshold_summary">threshold (lux)</string>
