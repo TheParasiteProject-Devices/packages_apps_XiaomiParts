@@ -27,11 +27,13 @@ import androidx.annotation.Nullable;
 
 import org.lineageos.settings.device.dirac.DiracActivity;
 import org.lineageos.settings.device.kprofiles.KProfilesSettingsActivity;
+import org.lineageos.settings.device.hbm.HBMActivity;
 
 public class TileEntryActivity extends Activity {
     private static final String TAG = "TileEntryActivity";
     private static final String DIRAC_TILE = "org.lineageos.settings.device.dirac.DiracTileService";
     private static final String KPROFILES_MODES_TILE = "org.lineageos.settings.device.kprofiles.KProfilesModesTileService";
+    private static final String HBM_TILE = "org.lineageos.settings.device.hbm.HBMModeTileService";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +45,9 @@ public class TileEntryActivity extends Activity {
                 break;
             case KPROFILES_MODES_TILE:
                 openActivitySafely(new Intent(this, KProfilesSettingsActivity.class));
+                break;
+            case HBM_TILE:
+                openActivitySafely(new Intent(this, HBMActivity.class));
                 break;
             default:
                 finish();
