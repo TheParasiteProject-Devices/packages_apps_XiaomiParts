@@ -53,3 +53,6 @@ allow devicesettings_app sysfs_vibrator:file rw_file_perms;
 # ro.input.resampling
 # viewroot.profile_rendering
 dontaudit devicesettings_app default_prop:file read;
+
+# Allow DeviceSettings to write property_socket's sock_file
+allow devicesettings_app property_socket:sock_file write;
