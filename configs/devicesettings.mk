@@ -11,3 +11,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_SOONG_NAMESPACES += \
     packages/apps/Parts/packages/devicesettings
+
+# Mi Sound FX
+PRODUCT_VENDOR_PROPERTIES += \
+ro.vendor.audio.misound.bluetooth.enable=true \
+ro.vendor.audio.scenario.support=true \
+ro.vendor.audio.soundfx.type=true \
+ro.vendor.audio.soundfx.usb=true

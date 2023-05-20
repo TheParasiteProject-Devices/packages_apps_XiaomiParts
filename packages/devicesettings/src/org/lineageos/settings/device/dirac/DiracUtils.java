@@ -19,6 +19,7 @@ package org.lineageos.settings.device.dirac;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.os.SystemProperties;
 import android.preference.PreferenceManager;
 
 import org.lineageos.settings.device.Constants;
@@ -49,7 +50,13 @@ public class DiracUtils {
     }
 
     public void setMusic(boolean enable) {
-        mDiracSound.setMusic(enable ? 1 : 0);
+        if (enable) {
+            SystemProperties.set("persist.vendor.audio.misound.disable", "false");
+            mDiracSound.setMusic(1);
+        } else {
+            mDiracSound.setMusic(0);
+            SystemProperties.set("persist.vendor.audio.misound.disable", "true");
+        }
     }
 
     public boolean isDiracEnabled() {
