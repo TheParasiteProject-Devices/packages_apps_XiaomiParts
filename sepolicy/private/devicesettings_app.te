@@ -59,3 +59,6 @@ allow devicesettings_app property_socket:sock_file write;
 
 # Allow DeviceSettings to connectto init's unix_stream_socket
 allow devicesettings_app init:unix_stream_socket connectto;
+
+# Allow DeviceSettings to set prop
+set_prop(devicesettings_app, system_prop)
