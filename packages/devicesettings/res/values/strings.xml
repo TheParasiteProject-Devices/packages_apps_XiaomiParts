@@ -212,6 +212,6 @@
     <string name="custom_seekbar_default_value_is_set">Default value is set</string>
 
     <!-- USB fastcharge -->
-    <string name="usb_fastcharge_title">Enable USB fastcharge</string>
+    <string name="usb_fastcharge_title">Use USB fastcharge</string>
     <string name="usb_fastcharge_summary">Charge upto 900mA when connected to a computer via USB 3.0 port</string>
 </resources>
