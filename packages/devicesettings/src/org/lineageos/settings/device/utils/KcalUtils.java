@@ -78,13 +78,13 @@ public final class KcalUtils {
 
     public static void writeCurrentSettings(SharedPreferences sharedPrefs) {
         FileUtils.writeLine(Constants.KCAL_ENABLE_NODE,
-            sharedPrefs.getBoolean("kcal_enable", false) ? "1" : "0");
+            sharedPrefs.getBoolean(Constants.KEY_KCAL_ENABLE, false) ? "1" : "0");
 
-        KcalUtils.writeConfigToNode(Constants.KCAL_RGB_NODE, 1, sharedPrefs.getInt("red_slider", 256));
-        KcalUtils.writeConfigToNode(Constants.KCAL_RGB_NODE, 2, sharedPrefs.getInt("green_slider", 256));
-        KcalUtils.writeConfigToNode(Constants.KCAL_RGB_NODE, 3, sharedPrefs.getInt("blue_slider", 256));
-        KcalUtils.writeConfigToNode(Constants.KCAL_SATURATION_NODE, 0, sharedPrefs.getInt("saturation_slider", 255));
-        KcalUtils.writeConfigToNode(Constants.KCAL_CONTRAST_NODE, 0, sharedPrefs.getInt("contrast_slider", 255));
+        KcalUtils.writeConfigToNode(Constants.KCAL_RGB_NODE, 1, sharedPrefs.getInt(Constants.KEY_KCAL_RED, 256));
+        KcalUtils.writeConfigToNode(Constants.KCAL_RGB_NODE, 2, sharedPrefs.getInt(Constants.KEY_KCAL_GREEN, 256));
+        KcalUtils.writeConfigToNode(Constants.KCAL_RGB_NODE, 3, sharedPrefs.getInt(Constants.KEY_KCAL_BLUE, 256));
+        KcalUtils.writeConfigToNode(Constants.KCAL_SATURATION_NODE, 0, sharedPrefs.getInt(Constants.KEY_KCAL_SATURATION, 255));
+        KcalUtils.writeConfigToNode(Constants.KCAL_CONTRAST_NODE, 0, sharedPrefs.getInt(Constants.KEY_KCAL_CONTRAST, 255));
     }
 
     public static boolean isKcalSupported() {
@@ -93,8 +93,8 @@ public final class KcalUtils {
 
     public static int getMin(String key) {
         switch (key) {
-             case "saturation_slider":
-             case "contrast_slider":
+             case Constants.KEY_KCAL_SATURATION:
+             case Constants.KEY_KCAL_CONTRAST:
                  return 224;
              default:
                  return 1;

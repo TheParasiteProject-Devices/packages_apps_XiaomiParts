@@ -189,8 +189,8 @@
     <!-- KCal -->
     <string name="kcal_settings_title">Display colors</string>
     <string name="kcal_settings_summary">Adjust the color of your display</string>
-    <string name="kcal_enable_title">Enable display color configuration</string>
-    <string name="kcal_enable_summary">Enables the configuration of the display color for a custom adjustment</string>
+    <string name="kcal_enable_title">Use custom display color</string>
+    <string name="kcal_enable_summary">Configure display color with custom adjustments</string>
     <string name="kcal_not_supported">Display color settings is not supported by the kernel</string>
     <string name="kcal_rgb_preference_category_title">RGB adjustments</string>
     <string name="kcal_calibration_preference_category_title">Color calibration</string>

@@ -92,6 +92,15 @@ public class Constants {
     public static final String KEY_TOUCH_SENSITIVITY = "touch_sensitivity";
 
     /* KCal */
+    public static final String KEY_KCAL_ENABLE = "kcal_enable";
+    public static final String KEY_KCAL_RESET_DEFAULT = "reset_default_button";
+    public static final String KEY_KCAL_COLOR_PROFILES = "color_profiles";
+    public static final String KEY_KCAL_RED = "red_slider";
+    public static final String KEY_KCAL_GREEN = "green_slider";
+    public static final String KEY_KCAL_BLUE = "blue_slider";
+    public static final String KEY_KCAL_SATURATION = "saturation_slider";
+    public static final String KEY_KCAL_CONTRAST = "contrast_slider";
+
     public static final String KCAL_ENABLE_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal_enable";
     public static final String KCAL_RGB_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal";
     public static final String KCAL_SATURATION_NODE = "/sys/devices/platform/kcal_ctrl.0/kcal_sat";

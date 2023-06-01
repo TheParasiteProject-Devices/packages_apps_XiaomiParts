@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"-->
-    <SwitchPreference
+    <com.android.settingslib.widget.MainSwitchPreference
         android:key="kcal_enable"
         android:defaultValue="true"
         android:icon="@drawable/ic_kcal"

@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.widget.Switch;
 
 import androidx.preference.Preference;
 import androidx.preference.Preference.OnPreferenceChangeListener;
@@ -32,19 +33,22 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreference;
 
+import com.android.settingslib.widget.MainSwitchPreference;
+import com.android.settingslib.widget.OnMainSwitchChangeListener;
+
 import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.utils.FileUtils;
 import org.lineageos.settings.device.utils.KcalUtils;
 
 public class KcalSettingsFragment extends PreferenceFragment implements
-        OnPreferenceChangeListener {
+        OnPreferenceChangeListener, OnMainSwitchChangeListener {
 
     private static final String TAG = "KcalSettings";
 
     private SharedPreferences mSharedPrefs;
 
-    private SwitchPreference mKcalSwitchPreference;
+    private MainSwitchPreference mKcalSwitchPreference;
     private Preference mResetButton;
     private Preference mColorProfilesButton;
 
@@ -54,8 +58,8 @@ public class KcalSettingsFragment extends PreferenceFragment implements
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        mKcalSwitchPreference = (SwitchPreference) findPreference("kcal_enable");
-        mResetButton = (Preference) findPreference("reset_default_button");
+        mKcalSwitchPreference = (MainSwitchPreference) findPreference(Constants.KEY_KCAL_ENABLE);
+        mResetButton = (Preference) findPreference(Constants.KEY_KCAL_RESET_DEFAULT);
 
         // Check if the node exists and enable / disable the preference depending on the case
         if (KcalUtils.isKcalSupported()) {
@@ -66,13 +70,20 @@ public class KcalSettingsFragment extends PreferenceFragment implements
             mKcalSwitchPreference.setEnabled(false);
             mKcalSwitchPreference.setSummary(getString(R.string.kcal_not_supported));
             mResetButton.setEnabled(false);
+            mColorProfilesButton.setEnabled(false);
         }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference.getKey().equals("kcal_enable")) {
+        if (preference.getKey().equals(Constants.KEY_KCAL_ENABLE)) {
             KcalUtils.writeConfigToNode(Constants.KCAL_ENABLE_NODE, 0, (Boolean) newValue ? 1 : 0);
+            configurePreferences();
+            if (!mSharedPrefs.getBoolean(Constants.KEY_KCAL_ENABLE, false)) {
+                FileUtils.writeLine(Constants.KCAL_SATURATION_NODE, 255);
+                FileUtils.writeLine(Constants.KCAL_CONTRAST_NODE, 255);
+                configurePreferences();
+            }
         }
         return true;
     }
@@ -80,10 +91,15 @@ public class KcalSettingsFragment extends PreferenceFragment implements
     // Configure the switches, preferences and sliders
     private void configurePreferences() {
         mKcalSwitchPreference.setEnabled(true);
-        mKcalSwitchPreference.setOnPreferenceChangeListener(this);
-        mKcalSwitchPreference = (SwitchPreference) findPreference("kcal_enable");
-        mResetButton = (Preference) findPreference("reset_default_button");
-        mColorProfilesButton = (Preference) findPreference("color_profiles");
+        mKcalSwitchPreference.addOnSwitchChangeListener(this);
+        mKcalSwitchPreference = (MainSwitchPreference) findPreference(Constants.KEY_KCAL_ENABLE);
+        mResetButton = (Preference) findPreference(Constants.KEY_KCAL_RESET_DEFAULT);
+        mColorProfilesButton = (Preference) findPreference(Constants.KEY_KCAL_COLOR_PROFILES);
+
+        if (!mSharedPrefs.getBoolean(Constants.KEY_KCAL_ENABLE, false)) {
+            mResetButton.setEnabled(false);
+            mColorProfilesButton.setEnabled(false);
+        }
 
         // Set the preference so it resets all the other preference's values, and applies the configuration on click
         mResetButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -125,5 +141,18 @@ public class KcalSettingsFragment extends PreferenceFragment implements
         });
 
         return builder;
+    }
+
+    @Override
+    public void onSwitchChanged(Switch switchView, boolean isChecked) {
+        mKcalSwitchPreference.setChecked(isChecked);
+        if (isChecked) {
+            KcalUtils.writeConfigToNode(Constants.KCAL_ENABLE_NODE, 0, 1);
+        } else {
+            KcalUtils.writeConfigToNode(Constants.KCAL_ENABLE_NODE, 0, 0);
+        }
+
+        mResetButton.setEnabled(isChecked);
+        mColorProfilesButton.setEnabled(isChecked);
     }
 }
