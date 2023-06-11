@@ -31,7 +31,13 @@ public final class FlashlightUtils {
     public static void applyBrightness(Context context, int value) {
         if (FileUtils.fileExists(Constants.FLASHLIGHT_BRIGHTNESS_NODE)) {
             int newValue = value+Constants.FLASHLIGHT_MIN_BRIGHTNESS;
-            FileUtils.writeLine(Constants.FLASHLIGHT_BRIGHTNESS_NODE, String.valueOf(value));
+            if (newValue > Constants.FLASHLIGHT_MAX_BRIGHTNESS) {
+                FileUtils.writeLine(Constants.FLASHLIGHT_BRIGHTNESS_NODE, Constants.FLASHLIGHT_MAX_BRIGHTNESS);
+            } else if (newValue < Constants.FLASHLIGHT_MIN_BRIGHTNESS) {
+                FileUtils.writeLine(Constants.FLASHLIGHT_BRIGHTNESS_NODE, Constants.FLASHLIGHT_MIN_BRIGHTNESS);
+            } else {
+                FileUtils.writeLine(Constants.FLASHLIGHT_BRIGHTNESS_NODE, String.valueOf(value));
+            }
         }
     }
 

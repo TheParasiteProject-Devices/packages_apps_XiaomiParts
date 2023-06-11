@@ -55,6 +55,7 @@ public class Constants {
     public static final String FLASHLIGHT_BRIGHTNESS_NODE = "/sys/class/leds/led:torch_0/max_brightness";
 
     public static final int FLASHLIGHT_MIN_BRIGHTNESS = 10; // Min(10), Max(200)
+    public static final int FLASHLIGHT_MAX_BRIGHTNESS = 200; // Min(10), Max(200)
 
     /* FPS Counter */
     public static final String KEY_FPS_INFO = "fps_info";
