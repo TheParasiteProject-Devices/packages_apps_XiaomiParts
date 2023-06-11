@@ -63,8 +63,6 @@ public class AutoHBMService extends Service {
 
     }
 
-    private static final int DELAY_MILLIS = 7000; // 7 seconds
-
     private SensorEventListener mSensorEventListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
@@ -84,7 +82,7 @@ public class AutoHBMService extends Service {
                     mAutoHBMActive = false;
                     mExecutorService.submit(() -> {
                         try {
-                            Thread.sleep(DELAY_MILLIS);
+                            Thread.sleep(Constants.DELAY_MILLIS);
                         } catch (InterruptedException e) {
                         }
                         if (lux < threshold) {

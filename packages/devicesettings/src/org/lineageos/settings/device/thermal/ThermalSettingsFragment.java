@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.settingslib.applications.ApplicationsState;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 
 import java.util.ArrayList;
@@ -196,23 +197,23 @@ public class ThermalSettingsFragment extends PreferenceFragment
 
     private int getStateDrawable(int state) {
         switch (state) {
-            case ThermalUtils.STATE_BENCHMARK:
+            case Constants.STATE_BENCHMARK:
                 return R.drawable.ic_thermal_benchmark;
-            case ThermalUtils.STATE_BROWSER:
+            case Constants.STATE_BROWSER:
                 return R.drawable.ic_thermal_browser;
-            case ThermalUtils.STATE_CAMERA:
+            case Constants.STATE_CAMERA:
                 return R.drawable.ic_thermal_camera;
-            case ThermalUtils.STATE_DIALER:
+            case Constants.STATE_DIALER:
                 return R.drawable.ic_thermal_dialer;
-            case ThermalUtils.STATE_GAMING:
+            case Constants.STATE_GAMING:
                 return R.drawable.ic_thermal_gaming;
-            case ThermalUtils.STATE_NAVIGATION:
+            case Constants.STATE_NAVIGATION:
                 return R.drawable.ic_thermal_navigation;
-            case ThermalUtils.STATE_STREAMING:
+            case Constants.STATE_STREAMING:
                 return R.drawable.ic_thermal_streaming;
-            case ThermalUtils.STATE_VIDEO:
+            case Constants.STATE_VIDEO:
                 return R.drawable.ic_thermal_video;
-            case ThermalUtils.STATE_DEFAULT:
+            case Constants.STATE_DEFAULT:
             default:
                 return R.drawable.ic_thermal_default;
         }
@@ -341,8 +342,8 @@ public class ThermalSettingsFragment extends PreferenceFragment
             int packageState = mThermalUtils.getStateForPackage(entry.info.packageName);
             holder.mode.setSelection(packageState, false);
             holder.mode.setTag(entry);
-            if (packageState == ThermalUtils.STATE_BENCHMARK ||
-                packageState == ThermalUtils.STATE_GAMING) {
+            if (packageState == Constants.STATE_BENCHMARK ||
+                packageState == Constants.STATE_GAMING) {
                 holder.touchIcon.setVisibility(View.VISIBLE);
             } else {
                 holder.touchIcon.setVisibility(View.INVISIBLE);

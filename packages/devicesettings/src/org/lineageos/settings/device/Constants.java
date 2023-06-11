@@ -91,6 +91,37 @@ public class Constants {
     public static final String KEY_TOUCH_RESPONSE = "touch_response";
     public static final String KEY_TOUCH_SENSITIVITY = "touch_sensitivity";
 
+    public static final String THERMAL_CONTROL = "thermal_control";
+
+    public static final int STATE_DEFAULT = 0;
+    public static final int STATE_BENCHMARK = 1;
+    public static final int STATE_BROWSER = 2;
+    public static final int STATE_CAMERA = 3;
+    public static final int STATE_DIALER = 4;
+    public static final int STATE_GAMING = 5;
+    public static final int STATE_NAVIGATION = 6;
+    public static final int STATE_STREAMING = 7;
+    public static final int STATE_VIDEO = 8;
+
+    public static final String THERMAL_STATE_DEFAULT = "0";
+    public static final String THERMAL_STATE_BENCHMARK = "10";
+    public static final String THERMAL_STATE_BROWSER = "11";
+    public static final String THERMAL_STATE_CAMERA = "12";
+    public static final String THERMAL_STATE_DIALER = "8";
+    public static final String THERMAL_STATE_GAMING = "13";
+    public static final String THERMAL_STATE_NAVIGATION = "19";
+    public static final String THERMAL_STATE_STREAMING = "14";
+    public static final String THERMAL_STATE_VIDEO = "21";
+
+    public static final String THERMAL_BENCHMARK = "thermal.benchmark=";
+    public static final String THERMAL_BROWSER = "thermal.browser=";
+    public static final String THERMAL_CAMERA = "thermal.camera=";
+    public static final String THERMAL_DIALER = "thermal.dialer=";
+    public static final String THERMAL_GAMING = "thermal.gaming=";
+    public static final String THERMAL_NAVIGATION = "thermal.navigation=";
+    public static final String THERMAL_STREAMING = "thermal.streaming=";
+    public static final String THERMAL_VIDEO = "thermal.video=";
+
     /* KCal */
     public static final String KEY_KCAL_ENABLE = "kcal_enable";
     public static final String KEY_KCAL_RESET_DEFAULT = "reset_default_button";
@@ -110,10 +141,16 @@ public class Constants {
     public static final String KEY_HBM_SWITCH = "pref_hbm";
     public static final String KEY_AUTO_HBM_SWITCH = "pref_auto_hbm";
     public static final String KEY_AUTO_HBM_THRESHOLD = "pref_auto_hbm_threshold";
+    public static final int DELAY_MILLIS = 7000; // 7 seconds
     public static final String HBM_NODE = "/sys/devices/platform/soc/soc:qcom,dsi-display/hbm";
     public static final String BACKLIGHT_NODE = "/sys/class/backlight/panel0-backlight/brightness";
-    
+
     /* USB fastcharge */
     public static final String KEY_USB_FASTCHARGE = "pref_usb_charge";
     public static final String USB_FASTCHARGE_NODE = "/sys/kernel/fast_charge/force_fast_charge";
+
+    /* Tile Entry Activity */
+    public static final String DIRAC_TILE = "org.lineageos.settings.device.dirac.DiracTileService";
+    public static final String KPROFILES_MODES_TILE = "org.lineageos.settings.device.kprofiles.KProfilesModesTileService";
+    public static final String HBM_TILE = "org.lineageos.settings.device.hbm.HBMModeTileService";
 }
