@@ -35,22 +35,12 @@ import android.util.Log;
 import static android.provider.Settings.Secure.DOZE_ALWAYS_ON;
 import static android.provider.Settings.Secure.DOZE_ENABLED;
 
+import org.lineageos.settings.doze.Constants;
+
 public final class DozeUtils {
 
     private static final String TAG = "DozeUtils";
     private static final boolean DEBUG = false;
-
-    private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
-
-    protected static final String DOZE_ENABLE = "doze_enable";
-    protected static final String CATEG_PROX_SENSOR = "proximity_sensor";
-    
-    protected static final String ALWAYS_ON_DISPLAY = "always_on_display";
-    protected static final String GESTURE_PICK_UP_KEY = "gesture_pick_up";
-    protected static final String GESTURE_RAISE_TO_WAKE_KEY = "gesture_raise_to_wake";
-    protected static final String GESTURE_HAND_WAVE_KEY = "gesture_hand_wave";
-    protected static final String GESTURE_POCKET_KEY = "gesture_pocket";
-    protected static final String WAKE_ON_GESTURE_KEY = "wake_on_gesture";
 
     protected static void startService(Context context) {
         if (DEBUG) Log.d(TAG, "Starting service");
@@ -74,9 +64,9 @@ public final class DozeUtils {
 
     protected static boolean getProxCheckBeforePulse(Context context) {
         try {
-            Context con = context.createPackageContext("com.android.systemui", 0);
-            int id = con.getResources().getIdentifier("doze_proximity_check_before_pulse",
-                    "bool", "com.android.systemui");
+            Context con = context.createPackageContext(Constants.PACKAGE_SYSTEMUI, 0);
+            int id = con.getResources().getIdentifier(Constants.CONFIG_PROX_CHECK,
+                    Constants.CONFIG_PROX_CHECK_VAR, Constants.PACKAGE_SYSTEMUI);
             return con.getResources().getBoolean(id);
         } catch (PackageManager.NameNotFoundException e) {
             return false;
@@ -101,7 +91,7 @@ public final class DozeUtils {
         } else {
             if (DEBUG) Log.d(TAG, "Launch doze pulse");
             context.sendBroadcastAsUser(
-                    new Intent(DOZE_INTENT), new UserHandle(UserHandle.USER_CURRENT));
+                    new Intent(Constants.DOZE_INTENT), new UserHandle(UserHandle.USER_CURRENT));
         }
     }
 
@@ -130,11 +120,11 @@ public final class DozeUtils {
     }
 
     protected static boolean isWakeOnGestureEnabled(Context context) {
-        return isGestureEnabled(context, WAKE_ON_GESTURE_KEY);
+        return isGestureEnabled(context, Constants.KEY_WAKE_ON_GESTURE);
     }
 
     protected static boolean isPickUpEnabled(Context context) {
-        return isGestureEnabled(context, GESTURE_PICK_UP_KEY);
+        return isGestureEnabled(context, Constants.KEY_GESTURE_PICK_UP);
     }
 
     protected static void setPickUp(Preference preference, boolean value) {
@@ -144,15 +134,15 @@ public final class DozeUtils {
     }
 
     protected static boolean isRaiseToWakeEnabled(Context context) {
-        return isGestureEnabled(context, GESTURE_RAISE_TO_WAKE_KEY);
+        return isGestureEnabled(context, Constants.KEY_GESTURE_RAISE_TO_WAKE);
     }
 
     protected static boolean isHandwaveGestureEnabled(Context context) {
-        return isGestureEnabled(context, GESTURE_HAND_WAVE_KEY);
+        return isGestureEnabled(context, Constants.KEY_GESTURE_HAND_WAVE);
     }
 
     protected static boolean isPocketGestureEnabled(Context context) {
-        return isGestureEnabled(context, GESTURE_POCKET_KEY);
+        return isGestureEnabled(context, Constants.KEY_GESTURE_POCKET);
     }
 
     protected static boolean sensorsEnabled(Context context) {

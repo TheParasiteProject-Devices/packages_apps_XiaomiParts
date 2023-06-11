@@ -33,6 +33,8 @@ import android.widget.Switch;
 import com.android.settingslib.widget.MainSwitchPreference;
 import com.android.settingslib.widget.OnMainSwitchChangeListener;
 
+import org.lineageos.settings.doze.Constants;
+
 public class DozeSettingsFragment extends PreferenceFragment implements OnPreferenceChangeListener,
         OnMainSwitchChangeListener {
 
@@ -49,43 +51,43 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.doze_settings);
 
-        SharedPreferences prefs = getActivity().getSharedPreferences("doze_settings",
+        SharedPreferences prefs = getActivity().getSharedPreferences(Constants.KEY_DOZE_SETTINGS,
                 Activity.MODE_PRIVATE);
-        if (savedInstanceState == null && !prefs.getBoolean("first_help_shown", false)) {
+        if (savedInstanceState == null && !prefs.getBoolean(Constants.KEY_FIRST_HELP_SHOWN, false)) {
             showHelp();
         }
 
         boolean dozeEnabled = DozeUtils.isDozeEnabled(getActivity());
-        mSwitchBar = (MainSwitchPreference) findPreference(DozeUtils.DOZE_ENABLE);
+        mSwitchBar = (MainSwitchPreference) findPreference(Constants.KEY_DOZE_ENABLE);
         mSwitchBar.addOnSwitchChangeListener(this);
         mSwitchBar.setChecked(dozeEnabled);
 
-        mAlwaysOnDisplayPreference = (SwitchPreference) findPreference(DozeUtils.ALWAYS_ON_DISPLAY);
+        mAlwaysOnDisplayPreference = (SwitchPreference) findPreference(Constants.KEY_ALWAYS_ON_DISPLAY);
         mAlwaysOnDisplayPreference.setEnabled(dozeEnabled);
         mAlwaysOnDisplayPreference.setChecked(DozeUtils.isAlwaysOnEnabled(getActivity()));
         mAlwaysOnDisplayPreference.setOnPreferenceChangeListener(this);
 
-        mWakeOnGesturePreference = (SwitchPreference) findPreference(DozeUtils.WAKE_ON_GESTURE_KEY);
+        mWakeOnGesturePreference = (SwitchPreference) findPreference(Constants.KEY_WAKE_ON_GESTURE);
         mWakeOnGesturePreference.setEnabled(dozeEnabled);
         mWakeOnGesturePreference.setOnPreferenceChangeListener(this);
 
         PreferenceCategory proximitySensorCategory =
-                (PreferenceCategory) getPreferenceScreen().findPreference(DozeUtils.CATEG_PROX_SENSOR);
+                (PreferenceCategory) getPreferenceScreen().findPreference(Constants.CATEG_PROX_SENSOR);
 
-        mPickUpPreference = (SwitchPreference) findPreference(DozeUtils.GESTURE_PICK_UP_KEY);
+        mPickUpPreference = (SwitchPreference) findPreference(Constants.KEY_GESTURE_PICK_UP);
         mPickUpPreference.setEnabled(dozeEnabled);
         mPickUpPreference.setOnPreferenceChangeListener(this);
 
-        mRaiseToWakePreference = (SwitchPreference) findPreference(DozeUtils.GESTURE_RAISE_TO_WAKE_KEY);
+        mRaiseToWakePreference = (SwitchPreference) findPreference(Constants.KEY_GESTURE_RAISE_TO_WAKE);
         mRaiseToWakePreference.setEnabled(dozeEnabled);
         mRaiseToWakePreference.setOnPreferenceChangeListener(this);
-        DozeUtils.setPickUp(findPreference(DozeUtils.GESTURE_PICK_UP_KEY), DozeUtils.isRaiseToWakeEnabled(getActivity()));
+        DozeUtils.setPickUp(findPreference(Constants.KEY_GESTURE_PICK_UP), DozeUtils.isRaiseToWakeEnabled(getActivity()));
 
-        mHandwavePreference = (SwitchPreference) findPreference(DozeUtils.GESTURE_HAND_WAVE_KEY);
+        mHandwavePreference = (SwitchPreference) findPreference(Constants.KEY_GESTURE_HAND_WAVE);
         mHandwavePreference.setEnabled(dozeEnabled);
         mHandwavePreference.setOnPreferenceChangeListener(this);
 
-        mPocketPreference = (SwitchPreference) findPreference(DozeUtils.GESTURE_POCKET_KEY);
+        mPocketPreference = (SwitchPreference) findPreference(Constants.KEY_GESTURE_POCKET);
         mPocketPreference.setEnabled(dozeEnabled);
         mPocketPreference.setOnPreferenceChangeListener(this);
 
@@ -98,7 +100,7 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         if (!DozeUtils.alwaysOnDisplayAvailable(getActivity())) {
             getPreferenceScreen().removePreference(mAlwaysOnDisplayPreference);
         } else {
-            proximitySensorCategory.setDependency(DozeUtils.ALWAYS_ON_DISPLAY);
+            proximitySensorCategory.setDependency(Constants.KEY_ALWAYS_ON_DISPLAY);
         }
     }
 
@@ -107,10 +109,10 @@ public class DozeSettingsFragment extends PreferenceFragment implements OnPrefer
         DozeUtils.enableGesture(getActivity(), preference.getKey(), (Boolean) newValue);
         DozeUtils.checkDozeService(getActivity());
 
-        if (DozeUtils.ALWAYS_ON_DISPLAY.equals(preference.getKey())) {
+        if (Constants.KEY_ALWAYS_ON_DISPLAY.equals(preference.getKey())) {
             DozeUtils.enableAlwaysOn(getActivity(), (Boolean) newValue);
-        } else if (DozeUtils.GESTURE_RAISE_TO_WAKE_KEY.equals(preference.getKey())) {
-            DozeUtils.setPickUp(findPreference(DozeUtils.GESTURE_PICK_UP_KEY), (Boolean) newValue);
+        } else if (Constants.KEY_GESTURE_RAISE_TO_WAKE.equals(preference.getKey())) {
+            DozeUtils.setPickUp(findPreference(Constants.KEY_GESTURE_PICK_UP), (Boolean) newValue);
         } 
 
         return true;

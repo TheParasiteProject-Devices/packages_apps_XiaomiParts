@@ -28,16 +28,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.lineageos.settings.doze.Constants;
+
 public class ProximitySensor implements SensorEventListener {
 
     private static final boolean DEBUG = false;
     private static final String TAG = "ProximitySensor";
-
-    // Maximum time for the hand to cover the sensor: 1s
-    private static final int HANDWAVE_MAX_DELTA_NS = 1000 * 1000 * 1000;
-
-    // Minimum time until the device is considered to have been in the pocket: 2s
-    private static final int POCKET_MIN_DELTA_NS = 2000 * 1000 * 1000;
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -80,12 +76,12 @@ public class ProximitySensor implements SensorEventListener {
 
         if (DozeUtils.isHandwaveGestureEnabled(mContext)) {
             long delta = timestamp - mHandWaveTime;
-            if (delta < HANDWAVE_MAX_DELTA_NS) {
+            if (delta < Constants.HANDWAVE_MAX_DELTA_NS) {
                 return true;
             }
         } else if (DozeUtils.isPocketGestureEnabled(mContext)) {
             long delta = timestamp - mInPocketTime;
-            if (delta >= POCKET_MIN_DELTA_NS) {
+            if (delta >= Constants.POCKET_MIN_DELTA_NS) {
                 return true;
             }
         }

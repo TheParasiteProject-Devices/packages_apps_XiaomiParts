@@ -31,14 +31,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.lineageos.settings.doze.Constants;
+
 public class PickupSensor implements SensorEventListener {
 
     private static final boolean DEBUG = false;
     private static final String TAG = "PickupSensor";
-
-    private static final int MIN_PULSE_INTERVAL_MS = 2500;
-    private static final int MIN_WAKEUP_INTERVAL_MS = 500;
-    private static final int WAKELOCK_TIMEOUT_MS = 150;
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -52,7 +50,7 @@ public class PickupSensor implements SensorEventListener {
     public PickupSensor(Context context) {
         mContext = context;
         mSensorManager = mContext.getSystemService(SensorManager.class);
-        mSensor = DozeUtils.getSensor(mSensorManager, "xiaomi.sensor.pickup");
+        mSensor = DozeUtils.getSensor(mSensorManager, Constants.PICKUP_SENSOR);
         mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         mWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         mExecutorService = Executors.newSingleThreadExecutor();
@@ -68,7 +66,7 @@ public class PickupSensor implements SensorEventListener {
         if (DEBUG) Log.d(TAG, "Got sensor event: " + event.values[0]);
 
         long delta = SystemClock.elapsedRealtime() - mEntryTimestamp;
-        if (delta < (isRaiseToWake ? MIN_WAKEUP_INTERVAL_MS : MIN_PULSE_INTERVAL_MS)) {
+        if (delta < (isRaiseToWake ? Constants.MIN_WAKEUP_INTERVAL_MS : Constants.MIN_PULSE_INTERVAL_MS)) {
             return;
         }
 
@@ -76,7 +74,7 @@ public class PickupSensor implements SensorEventListener {
 
         if (event.values[0] == 1) {
             if (isRaiseToWake) {
-                mWakeLock.acquire(WAKELOCK_TIMEOUT_MS);
+                mWakeLock.acquire(Constants.WAKELOCK_TIMEOUT_MS);
                 mPowerManager.wakeUp(SystemClock.uptimeMillis(),
                     PowerManager.WAKE_REASON_GESTURE, TAG);
             } else {
