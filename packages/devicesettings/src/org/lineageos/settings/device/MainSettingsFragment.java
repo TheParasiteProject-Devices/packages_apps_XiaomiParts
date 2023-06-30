@@ -16,8 +16,13 @@
 
 package org.lineageos.settings.device;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.widget.TextView;
 import androidx.preference.PreferenceFragment;
@@ -37,6 +42,28 @@ public class MainSettingsFragment extends PreferenceFragment {
     private SwitchPreference mPrefDcDimming;
     private SwitchPreference mPrefUsbFastChg;
 
+    private boolean mSelfChange = false;
+
+    private BroadcastReceiver stateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.ACTION_REFRESH_SETTING_CHANGED)) {
+                if (mSelfChange) {
+                    mSelfChange = false;
+                    return;
+                }
+                mPrefRefreshRateConfig.setValue(Math.round(getCurrentMaxHz())+"-"+Math.round(getCurrentMinHz()));
+                updateSummary();
+            } else if (intent.getAction().equals(Constants.ACTION_DCDIMMING_SETTING_CHANGED)) {
+                if (mSelfChange) {
+                    mSelfChange = false;
+                    return;
+                }
+                mPrefDcDimming.setChecked(intent.getBooleanExtra(Constants.DCDIMMING_STATE, false));
+            }
+        }
+    };
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -54,6 +81,11 @@ public class MainSettingsFragment extends PreferenceFragment {
         mPrefUsbFastChg = (SwitchPreference) findPreference(Constants.KEY_USB_FASTCHARGE);
         mPrefUsbFastChg.setOnPreferenceChangeListener(PrefListener);
         updateSummary();
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_REFRESH_SETTING_CHANGED);
+        filter.addAction(Constants.ACTION_DCDIMMING_SETTING_CHANGED);
+        getContext().registerReceiver(stateReceiver, filter);
     }
 
     private Preference.OnPreferenceChangeListener PrefListener =
@@ -64,8 +96,17 @@ public class MainSettingsFragment extends PreferenceFragment {
 
                 if (Constants.KEY_REFRESH_RATE_CONFIG.equals(key)) {
                     setHzConfig();
+                    mSelfChange = true;
+                    final Intent intent = new Intent(Constants.ACTION_REFRESH_SETTING_CHANGED);
+                    intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+                    getContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
                 } else if (Constants.KEY_DC_DIMMING.equals(key)) {
                     DisplayUtils.setDcDimmingStatus((boolean) value);
+                    mSelfChange = true;
+                    final Intent intent = new Intent(Constants.ACTION_DCDIMMING_SETTING_CHANGED);
+                    intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+                    intent.putExtra(Constants.DCDIMMING_STATE, (boolean) value);
+                    getContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
                 } else if (Constants.KEY_USB_FASTCHARGE.equals(key)) {
                     PowerUtils.setUsbFastChgStatus((boolean) value);
                 }
@@ -73,6 +114,13 @@ public class MainSettingsFragment extends PreferenceFragment {
                 return true;
             }
         };
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(stateReceiver);
+    }
 
     private float getCurrentMinHz() {
         return Settings.System.getFloat(getContext().getContentResolver(),

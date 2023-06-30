@@ -13,6 +13,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.UserHandle;
 import androidx.preference.PreferenceManager;
 import android.provider.Settings;
 
@@ -60,7 +61,10 @@ public class AutoHBMService extends Service {
         } else {
             FileUtils.writeLine(Constants.HBM_NODE, "0");
         }
-
+        final Intent intent = new Intent(Constants.ACTION_HBM_SETTING_CHANGED);
+        intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+        intent.putExtra(Constants.HBM_STATE, enable);
+        getApplicationContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
     }
 
     private SensorEventListener mSensorEventListener = new SensorEventListener() {

@@ -15,6 +15,12 @@
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.INJECT_EVENTS"/>
 
+    <protected-broadcast android:name="devicesettings.intent.action.dcdimming_setting_changed" />
+    <protected-broadcast android:name="devicesettings.intent.action.dirac_setting_changed" />
+    <protected-broadcast android:name="devicesettings.intent.action.hbm_setting_changed" />
+    <protected-broadcast android:name="devicesettings.intent.action.kprofile_setting_changed" />
+    <protected-broadcast android:name="devicesettings.intent.action.refresh_setting_changed" />
+
     <application
         android:label="@string/device_settings_title"
         android:persistent="true">
@@ -51,6 +57,15 @@
                 android:resource="@drawable/ic_main_settings" />
         </activity>
 
+        <activity 
+            android:name=".MainSettingsFragment"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.dcdimming_setting_changed" />
+                <action android:name="devicesettings.intent.action.refresh_setting_changed" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".color.KcalSettingsActivity"
             android:theme="@style/Theme.SubSettingsBase"
@@ -82,7 +97,15 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-         </activity>
+        </activity>
+
+        <activity 
+            android:name=".dirac.DiracSettingsFragment"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.dirac_setting_changed" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".dirac.DiracTileService"
@@ -92,6 +115,9 @@
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.dirac_setting_changed" />
             </intent-filter>
             <meta-data
                 android:name="android.service.quicksettings.TOGGLEABLE_TILE"
@@ -118,6 +144,17 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.kprofile_setting_changed" />
+            </intent-filter>
+        </activity>
+
+        <activity 
+            android:name=".kprofiles.KProfilesSettingsFragment"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.kprofile_setting_changed" />
+            </intent-filter>
         </activity>
 
         <service
@@ -128,6 +165,9 @@
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.kprofile_setting_changed" />
             </intent-filter>
         </service>
 
@@ -214,6 +254,9 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.refresh_setting_changed" />
+            </intent-filter>
         </service>
 
         <service
@@ -224,6 +267,9 @@
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.dcdimming_setting_changed" />
             </intent-filter>
             <meta-data
                 android:name="android.service.quicksettings.TOGGLEABLE_TILE"
@@ -242,11 +288,16 @@
         </activity>
 
         <activity 
-            android:name=".hbm.HBMFragment" />
+            android:name=".hbm.HBMFragment"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.hbm_setting_changed" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".hbm.AutoHBMService"
-            android:exported="false" />
+            android:exported="true" />
 
         <service
             android:name=".hbm.HBMModeTileService"
@@ -256,6 +307,9 @@
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="devicesettings.intent.action.hbm_setting_changed" />
             </intent-filter>
             <meta-data
                 android:name="android.service.quicksettings.TOGGLEABLE_TILE"

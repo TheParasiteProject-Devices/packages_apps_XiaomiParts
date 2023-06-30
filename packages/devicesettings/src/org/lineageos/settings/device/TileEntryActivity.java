@@ -29,6 +29,7 @@ import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.dirac.DiracActivity;
 import org.lineageos.settings.device.kprofiles.KProfilesSettingsActivity;
 import org.lineageos.settings.device.hbm.HBMActivity;
+import org.lineageos.settings.device.MainSettingsActivity;
 
 public class TileEntryActivity extends Activity {
     private static final String TAG = "TileEntryActivity";
@@ -46,6 +47,10 @@ public class TileEntryActivity extends Activity {
                 break;
             case Constants.HBM_TILE:
                 openActivitySafely(new Intent(this, HBMActivity.class));
+                break;
+            case Constants.REFRESH_TILE:
+            case Constants.DCDIMMING_TILE:
+                openActivitySafely(new Intent(this, MainSettingsActivity.class));
                 break;
             default:
                 finish();

@@ -1,41 +1,75 @@
 package org.lineageos.settings.device.dirac;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.UserHandle;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
-import org.lineageos.settings.device.R;
+import org.lineageos.settings.device.Constants;
 
 public class DiracTileService extends TileService {
 
     private DiracUtils mDiracUtils;
 
+    private boolean mSelfChange = false;
+
+    private BroadcastReceiver stateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.ACTION_DIRAC_SETTING_CHANGED)) {
+                if (mSelfChange) {
+                    mSelfChange = false;
+                    return;
+                }
+                updateUI(intent.getBooleanExtra(Constants.DIRAC_STATE, false));
+            }
+        }
+    };
+
+    private void updateUI(boolean enabled) {
+        final Tile tile = getQsTile();
+        tile.setState(enabled ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+        tile.updateTile();
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
     @Override
     public void onStartListening() {
-        mDiracUtils = DiracUtils.getInstance(getApplicationContext());
-
-        Tile tile = getQsTile();
-        if (mDiracUtils.isDiracEnabled()) {
-            tile.setState(Tile.STATE_ACTIVE);
-        } else {
-            tile.setState(Tile.STATE_INACTIVE);
-        }
-
-        tile.updateTile();
         super.onStartListening();
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_DIRAC_SETTING_CHANGED);
+        registerReceiver(stateReceiver, filter);
+
+        mDiracUtils = DiracUtils.getInstance(getApplicationContext());
+        updateUI(mDiracUtils.isDiracEnabled());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(stateReceiver);
     }
 
     @Override
     public void onClick() {
-        Tile tile = getQsTile();
-        if (mDiracUtils.isDiracEnabled()) {
-            mDiracUtils.setMusic(false);
-            tile.setState(Tile.STATE_INACTIVE);
-        } else {
-            mDiracUtils.setMusic(true);
-            tile.setState(Tile.STATE_ACTIVE);
-        }
-        tile.updateTile();
+        final boolean enabled = !mDiracUtils.isDiracEnabled();
+        mDiracUtils.setMusic(enabled);
+
+        mSelfChange = true;
+        final Intent intent = new Intent(Constants.ACTION_DIRAC_SETTING_CHANGED);
+        intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+        intent.putExtra(Constants.DIRAC_STATE, enabled);
+        getApplicationContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
+
+        updateUI(enabled);
         super.onClick();
     }
 }

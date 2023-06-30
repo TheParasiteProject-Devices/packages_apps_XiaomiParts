@@ -1,7 +1,11 @@
 package org.lineageos.settings.device.kprofiles;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.UserHandle;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
@@ -17,6 +21,21 @@ public class KProfilesModesTileService extends TileService {
     private KProfilesUtils mKProfilesUtils;
     private SharedPreferences mSharedPrefs;
 
+    private boolean mSelfChange = false;
+
+    private BroadcastReceiver stateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.ACTION_KPROFILE_SETTING_CHANGED)) {
+                if (mSelfChange) {
+                    mSelfChange = false;
+                    return;
+                }
+                updateTileContent();
+            }
+        }
+    };
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,27 +45,18 @@ public class KProfilesModesTileService extends TileService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-    }
-
-    @Override
-    public void onTileAdded() {
-        super.onTileAdded();
-    }
-
-    @Override
-    public void onTileRemoved() {
-        super.onTileRemoved();
+        unregisterReceiver(stateReceiver);
     }
 
     @Override
     public void onStartListening() {
-        updateTileContent();
         super.onStartListening();
-    }
 
-    @Override
-    public void onStopListening() {
-        super.onStopListening();
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_KPROFILE_SETTING_CHANGED);
+        registerReceiver(stateReceiver, filter);
+
+        updateTileContent();
     }
 
     @Override
@@ -66,6 +76,12 @@ public class KProfilesModesTileService extends TileService {
                 mode = "0"; // Set mode from performance to none
                 break;
         }
+
+        mSelfChange = true;
+        final Intent intent = new Intent(Constants.ACTION_KPROFILE_SETTING_CHANGED);
+        intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+        getApplicationContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
+
         setMode(mode);
         updateTileContent();
         super.onClick();
@@ -85,12 +101,7 @@ public class KProfilesModesTileService extends TileService {
         boolean isActive;
         Tile tile = getQsTile();
         String mode = getMode();
-
-        if (mode != "0") {
-            isActive = true;
-        } else {
-            isActive = false;
-        }
+        isActive = !mode.equals("0");
 
         tile.setState(isActive ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
         switch (mode) {

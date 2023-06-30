@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.BroadcastReceiver;
+import android.os.UserHandle;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import androidx.preference.PreferenceManager;
@@ -34,15 +35,22 @@ import org.lineageos.settings.device.utils.FileUtils;
 
 public class HBMModeTileService extends TileService {
     
-    private Context montext;
+    private Context mContext;
+    private boolean mSelfChange = false;
 
-    private BroadcastReceiver screenStateReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver stateReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
                 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
                 sharedPrefs.edit().putBoolean(Constants.KEY_HBM_SWITCH, false).commit();
                 updateUI(false);
+            } else if (intent.getAction().equals(Constants.ACTION_HBM_SETTING_CHANGED)) {
+                if (mSelfChange) {
+                    mSelfChange = false;
+                    return;
+                }
+                updateUI(intent.getBooleanExtra(Constants.HBM_STATE, false));
             }
         }
     };
@@ -56,15 +64,17 @@ public class HBMModeTileService extends TileService {
     @Override
     public void onCreate() {
         super.onCreate();
-        IntentFilter filter = new IntentFilter();
+
+        final IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_OFF);
-        registerReceiver(screenStateReceiver, filter);
+        filter.addAction(Constants.ACTION_HBM_SETTING_CHANGED);
+        registerReceiver(stateReceiver, filter);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(screenStateReceiver);
+        unregisterReceiver(stateReceiver);
     }
 
     @Override
@@ -91,5 +101,11 @@ public class HBMModeTileService extends TileService {
         }
         sharedPrefs.edit().putBoolean(Constants.KEY_HBM_SWITCH, enabled).commit();
         updateUI(enabled);
+
+        mSelfChange = true;
+        final Intent intent = new Intent(Constants.ACTION_HBM_SETTING_CHANGED);
+        intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+        intent.putExtra(Constants.HBM_STATE, enabled);
+        getApplicationContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
     }
 }

@@ -17,9 +17,14 @@
 package org.lineageos.settings.device.kprofiles;
 
 import android.app.ActionBar;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.UserHandle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,11 +39,7 @@ import androidx.preference.SwitchPreference;
 import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.utils.FileUtils;
 
-import static org.lineageos.settings.device.Constants.KEY_KPROFILES_AUTO;
-import static org.lineageos.settings.device.Constants.KPROFILES_AUTO_NODE;
-import static org.lineageos.settings.device.Constants.KEY_KPROFILES_MODES;
-import static org.lineageos.settings.device.Constants.KPROFILES_MODES_NODE;
-import static org.lineageos.settings.device.Constants.KPROFILES_MODES_INFO;
+import org.lineageos.settings.device.Constants;
 
 public class KProfilesSettingsFragment extends PreferenceFragment implements
         OnPreferenceChangeListener {
@@ -47,22 +48,39 @@ public class KProfilesSettingsFragment extends PreferenceFragment implements
     private ListPreference kProfilesModesPreference;
     private Preference kProfilesModesInfo;
 
+    private boolean mSelfChange = false;
+
+    private BroadcastReceiver stateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.ACTION_KPROFILE_SETTING_CHANGED)) {
+                if (mSelfChange) {
+                    mSelfChange = false;
+                    return;
+                }
+                final String value = FileUtils.readOneLine(Constants.KPROFILES_MODES_NODE);
+                kProfilesModesPreference.setValue(value != null ? value : "0");
+                updateTitle();
+            }
+        }
+    };
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.kprofiles_settings);
         final ActionBar actionBar = getActivity().getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        kProfilesAutoPreference = (SwitchPreference) findPreference(KEY_KPROFILES_AUTO);
-        if (FileUtils.fileExists(KPROFILES_AUTO_NODE)) {
+        kProfilesAutoPreference = (SwitchPreference) findPreference(Constants.KEY_KPROFILES_AUTO);
+        if (FileUtils.fileExists(Constants.KPROFILES_AUTO_NODE)) {
             kProfilesAutoPreference.setEnabled(true);
             kProfilesAutoPreference.setOnPreferenceChangeListener(this);
         } else {
             kProfilesAutoPreference.setSummary(R.string.kprofiles_not_supported);
             kProfilesAutoPreference.setEnabled(false);
         }
-        kProfilesModesPreference = (ListPreference) findPreference(KEY_KPROFILES_MODES);
-        if (FileUtils.fileExists(KPROFILES_MODES_NODE)) {
+        kProfilesModesPreference = (ListPreference) findPreference(Constants.KEY_KPROFILES_MODES);
+        if (FileUtils.fileExists(Constants.KPROFILES_MODES_NODE)) {
             kProfilesModesPreference.setEnabled(true);
             kProfilesModesPreference.setOnPreferenceChangeListener(this);
             updateTitle();
@@ -70,7 +88,11 @@ public class KProfilesSettingsFragment extends PreferenceFragment implements
             kProfilesModesPreference.setSummary(R.string.kprofiles_not_supported);
             kProfilesModesPreference.setEnabled(false);
         }
-        kProfilesModesInfo = (Preference) findPreference(KPROFILES_MODES_INFO);
+        kProfilesModesInfo = (Preference) findPreference(Constants.KPROFILES_MODES_INFO);
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_KPROFILE_SETTING_CHANGED);
+        getContext().registerReceiver(stateReceiver, filter);
     }
 
     @Override
@@ -83,23 +105,30 @@ public class KProfilesSettingsFragment extends PreferenceFragment implements
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(stateReceiver);
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (KEY_KPROFILES_AUTO.equals(preference.getKey())) {
+        if (Constants.KEY_KPROFILES_AUTO.equals(preference.getKey())) {
             try {
-                FileUtils.writeLine(KPROFILES_AUTO_NODE, (Boolean) newValue ? "Y" : "N");
+                FileUtils.writeLine(Constants.KPROFILES_AUTO_NODE, (Boolean) newValue ? "Y" : "N");
             } catch(Exception e) { }
 
-        } else if (KEY_KPROFILES_MODES.equals(preference.getKey())) {
+        } else if (Constants.KEY_KPROFILES_MODES.equals(preference.getKey())) {
             try {
-                FileUtils.writeLine(KPROFILES_MODES_NODE, (String) newValue);
+                FileUtils.writeLine(Constants.KPROFILES_MODES_NODE, (String) newValue);
                 updateTitle();
             } catch(Exception e) { }
         }
+
+        mSelfChange = true;
+        final Intent intent = new Intent(Constants.ACTION_KPROFILE_SETTING_CHANGED);
+        intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+        getContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
+
         return true;
     }
 

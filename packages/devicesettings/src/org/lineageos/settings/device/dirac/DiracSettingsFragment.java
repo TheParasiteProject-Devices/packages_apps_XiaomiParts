@@ -17,7 +17,12 @@
 package org.lineageos.settings.device.dirac;
 
 import android.app.ActionBar;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +59,21 @@ public class DiracSettingsFragment extends PreferenceFragment implements
 
     private DiracUtils mDiracUtils;
 
+    private boolean mSelfChange = false;
+
+    private BroadcastReceiver stateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.ACTION_DIRAC_SETTING_CHANGED)) {
+                if (mSelfChange) {
+                    mSelfChange = false;
+                    return;
+                }
+                mSwitch.setChecked(intent.getBooleanExtra(Constants.DIRAC_STATE, false));
+            }
+        }
+    };
+
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.dirac_settings);
@@ -87,6 +107,10 @@ public class DiracSettingsFragment extends PreferenceFragment implements
         mHeadsetType.setEnabled(!hifiEnable && enhancerEnabled);
         mPreset.setEnabled(!hifiEnable && enhancerEnabled);
         mScenes.setEnabled(!hifiEnable && enhancerEnabled);
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_DIRAC_SETTING_CHANGED);
+        getContext().registerReceiver(stateReceiver, filter);
     }
 
     @Override
@@ -103,6 +127,12 @@ public class DiracSettingsFragment extends PreferenceFragment implements
         super.onViewCreated(view, savedInstanceState);
 
         mSwitch.setChecked(mDiracUtils.isDiracEnabled());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(stateReceiver);
     }
 
     @Override
@@ -153,5 +183,11 @@ public class DiracSettingsFragment extends PreferenceFragment implements
             mPreset.setEnabled(isChecked);
             mScenes.setEnabled(isChecked);
         }
+
+        mSelfChange = true;
+        final Intent intent = new Intent(Constants.ACTION_DIRAC_SETTING_CHANGED);
+        intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+        intent.putExtra(Constants.DIRAC_STATE, isChecked);
+        getContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
     }
 }

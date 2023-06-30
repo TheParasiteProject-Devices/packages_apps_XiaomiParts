@@ -19,11 +19,15 @@
 */
 package org.lineageos.settings.device.hbm;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.Log;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -33,6 +37,7 @@ import androidx.preference.TwoStatePreference;
 
 import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.utils.DisplayUtils;
+import org.lineageos.settings.device.utils.FileUtils;
 import org.lineageos.settings.device.R;
 
 public class HBMFragment extends PreferenceFragment
@@ -41,6 +46,20 @@ public class HBMFragment extends PreferenceFragment
 
     private static TwoStatePreference mHBMModeSwitch;
     private static TwoStatePreference mAutoHBMSwitch;
+    private static boolean mSelfChange = false;
+
+    private BroadcastReceiver stateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.ACTION_HBM_SETTING_CHANGED)) {
+                if (mSelfChange) {
+                    mSelfChange = false;
+                    return;
+                }
+                mHBMModeSwitch.setChecked(intent.getBooleanExtra(Constants.HBM_STATE, false));
+            }
+        }
+    };
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -49,12 +68,17 @@ public class HBMFragment extends PreferenceFragment
 
         // HBM
         mHBMModeSwitch = (TwoStatePreference) findPreference(Constants.KEY_HBM_SWITCH);
-        mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch(getContext()));
+        mHBMModeSwitch.setOnPreferenceChangeListener(this);
+        mHBMModeSwitch.setChecked(prefs.getBoolean(Constants.KEY_HBM_SWITCH, false));
 
         // AutoHBM
         mAutoHBMSwitch = (TwoStatePreference) findPreference(Constants.KEY_AUTO_HBM_SWITCH);
         mAutoHBMSwitch.setOnPreferenceChangeListener(this);
-        mAutoHBMSwitch.setChecked(PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(Constants.KEY_AUTO_HBM_SWITCH, false));
+        mAutoHBMSwitch.setChecked(prefs.getBoolean(Constants.KEY_AUTO_HBM_SWITCH, false));
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_HBM_SETTING_CHANGED);
+        getContext().registerReceiver(stateReceiver, filter);
     }
 
     public static boolean isAUTOHBMEnabled(Context context) {
@@ -68,16 +92,49 @@ public class HBMFragment extends PreferenceFragment
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(stateReceiver);
+    }
+
+    public static String getHBM() {
+        if (FileUtils.isFileWritable(Constants.HBM_NODE)) {
+            return Constants.HBM_NODE;
+        }
+        return null;
+    }
+
+    public static String getBACKLIGHT() {
+        if (FileUtils.isFileWritable(Constants.BACKLIGHT_NODE)) {
+            return Constants.BACKLIGHT_NODE;
+        }
+        return null;
+    }
+
+    @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mHBMModeSwitch)  {
-            Boolean enabled = (Boolean) newValue;
-            SharedPreferences.Editor prefChange = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+        SharedPreferences.Editor prefChange = 
+                PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+
+        if (preference == mHBMModeSwitch) {
+            final Boolean enabled = (Boolean) newValue;
+            FileUtils.writeLine(getHBM(), enabled ? "1" : "0");
+            if (enabled && DisplayUtils.isAutoBrightnessEnabled(getContext().getContentResolver())) {
+                FileUtils.writeLine(getBACKLIGHT(), "2047");
+                Settings.System.putInt(getContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 255);
+            }
             prefChange.putBoolean(Constants.KEY_HBM_SWITCH, enabled).commit();
             DisplayUtils.enableHBMService(getContext());
+
+            mSelfChange = true;
+            Intent intent = new Intent(Constants.ACTION_HBM_SETTING_CHANGED);
+            intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+            intent.putExtra(Constants.HBM_STATE, enabled);
+            getContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
+
             return true;
         } else if (preference == mAutoHBMSwitch) {
-            Boolean enabled = (Boolean) newValue;
-            SharedPreferences.Editor prefChange = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+            final Boolean enabled = (Boolean) newValue;
             prefChange.putBoolean(Constants.KEY_AUTO_HBM_SWITCH, enabled).commit();
             DisplayUtils.enableHBMService(getContext());
             return true;

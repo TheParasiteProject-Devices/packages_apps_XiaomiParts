@@ -16,28 +16,43 @@
 
 package org.lineageos.settings.device;
 
-import static org.lineageos.settings.device.Constants.KEY_DC_DIMMING;
-
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.UserHandle;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 import androidx.preference.PreferenceManager;
 
+import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.R;
 import org.lineageos.settings.device.utils.DisplayUtils;
 
 public class DcDimmingTileService extends TileService {
 
     private SharedPreferences sharedPrefs;
-    private Context context;
-    private Tile tile;
+
+    private boolean mSelfChange = false;
+
+    private BroadcastReceiver stateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.ACTION_DCDIMMING_SETTING_CHANGED)) {
+                if (mSelfChange) {
+                    mSelfChange = false;
+                    return;
+                }
+                updateTile(intent.getBooleanExtra(Constants.DCDIMMING_STATE, false));
+            }
+        }
+    };
 
     @Override
     public void onCreate() {
         super.onCreate();
-        context = getApplicationContext();
     }
 
     private void updateTile(boolean enabled) {
@@ -48,18 +63,35 @@ public class DcDimmingTileService extends TileService {
 
     @Override
     public void onStartListening() {
-        tile = getQsTile();
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        updateTile(sharedPrefs.getBoolean(KEY_DC_DIMMING, false));
         super.onStartListening();
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.ACTION_DCDIMMING_SETTING_CHANGED);
+        registerReceiver(stateReceiver, filter);
+
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        updateTile(sharedPrefs.getBoolean(Constants.KEY_DC_DIMMING, false));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(stateReceiver);
     }
 
     @Override
     public void onClick() {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final boolean enabled = !(sharedPrefs.getBoolean(KEY_DC_DIMMING, false));
+        final boolean enabled = !(sharedPrefs.getBoolean(Constants.KEY_DC_DIMMING, false));
         DisplayUtils.setDcDimmingStatus(enabled);
-        sharedPrefs.edit().putBoolean(KEY_DC_DIMMING, enabled).commit();
+        sharedPrefs.edit().putBoolean(Constants.KEY_DC_DIMMING, enabled).commit();
+
+        mSelfChange = true;
+        final Intent intent = new Intent(Constants.ACTION_DCDIMMING_SETTING_CHANGED);
+        intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+        intent.putExtra(Constants.DCDIMMING_STATE, enabled);
+        getApplicationContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
+
         updateTile(enabled);
         super.onClick();
     }
