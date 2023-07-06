@@ -1,17 +1,17 @@
 PRODUCT_SOONG_NAMESPACES += \
-    packages/apps/Parts/packages
+    packages/apps/XiaomiParts/packages
 
 # Inherit from DeviceSettings config
-$(call inherit-product, packages/apps/Parts/configs/devicesettings.mk)
+$(call inherit-product, packages/apps/XiaomiParts/configs/devicesettings.mk)
 
 # Inherit from DeviceDoze config
-$(call inherit-product, packages/apps/Parts/configs/devicedoze.mk)
+$(call inherit-product, packages/apps/XiaomiParts/configs/devicedoze.mk)
 
 # Overlays
 PRODUCT_PACKAGES += \
     SettingsOverlayParts
 
 # Sepolicy
-SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += packages/apps/Parts/sepolicy/private
-SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += packages/apps/Parts/sepolicy/public
-BOARD_VENDOR_SEPOLICY_DIRS += packages/apps/Parts/sepolicy/vendor
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += packages/apps/XiaomiParts/sepolicy/private
+SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += packages/apps/XiaomiParts/sepolicy/public
+BOARD_VENDOR_SEPOLICY_DIRS += packages/apps/XiaomiParts/sepolicy/vendor

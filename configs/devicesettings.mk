@@ -10,7 +10,7 @@ PRODUCT_PACKAGES += \
 	privapp-permissions-devicesettings.xml
 
 PRODUCT_SOONG_NAMESPACES += \
-    packages/apps/Parts/packages/devicesettings
+    packages/apps/XiaomiParts/packages/devicesettings
 
 # Mi Sound FX
 PRODUCT_VENDOR_PROPERTIES += \
