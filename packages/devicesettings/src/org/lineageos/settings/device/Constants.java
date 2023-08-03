@@ -11,15 +11,6 @@ public class Constants {
     public static final String ACTION_HBM_SETTING_CHANGED = "devicesettings.intent.action.hbm_setting_changed";
     public static final String HBM_STATE = "devicesettings.extra.hbm.STATE";
     public static final String ACTION_KPROFILE_SETTING_CHANGED = "devicesettings.intent.action.kprofile_setting_changed";
-    public static final String ACTION_REFRESH_SETTING_CHANGED = "devicesettings.intent.action.refresh_setting_changed";
-
-    /* Refresh Rate */
-    public static final String KEY_REFRESH_RATE_CONFIG = "pref_refresh_rate_config";
-    public static final String KEY_REFRESH_RATE_INFO = "pref_refresh_rate_info";
-    public static final String REFRESH_RATE_SWITCH_SUMMARY = "enable_high_refresh_rate_summary";
-    public static final float[] REFRESH_RATES = {60.0f, 120.0f};
-    public static final float DEFAULT_REFRESH_RATE = REFRESH_RATES[1];
-    public static final String DEFAULT_REFRESH_RATE_CONFIG = "120-120";
 
     /* Refresh Rate Tile */
     public static final String KEY_MIN_REFRESH_RATE = "min_refresh_rate";
@@ -164,6 +155,5 @@ public class Constants {
     public static final String DIRAC_TILE = "org.lineageos.settings.device.dirac.DiracTileService";
     public static final String KPROFILES_MODES_TILE = "org.lineageos.settings.device.kprofiles.KProfilesModesTileService";
     public static final String HBM_TILE = "org.lineageos.settings.device.hbm.HBMModeTileService";
-    public static final String REFRESH_TILE = "org.lineageos.settings.device.RefreshRateTileService";
     public static final String DCDIMMING_TILE = "org.lineageos.settings.device.DcDimmingTileService";
 }

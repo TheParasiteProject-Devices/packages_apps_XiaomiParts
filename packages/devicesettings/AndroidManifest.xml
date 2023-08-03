@@ -19,7 +19,6 @@
     <protected-broadcast android:name="devicesettings.intent.action.dirac_setting_changed" />
     <protected-broadcast android:name="devicesettings.intent.action.hbm_setting_changed" />
     <protected-broadcast android:name="devicesettings.intent.action.kprofile_setting_changed" />
-    <protected-broadcast android:name="devicesettings.intent.action.refresh_setting_changed" />
 
     <application
         android:label="@string/device_settings_title"
@@ -62,7 +61,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="devicesettings.intent.action.dcdimming_setting_changed" />
-                <action android:name="devicesettings.intent.action.refresh_setting_changed" />
             </intent-filter>
         </activity>
 
@@ -253,9 +251,6 @@
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
-            </intent-filter>
-            <intent-filter>
-                <action android:name="devicesettings.intent.action.refresh_setting_changed" />
             </intent-filter>
         </service>
 

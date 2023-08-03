@@ -48,7 +48,6 @@ public class TileEntryActivity extends Activity {
             case Constants.HBM_TILE:
                 openActivitySafely(new Intent(this, HBMActivity.class));
                 break;
-            case Constants.REFRESH_TILE:
             case Constants.DCDIMMING_TILE:
                 openActivitySafely(new Intent(this, MainSettingsActivity.class));
                 break;

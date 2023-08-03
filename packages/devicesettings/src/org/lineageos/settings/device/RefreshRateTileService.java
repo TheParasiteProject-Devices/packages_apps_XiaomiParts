@@ -17,11 +17,7 @@
 
 package org.lineageos.settings.device;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.UserHandle;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
@@ -45,22 +41,6 @@ public class RefreshRateTileService extends TileService {
     private int activeRateMin;
     private int activeRateMax;
 
-    private boolean mSelfChange = false;
-
-    private BroadcastReceiver stateReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(Constants.ACTION_REFRESH_SETTING_CHANGED)) {
-                if (mSelfChange) {
-                    mSelfChange = false;
-                    return;
-                }
-                syncFromSettings();
-                updateTileView();
-            }
-        }
-    };
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -80,10 +60,6 @@ public class RefreshRateTileService extends TileService {
             availableRates.sort(Comparator.naturalOrder());
         }
         syncFromSettings();
-
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(Constants.ACTION_REFRESH_SETTING_CHANGED);
-        registerReceiver(stateReceiver, filter);
     }
 
     private int getSettingOf(String key) {
@@ -133,7 +109,6 @@ public class RefreshRateTileService extends TileService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(stateReceiver);
     }
 
     @Override
@@ -141,12 +116,6 @@ public class RefreshRateTileService extends TileService {
         cycleRefreshRate();
         syncFromSettings();
         updateTileView();
-
-        mSelfChange = true;
-        final Intent intent = new Intent(Constants.ACTION_REFRESH_SETTING_CHANGED);
-        intent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
-        getApplicationContext().sendBroadcastAsUser(intent, UserHandle.CURRENT);
-
         super.onClick();
     }
 }

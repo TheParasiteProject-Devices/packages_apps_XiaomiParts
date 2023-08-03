@@ -16,24 +16,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:key="refresh_rate_category"
-        android:title="@string/refresh_rate_title">
-
-        <ListPreference
-            android:key="pref_refresh_rate_config"
-            android:title="@string/enable_high_refresh_rate_title"
-            android:summary="@string/enable_high_refresh_rate_summary"
-            android:icon="@drawable/ic_smartphone"
-            android:entries="@array/device_refresh_rates"
-            android:entryValues="@array/device_refresh_rates_val"/>
-
-        <Preference
-            android:key="pref_refresh_rate_info"
-            android:icon="@drawable/ic_info"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key="display_category"
         android:title="@string/display_title">
 

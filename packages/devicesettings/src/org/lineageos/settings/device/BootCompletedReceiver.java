@@ -53,7 +53,6 @@ public class BootCompletedReceiver extends BroadcastReceiver {
         DisplayUtils.enableHBMService(context);
         DisplayUtils.setDcDimmingStatus(sharedPreferences.getBoolean(Constants.KEY_DC_DIMMING, false));
         PowerUtils.setUsbFastChgStatus(sharedPreferences.getBoolean(Constants.KEY_USB_FASTCHARGE, false));
-        DisplayUtils.updateRefreshRateSettings(context);
         if (KcalUtils.isKcalSupported()) {
             KcalUtils.writeCurrentSettings(sharedPreferences);
         }
