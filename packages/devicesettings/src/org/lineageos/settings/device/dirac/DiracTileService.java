@@ -36,11 +36,6 @@ public class DiracTileService extends TileService {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
-    @Override
     public void onStartListening() {
         super.onStartListening();
 
@@ -53,8 +48,8 @@ public class DiracTileService extends TileService {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStopListening() {
+        super.onStopListening();
         unregisterReceiver(stateReceiver);
     }
 

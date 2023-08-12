@@ -34,8 +34,6 @@ import org.lineageos.settings.device.utils.DisplayUtils;
 import org.lineageos.settings.device.utils.FileUtils;
 
 public class HBMModeTileService extends TileService {
-    
-    private Context mContext;
     private boolean mSelfChange = false;
 
     private BroadcastReceiver stateReceiver = new BroadcastReceiver() {

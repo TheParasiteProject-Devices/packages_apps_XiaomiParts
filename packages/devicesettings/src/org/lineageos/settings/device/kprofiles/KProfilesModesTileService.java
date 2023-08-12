@@ -16,8 +16,6 @@ import org.lineageos.settings.device.Constants;
 import org.lineageos.settings.device.utils.FileUtils;
 
 public class KProfilesModesTileService extends TileService {
-
-    private Context mContext;
     private KProfilesUtils mKProfilesUtils;
     private SharedPreferences mSharedPrefs;
 
@@ -37,26 +35,18 @@ public class KProfilesModesTileService extends TileService {
     };
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        mContext = getApplicationContext();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unregisterReceiver(stateReceiver);
-    }
-
-    @Override
     public void onStartListening() {
-        super.onStartListening();
-
         final IntentFilter filter = new IntentFilter();
         filter.addAction(Constants.ACTION_KPROFILE_SETTING_CHANGED);
         registerReceiver(stateReceiver, filter);
 
         updateTileContent();
+    }
+
+    @Override
+    public void onStopListening() {
+        super.onStopListening();
+        unregisterReceiver(stateReceiver);
     }
 
     @Override
@@ -88,13 +78,13 @@ public class KProfilesModesTileService extends TileService {
     }
 
     private void setMode(String mode) {
-        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mSharedPrefs.edit().putString(Constants.KEY_KPROFILES_MODES, mode).apply();
         FileUtils.writeLine(Constants.KPROFILES_MODES_NODE, mode);
     }
 
     private String getMode() {
-        return mKProfilesUtils.getCurrentKProfilesMode(mContext);
+        return mKProfilesUtils.getCurrentKProfilesMode(getApplicationContext());
     }
 
     private void updateTileContent() {

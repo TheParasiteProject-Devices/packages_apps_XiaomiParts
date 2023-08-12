@@ -50,11 +50,6 @@ public class DcDimmingTileService extends TileService {
         }
     };
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
     private void updateTile(boolean enabled) {
         final Tile tile = getQsTile();
         tile.setState(enabled ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
@@ -74,8 +69,8 @@ public class DcDimmingTileService extends TileService {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStopListening() {
+        super.onStopListening();
         unregisterReceiver(stateReceiver);
     }
 
