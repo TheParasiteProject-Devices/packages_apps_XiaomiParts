@@ -30,8 +30,12 @@ public class AudioAmplificationActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getFragmentManager().beginTransaction().replace(R.id.content_frame,
-                new AudioAmplificationFragment(), TAG_AUDIO_AMPLIFICATION)
-                .commit();
+        getFragmentManager()
+            .beginTransaction()
+            .replace(
+                R.id.content_frame,
+                AudioAmplificationFragment(),
+                TAG_AUDIO_AMPLIFICATION
+            ).commit();
     }
 }

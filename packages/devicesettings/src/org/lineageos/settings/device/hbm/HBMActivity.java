@@ -27,6 +27,8 @@ import com.android.settingslib.collapsingtoolbar.R;
 
 public class HBMActivity extends CollapsingToolbarBaseActivity {
 
+    private static final String TAG = "HBMActivity";
+
     private HBMFragment mHBMFragment;
 
     @Override
@@ -36,9 +38,14 @@ public class HBMActivity extends CollapsingToolbarBaseActivity {
         Fragment fragment = getFragmentManager().findFragmentById(R.id.content_frame);
         if (fragment == null) {
             mHBMFragment = new HBMFragment();
-            getFragmentManager().beginTransaction()
-                .add(R.id.content_frame, mHBMFragment)
-                .commit();
+
+            getFragmentManager()
+                .beginTransaction()
+                .replace(
+                    R.id.content_frame,
+                    mHBMFragment,
+                    TAG
+                ).commit();
         } else {
             mHBMFragment = (HBMFragment) fragment;
         }

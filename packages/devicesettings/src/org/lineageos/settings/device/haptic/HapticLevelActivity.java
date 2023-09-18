@@ -29,8 +29,12 @@ public class HapticLevelActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getFragmentManager().beginTransaction().replace(R.id.content_frame,
-                new HapticLevelFragment(), TAG_HAPTIC)
-                .commit();
+        getFragmentManager()
+            .beginTransaction()
+            .replace(
+                R.id.content_frame,
+                HapticLevelFragment(),
+                TAG_HAPTIC
+            ).commit();
     }
 }

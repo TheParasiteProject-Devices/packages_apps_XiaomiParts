@@ -29,8 +29,12 @@ public class FlashlightBrightnessActivity extends CollapsingToolbarBaseActivity 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getFragmentManager().beginTransaction().replace(R.id.content_frame,
-                new FlashlightBrightnessFragment(), TAG_FLASHLIGHT)
-                .commit();
+        getFragmentManager()
+            .beginTransaction()
+            .replace(
+                R.id.content_frame,
+                FlashlightBrightnessFragment(),
+                TAG_FLASHLIGHT
+            ).commit();
     }
 }

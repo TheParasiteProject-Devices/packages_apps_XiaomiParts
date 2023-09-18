@@ -22,11 +22,19 @@ import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 import com.android.settingslib.collapsingtoolbar.R;
 
 public class MainSettingsActivity extends CollapsingToolbarBaseActivity {
+
+    private static final String TAG = "MainSettingsActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, new MainSettingsFragment())
-                .commit();
+
+        getFragmentManager()
+            .beginTransaction()
+            .replace(
+                R.id.content_frame,
+                MainSettingsFragment(),
+                TAG
+            ).commit();
     }
 }

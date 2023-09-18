@@ -33,7 +33,14 @@ public class KcalSettingsActivity extends CollapsingToolbarBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preview_kcal);
-        getFragmentManager().beginTransaction().replace(R.id.fragment_kcal, new KcalSettingsFragment(), TAG).commit();
+
+        getFragmentManager()
+            .beginTransaction()
+            .replace(
+                R.id.fragment_kcal,
+                KcalSettingsFragment(),
+                TAG
+            ).commit();
     }
 
     @Override
