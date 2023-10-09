@@ -1,5 +1,8 @@
+soong_namespace {
+}
+
 android_app {
-    name: "Doze",
+    name: "DeviceDoze",
 
     srcs: ["src/**/*.java"],
 
@@ -20,11 +23,15 @@ android_app {
     defaults: [
         "SettingsLibDefaults",
     ],
+
+    required: [
+        "privapp-permissions-devicedoze.xml",
+    ],
 }
 
 prebuilt_etc {
-    name: "privapp-permissions-doze.xml",
+    name: "privapp-permissions-devicedoze.xml",
     sub_dir: "permissions",
-    src: "privapp-permissions-doze.xml",
+    src: "privapp-permissions-devicedoze.xml",
     filename_from_src: true,
 }

@@ -1,6 +1,6 @@
 # Device Doze
 PRODUCT_PACKAGES += \
-    Doze
+    DeviceDoze
 
-PRODUCT_PACKAGES += \
-    privapp-permissions-doze.xml
+PRODUCT_SOONG_NAMESPACES += \
+    packages/apps/XiaomiParts/packages/doze

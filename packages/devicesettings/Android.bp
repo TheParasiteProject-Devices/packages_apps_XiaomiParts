@@ -27,6 +27,12 @@ android_app {
     defaults: [
         "SettingsLibDefaults",
     ],
+
+    required: [
+        "privapp-permissions-devicesettings.xml",
+        "init.devicesettings.rc",
+        "init.performance_level.rc",
+    ],
 }
 
 prebuilt_etc {
