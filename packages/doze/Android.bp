@@ -12,6 +12,7 @@ android_app {
 
     static_libs: [
         "androidx.preference_preference",
+        "com.github.bumptech.glide_glide",
     ],
 
     optimize: {

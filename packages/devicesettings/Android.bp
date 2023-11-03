@@ -16,6 +16,7 @@ android_app {
         "androidx.preference_preference",
         "SettingsLib",
         "vendor.xiaomi.hardware.touchfeature-V1.0-java",
+        "com.github.bumptech.glide_glide",
     ],
 
     optimize: {
