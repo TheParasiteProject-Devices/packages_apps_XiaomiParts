@@ -38,7 +38,7 @@ public class KcalSettingsActivity extends CollapsingToolbarBaseActivity {
             .beginTransaction()
             .replace(
                 R.id.fragment_kcal,
-                KcalSettingsFragment(),
+                new KcalSettingsFragment(),
                 TAG
             ).commit();
     }

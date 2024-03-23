@@ -33,7 +33,7 @@ public class MainSettingsActivity extends CollapsingToolbarBaseActivity {
             .beginTransaction()
             .replace(
                 R.id.content_frame,
-                MainSettingsFragment(),
+                new MainSettingsFragment(),
                 TAG
             ).commit();
     }

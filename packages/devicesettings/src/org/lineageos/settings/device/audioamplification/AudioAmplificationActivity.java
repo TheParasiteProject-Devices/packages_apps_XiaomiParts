@@ -34,7 +34,7 @@ public class AudioAmplificationActivity extends CollapsingToolbarBaseActivity {
             .beginTransaction()
             .replace(
                 R.id.content_frame,
-                AudioAmplificationFragment(),
+                new AudioAmplificationFragment(),
                 TAG_AUDIO_AMPLIFICATION
             ).commit();
     }

@@ -33,7 +33,7 @@ public class KProfilesSettingsActivity extends CollapsingToolbarBaseActivity {
             .beginTransaction()
             .replace(
                 R.id.content_frame,
-                KProfilesSettingsFragment(),
+                new KProfilesSettingsFragment(),
                 TAG_KPROFILES
             ).commit();
     }

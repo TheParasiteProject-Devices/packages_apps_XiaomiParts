@@ -33,7 +33,7 @@ public class DozeSettingsActivity extends CollapsingToolbarBaseActivity {
             .beginTransaction()
             .replace(
                 R.id.content_frame,
-                DozeSettingsFragment(),
+                new DozeSettingsFragment(),
                 TAG_DOZE
             ).commit();
     }

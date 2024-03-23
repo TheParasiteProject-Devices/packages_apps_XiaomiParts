@@ -33,7 +33,7 @@ public class HapticLevelActivity extends CollapsingToolbarBaseActivity {
             .beginTransaction()
             .replace(
                 R.id.content_frame,
-                HapticLevelFragment(),
+                new HapticLevelFragment(),
                 TAG_HAPTIC
             ).commit();
     }

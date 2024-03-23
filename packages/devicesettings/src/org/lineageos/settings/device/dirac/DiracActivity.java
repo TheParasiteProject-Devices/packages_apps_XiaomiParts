@@ -33,7 +33,7 @@ public class DiracActivity extends CollapsingToolbarBaseActivity {
             .beginTransaction()
             .replace(
                 R.id.content_frame,
-                DiracSettingsFragment(),
+                new DiracSettingsFragment(),
                 TAG_DIRAC
             ).commit();
     }

@@ -33,7 +33,7 @@ public class FlashlightBrightnessActivity extends CollapsingToolbarBaseActivity 
             .beginTransaction()
             .replace(
                 R.id.content_frame,
-                FlashlightBrightnessFragment(),
+                new FlashlightBrightnessFragment(),
                 TAG_FLASHLIGHT
             ).commit();
     }

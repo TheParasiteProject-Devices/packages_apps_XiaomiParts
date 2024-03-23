@@ -34,7 +34,7 @@ public class ThermalActivity extends CollapsingToolbarBaseActivity {
             .beginTransaction()
             .replace(
                 R.id.content_frame,
-                ThermalSettingsFragment(),
+                new ThermalSettingsFragment(),
                 TAG_THERMAL
             ).commit();
     }

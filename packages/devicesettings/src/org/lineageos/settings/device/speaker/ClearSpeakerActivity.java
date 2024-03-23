@@ -33,7 +33,7 @@ public class ClearSpeakerActivity extends CollapsingToolbarBaseActivity {
             .beginTransaction()
             .replace(
                 R.id.content_frame,
-                ClearSpeakerFragment(),
+                new ClearSpeakerFragment(),
                 TAG
             ).commit();
     }
