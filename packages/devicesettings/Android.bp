@@ -9,6 +9,7 @@ android_app {
 
     platform_apis: true,
     certificate: "platform",
+    system_ext_specific: true,
     privileged: true,
 
     static_libs: [
