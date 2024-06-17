@@ -36,4 +36,5 @@ prebuilt_etc {
     sub_dir: "permissions",
     src: "privapp-permissions-devicedoze.xml",
     filename_from_src: true,
+    system_ext_specific: true,
 }
