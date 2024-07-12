@@ -1,5 +1,2 @@
 # Allow System Apps to write to sysfs_vibrator
 allow system_app sysfs_vibrator:file { read write open getattr };
-
-# Allow System Apps to get settingsdebug.instant.packages prop
-get_prop(system_app, settingslib_prop)
